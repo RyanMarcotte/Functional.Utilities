@@ -1,0 +1,158 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Functional.Primitives.FluentAssertions</name>
+    </assembly>
+    <members>
+        <member name="T:Functional.Primitives.FluentAssertions.FunctionalPrimitiveAssertions">
+            <summary>
+            Defines additional fluent assertion gateways for types defined in Functional.Primitives namespace.
+            </summary>
+        </member>
+        <member name="M:Functional.Primitives.FluentAssertions.FunctionalPrimitiveAssertions.Should``2(Functional.Result{``0,``1})">
+            <summary>
+            Returns a <see cref="T:Functional.Primitives.FluentAssertions.ResultTypeAssertions`2"/> object that can be used to assert the current <see cref="T:Functional.Result`2"/>.
+            </summary>
+            <typeparam name="TSuccess">The success object type.</typeparam>
+            <typeparam name="TFailure">The failure object type.</typeparam>
+            <param name="result">The result.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Functional.Primitives.FluentAssertions.FunctionalPrimitiveAssertions.Should``1(Functional.Option{``0})">
+            <summary>
+            Returns a <see cref="T:Functional.Primitives.FluentAssertions.OptionTypeAssertions`1"/> object that is used to assert the current <see cref="T:Functional.Option`1"/>.
+            </summary>
+            <typeparam name="T">The option type.</typeparam>
+            <param name="option">The option.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Functional.Primitives.FluentAssertions.OptionTypeAssertions`1">
+            <summary>
+            Defines assertions for <see cref="T:Functional.Option`1"/> type.
+            </summary>
+            <typeparam name="T">The contained type.</typeparam>
+        </member>
+        <member name="M:Functional.Primitives.FluentAssertions.OptionTypeAssertions`1.#ctor(Functional.Option{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Functional.Primitives.FluentAssertions.OptionTypeAssertions`1"/> class.
+            </summary>
+            <param name="subject">The <see cref="T:Functional.Option`1"/> instance to verify.</param>
+        </member>
+        <member name="M:Functional.Primitives.FluentAssertions.OptionTypeAssertions`1.HaveValue(System.String,System.Object[])">
+            <summary>
+            Verifies that the subject <see cref="T:Functional.Option`1"/> holds a value.
+            </summary>
+            <param name="because">Additional information for if the assertion fails.</param>
+            <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
+        </member>
+        <member name="M:Functional.Primitives.FluentAssertions.OptionTypeAssertions`1.HaveValue(System.Action{`0},System.String,System.Object[])">
+            <summary>
+            Verifies that the subject <see cref="T:Functional.Option`1"/> holds a value.  If so, execute an action that can be used to perform additional assertions.
+            </summary>
+            <param name="additionalAssertionAction">The action used to perform additional assertions.</param>
+            <param name="because">Additional information for if the assertion fails.</param>
+            <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
+        </member>
+        <member name="M:Functional.Primitives.FluentAssertions.OptionTypeAssertions`1.HaveExpectedValue(`0,System.String,System.Object[])">
+            <summary>
+            Verifies that the subject <see cref="T:Functional.Option`1"/> holds an expected value.
+            </summary>
+            <param name="expectedValue">The expected value.</param>
+            <param name="because">Additional information for if the assertion fails.</param>
+            <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
+        </member>
+        <member name="M:Functional.Primitives.FluentAssertions.OptionTypeAssertions`1.HaveExpectedValue(`0,System.Func{FluentAssertions.Equivalency.EquivalencyAssertionOptions{`0},FluentAssertions.Equivalency.EquivalencyAssertionOptions{`0}},System.String,System.Object[])">
+            <summary>
+            Verifies that the subject <see cref="T:Functional.Option`1"/> holds an expected value.
+            </summary>
+            <param name="expectedValue">The expected value.</param>
+            <param name="config">A function to configure how objects are determined to be equivalent, to be used for this assertion only.</param>
+            <param name="because">Additional information for if the assertion fails.</param>
+            <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
+        </member>
+        <member name="M:Functional.Primitives.FluentAssertions.OptionTypeAssertions`1.NotHaveValue(System.String,System.Object[])">
+            <summary>
+            Verifies that the subject <see cref="T:Functional.Option`1"/> does not hold a value.
+            </summary>
+            <param name="because">Additional information for if the assertion fails.</param>
+            <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
+        </member>
+        <member name="T:Functional.Primitives.FluentAssertions.ResultTypeAssertions`2">
+            <summary>
+            Defines assertions for <see cref="T:Functional.Result`2"/> type.
+            </summary>
+            <typeparam name="TSuccess">The success value type.</typeparam>
+            <typeparam name="TFailure">The failure value type.</typeparam>
+        </member>
+        <member name="M:Functional.Primitives.FluentAssertions.ResultTypeAssertions`2.#ctor(Functional.Result{`0,`1})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Functional.Primitives.FluentAssertions.ResultTypeAssertions`2"/> class.
+            </summary>
+            <param name="subject">The <see cref="T:Functional.Result`2"/> instance to verify.</param>
+        </member>
+        <member name="M:Functional.Primitives.FluentAssertions.ResultTypeAssertions`2.BeSuccessful(System.String,System.Object[])">
+            <summary>
+            Verifies that the subject <see cref="T:Functional.Result`2"/> holds a successful result.
+            </summary>
+            <param name="because">Additional information for if the assertion fails.</param>
+            <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
+        </member>
+        <member name="M:Functional.Primitives.FluentAssertions.ResultTypeAssertions`2.BeSuccessful(System.Action{`0},System.String,System.Object[])">
+            <summary>
+            Verifies that the subject <see cref="T:Functional.Result`2"/> holds a successful result.  If so, execute an action that can be used to perform additional assertions.
+            </summary>
+            <param name="additionalAssertionAction">The action used to perform additional assertions.</param>
+            <param name="because">Additional information for if the assertion fails.</param>
+            <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
+        </member>
+        <member name="M:Functional.Primitives.FluentAssertions.ResultTypeAssertions`2.BeSuccessfulWithExpectedValue(`0,System.String,System.Object[])">
+            <summary>
+            Verifies that the subject <see cref="T:Functional.Result`2"/> holds a specific successful result.  Useful error messages require <typeparamref name="TSuccess"/> to implement ToString().
+            </summary>
+            <param name="expectedValue">The expected successful value.</param>
+            <param name="because">Additional information for if the assertion fails.</param>
+            <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
+        </member>
+        <member name="M:Functional.Primitives.FluentAssertions.ResultTypeAssertions`2.BeSuccessfulWithExpectedValue(`0,System.Func{FluentAssertions.Equivalency.EquivalencyAssertionOptions{`0},FluentAssertions.Equivalency.EquivalencyAssertionOptions{`0}},System.String,System.Object[])">
+            <summary>
+            Verifies that the subject <see cref="T:Functional.Result`2"/> holds a specific successful result.  Useful error messages require <typeparamref name="TSuccess"/> to implement ToString().
+            </summary>
+            <param name="expectedValue">The expected successful value.</param>
+            <param name="config">A function to configure how objects are determined to be equivalent, to be used for this assertion only.</param>
+            <param name="because">Additional information for if the assertion fails.</param>
+            <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
+        </member>
+        <member name="M:Functional.Primitives.FluentAssertions.ResultTypeAssertions`2.BeFaulted(System.String,System.Object[])">
+            <summary>
+            Verifies that the subject <see cref="T:Functional.Result`2"/> holds a faulted result.
+            </summary>
+            <param name="because">Additional information for if the assertion fails.</param>
+            <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
+        </member>
+        <member name="M:Functional.Primitives.FluentAssertions.ResultTypeAssertions`2.BeFaulted(System.Action{`1},System.String,System.Object[])">
+            <summary>
+            Verifies that the subject <see cref="T:Functional.Result`2"/> holds a faulted result.  If so, execute an action that can be used to perform additional assertions.
+            </summary>
+            <param name="additionalAssertionAction">The action used to perform additional assertions.</param>
+            <param name="because">Additional information for if the assertion fails.</param>
+            <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
+        </member>
+        <member name="M:Functional.Primitives.FluentAssertions.ResultTypeAssertions`2.BeFaultedWithExpectedValue(`1,System.String,System.Object[])">
+            <summary>
+            Verifies that the subject <see cref="T:Functional.Result`2"/> holds a specific faulted result.  Useful error messages require <typeparamref name="TFailure"/> to implement ToString().
+            </summary>
+            <param name="expectedValue">The expected faulted value.</param>
+            <param name="because">Additional information for if the assertion fails.</param>
+            <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
+        </member>
+        <member name="M:Functional.Primitives.FluentAssertions.ResultTypeAssertions`2.BeFaultedWithExpectedValue(`1,System.Func{FluentAssertions.Equivalency.EquivalencyAssertionOptions{`1},FluentAssertions.Equivalency.EquivalencyAssertionOptions{`1}},System.String,System.Object[])">
+            <summary>
+            Verifies that the subject <see cref="T:Functional.Result`2"/> holds a specific faulted result.  Useful error messages require <typeparamref name="TFailure"/> to implement ToString().
+            </summary>
+            <param name="expectedValue">The expected faulted value.</param>
+            <param name="config">A function to configure how objects are determined to be equivalent, to be used for this assertion only.</param>
+            <param name="because">Additional information for if the assertion fails.</param>
+            <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
+        </member>
+    </members>
+</doc>

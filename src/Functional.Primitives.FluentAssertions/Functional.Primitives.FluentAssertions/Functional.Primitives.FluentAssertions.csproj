@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Description>This package provides extensions to FluentAssertions for the Functional.Primitives package.</Description>
+    <Authors>Ryan Marcotte</Authors>
+    <Company />
+    <Copyright>2019</Copyright>
+    <RepositoryUrl></RepositoryUrl>
+    <RepositoryType></RepositoryType>
+    <PackageTags>functional, MSTest, MSTest2, NUnit, xUnit2, xUnit, TDD, Fluent, netcore, netstandard</PackageTags>
+    <PackageLicenseUrl>https://github.com/RyanMarcotte/Functional.Utilities/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/RyanMarcotte/Functional.Utilities</PackageProjectUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>D:\Projects\Functional.Utilities\src\Functional.Primitives.FluentAssertions\Functional.Primitives.FluentAssertions\Functional.Primitives.FluentAssertions.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>D:\Projects\Functional.Utilities\src\Functional.Primitives.FluentAssertions\Functional.Primitives.FluentAssertions\Functional.Primitives.FluentAssertions.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="5.6.0" />
+    <PackageReference Include="Functional.Primitives" Version="1.9.0" />
+  </ItemGroup>
+
+</Project>
