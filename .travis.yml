@@ -1,0 +1,11 @@
+language: csharp
+mono: none
+sudo: required
+dist: xenial
+dotnet: 2.2
+
+script:
+ - cd src/Functional.Primitives.FluentAssertions
+ - dotnet restore
+ - dotnet build -c Release
+ - dotnet test Functional.Primitives.FluentAssertions.Tests/Functional.Primitives.FluentAssertions.Tests.csproj
