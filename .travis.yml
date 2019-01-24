@@ -4,9 +4,7 @@ sudo: required
 dist: xenial
 dotnet: 2.2
 
-install:
-- dotnet restore
-
 script:
+ - dotnet restore
  - dotnet build
  - dotnet test src/Functional.Primitives.FluentAssertions/Functional.Primitives.FluentAssertions.Tests/Functional.Primitives.FluentAssertions.Tests.csproj
