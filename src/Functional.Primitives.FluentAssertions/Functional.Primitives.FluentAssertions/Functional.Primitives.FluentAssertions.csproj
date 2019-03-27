@@ -12,19 +12,23 @@
     <PackageTags>functional, MSTest, MSTest2, NUnit, xUnit2, xUnit, TDD, Fluent, netcore, netstandard</PackageTags>
     <PackageLicenseUrl>https://github.com/RyanMarcotte/Functional.Utilities/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/RyanMarcotte/Functional.Utilities</PackageProjectUrl>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>D:\Projects\Functional.Utilities\src\Functional.Primitives.FluentAssertions\Functional.Primitives.FluentAssertions\Functional.Primitives.FluentAssertions.xml</DocumentationFile>
+    <DocumentationFile>Functional.Primitives.FluentAssertions.xml</DocumentationFile>
+    <OutputPath>bin\Debug</OutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>D:\Projects\Functional.Utilities\src\Functional.Primitives.FluentAssertions\Functional.Primitives.FluentAssertions\Functional.Primitives.FluentAssertions.xml</DocumentationFile>
+    <DocumentationFile>Functional.Primitives.FluentAssertions.xml</DocumentationFile>
+    <OutputPath>bin\Release</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.6.0" />
     <PackageReference Include="Functional.Primitives" Version="1.9.0" />
+    <PackageReference Include="Functional.Primitives.Extensions" Version="1.9.0" />
   </ItemGroup>
 
 </Project>

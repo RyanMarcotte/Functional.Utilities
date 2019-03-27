@@ -97,10 +97,27 @@
             <param name="because">Additional information for if the assertion fails.</param>
             <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
         </member>
+        <member name="M:Functional.Primitives.FluentAssertions.ResultTypeAssertions`2.BeSuccessful(System.Func{`1,System.String},System.String,System.Object[])">
+            <summary>
+            Verifies that the subject <see cref="T:Functional.Result`2"/> holds a successful result.
+            </summary>
+            <param name="faultedResultDescriptionFactory">The function used to construct a message describing the faulted result.</param>
+            <param name="because">Additional information for if the assertion fails.</param>
+            <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
+        </member>
         <member name="M:Functional.Primitives.FluentAssertions.ResultTypeAssertions`2.BeSuccessful(System.Action{`0},System.String,System.Object[])">
             <summary>
             Verifies that the subject <see cref="T:Functional.Result`2"/> holds a successful result.  If so, execute an action that can be used to perform additional assertions.
             </summary>
+            <param name="additionalAssertionAction">The action used to perform additional assertions.</param>
+            <param name="because">Additional information for if the assertion fails.</param>
+            <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
+        </member>
+        <member name="M:Functional.Primitives.FluentAssertions.ResultTypeAssertions`2.BeSuccessful(System.Func{`1,System.String},System.Action{`0},System.String,System.Object[])">
+            <summary>
+            Verifies that the subject <see cref="T:Functional.Result`2"/> holds a successful result.  If so, execute an action that can be used to perform additional assertions.
+            </summary>
+            <param name="faultedResultDescriptionFactory">The function used to construct a message describing the faulted result.</param>
             <param name="additionalAssertionAction">The action used to perform additional assertions.</param>
             <param name="because">Additional information for if the assertion fails.</param>
             <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
@@ -129,10 +146,27 @@
             <param name="because">Additional information for if the assertion fails.</param>
             <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
         </member>
+        <member name="M:Functional.Primitives.FluentAssertions.ResultTypeAssertions`2.BeFaulted(System.Func{`0,System.String},System.String,System.Object[])">
+            <summary>
+            Verifies that the subject <see cref="T:Functional.Result`2"/> holds a faulted result.
+            </summary>
+            <param name="successfulResultDescriptionFactory">The function used to construct a message describing the successful result.</param>
+            <param name="because">Additional information for if the assertion fails.</param>
+            <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
+        </member>
         <member name="M:Functional.Primitives.FluentAssertions.ResultTypeAssertions`2.BeFaulted(System.Action{`1},System.String,System.Object[])">
             <summary>
             Verifies that the subject <see cref="T:Functional.Result`2"/> holds a faulted result.  If so, execute an action that can be used to perform additional assertions.
             </summary>
+            <param name="additionalAssertionAction">The action used to perform additional assertions.</param>
+            <param name="because">Additional information for if the assertion fails.</param>
+            <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
+        </member>
+        <member name="M:Functional.Primitives.FluentAssertions.ResultTypeAssertions`2.BeFaulted(System.Func{`0,System.String},System.Action{`1},System.String,System.Object[])">
+            <summary>
+            Verifies that the subject <see cref="T:Functional.Result`2"/> holds a faulted result.  If so, execute an action that can be used to perform additional assertions.
+            </summary>
+            <param name="successfulResultDescriptionFactory">The function used to construct a message describing the successful result.</param>
             <param name="additionalAssertionAction">The action used to perform additional assertions.</param>
             <param name="because">Additional information for if the assertion fails.</param>
             <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>

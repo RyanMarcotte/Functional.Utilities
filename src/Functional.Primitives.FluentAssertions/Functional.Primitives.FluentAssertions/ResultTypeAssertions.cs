@@ -33,10 +33,30 @@ namespace Functional.Primitives.FluentAssertions
 		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
 		public void BeSuccessful(string because = "", params object[] becauseArgs)
 		{
-			Execute.Assertion
-				.ForCondition(_subject.IsSuccessful())
-				.BecauseOf(because, becauseArgs)
-				.FailWith($"Expected result to be successful, but received faulted result instead {{reason}}");
+			BeSuccessful(f => string.Empty, because, becauseArgs);
+		}
+
+		/// <summary>
+		/// Verifies that the subject <see cref="Result{TSuccess, TFailure}"/> holds a successful result.
+		/// </summary>
+		/// <param name="faultedResultDescriptionFactory">The function used to construct a message describing the faulted result.</param>
+		/// <param name="because">Additional information for if the assertion fails.</param>
+		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
+		public void BeSuccessful(Func<TFailure, string> faultedResultDescriptionFactory, string because = "", params object[] becauseArgs)
+		{
+			if (faultedResultDescriptionFactory == null) throw new ArgumentNullException(nameof(faultedResultDescriptionFactory));
+
+			_subject.Apply(_ => { /* DO NOTHING */}, failure =>
+			{
+				var description = faultedResultDescriptionFactory.Invoke(failure);
+				var descriptionToDisplay = !string.IsNullOrEmpty(description)
+					? $"{Environment.NewLine}{Environment.NewLine}Faulted result description:{Environment.NewLine}{description}"
+					: string.Empty;
+
+				Execute.Assertion
+					.BecauseOf(because, becauseArgs)
+					.FailWith($"Expected result to be successful, but received faulted result instead {{reason}}" + descriptionToDisplay);
+			});
 		}
 
 		/// <summary>
@@ -47,9 +67,22 @@ namespace Functional.Primitives.FluentAssertions
 		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
 		public void BeSuccessful(Action<TSuccess> additionalAssertionAction, string because = "", params object[] becauseArgs)
 		{
+			BeSuccessful(s => string.Empty, additionalAssertionAction, because, becauseArgs);
+		}
+
+		/// <summary>
+		/// Verifies that the subject <see cref="Result{TSuccess, TFailure}"/> holds a successful result.  If so, execute an action that can be used to perform additional assertions.
+		/// </summary>
+		/// <param name="faultedResultDescriptionFactory">The function used to construct a message describing the faulted result.</param>
+		/// <param name="additionalAssertionAction">The action used to perform additional assertions.</param>
+		/// <param name="because">Additional information for if the assertion fails.</param>
+		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
+		public void BeSuccessful(Func<TFailure, string> faultedResultDescriptionFactory, Action<TSuccess> additionalAssertionAction, string because = "", params object[] becauseArgs)
+		{
+			if (faultedResultDescriptionFactory == null) throw new ArgumentNullException(nameof(faultedResultDescriptionFactory));
 			if (additionalAssertionAction == null) throw new ArgumentNullException(nameof(additionalAssertionAction));
 
-			BeSuccessful(because, becauseArgs);
+			BeSuccessful(faultedResultDescriptionFactory, because, becauseArgs);
 			additionalAssertionAction(_subject.GetSuccessValue());
 		}
 
@@ -88,10 +121,32 @@ namespace Functional.Primitives.FluentAssertions
 		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
 		public void BeFaulted(string because = "", params object[] becauseArgs)
 		{
-			Execute.Assertion
-				.ForCondition(!_subject.IsSuccessful())
-				.BecauseOf(because, becauseArgs)
-				.FailWith($"Expected result to be faulted, but received successful result instead {{reason}}");
+			BeFaulted(s => string.Empty, because, becauseArgs);
+		}
+
+		/// <summary>
+		/// Verifies that the subject <see cref="Result{TSuccess, TFailure}"/> holds a faulted result.
+		/// </summary>
+		/// <param name="successfulResultDescriptionFactory">The function used to construct a message describing the successful result.</param>
+		/// <param name="because">Additional information for if the assertion fails.</param>
+		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
+		public void BeFaulted(Func<TSuccess, string> successfulResultDescriptionFactory, string because = "", params object[] becauseArgs)
+		{
+			if (successfulResultDescriptionFactory == null) throw new ArgumentNullException(nameof(successfulResultDescriptionFactory));
+
+			_subject.Apply(success =>
+			{
+				var description = successfulResultDescriptionFactory.Invoke(success);
+				var descriptionToDisplay = !string.IsNullOrEmpty(description)
+					? $"{Environment.NewLine}{Environment.NewLine}Faulted result description:{Environment.NewLine}{description}"
+					: string.Empty;
+
+				Execute.Assertion
+					.ForCondition(!_subject.IsSuccessful())
+					.BecauseOf(because, becauseArgs)
+					.FailWith($"Expected result to be faulted, but received successful result instead {{reason}}" + descriptionToDisplay);
+
+			}, _ => { /* DO NOTHING */});
 		}
 
 		/// <summary>
@@ -102,9 +157,22 @@ namespace Functional.Primitives.FluentAssertions
 		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
 		public void BeFaulted(Action<TFailure> additionalAssertionAction, string because = "", params object[] becauseArgs)
 		{
+			BeFaulted(s => string.Empty, additionalAssertionAction, because, becauseArgs);
+		}
+
+		/// <summary>
+		/// Verifies that the subject <see cref="Result{TSuccess, TFailure}"/> holds a faulted result.  If so, execute an action that can be used to perform additional assertions.
+		/// </summary>
+		/// <param name="successfulResultDescriptionFactory">The function used to construct a message describing the successful result.</param>
+		/// <param name="additionalAssertionAction">The action used to perform additional assertions.</param>
+		/// <param name="because">Additional information for if the assertion fails.</param>
+		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
+		public void BeFaulted(Func<TSuccess, string> successfulResultDescriptionFactory, Action<TFailure> additionalAssertionAction, string because = "", params object[] becauseArgs)
+		{
+			if (successfulResultDescriptionFactory == null) throw new ArgumentNullException(nameof(successfulResultDescriptionFactory));
 			if (additionalAssertionAction == null) throw new ArgumentNullException(nameof(additionalAssertionAction));
 
-			BeFaulted(because, becauseArgs);
+			BeFaulted(successfulResultDescriptionFactory, because, becauseArgs);
 			additionalAssertionAction(_subject.GetFailureValue());
 		}
 

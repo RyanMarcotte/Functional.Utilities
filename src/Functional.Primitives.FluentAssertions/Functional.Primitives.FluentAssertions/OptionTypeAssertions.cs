@@ -32,8 +32,6 @@ namespace Functional.Primitives.FluentAssertions
 		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
 		public void HaveValue(string because = "", params object[] becauseArgs)
 		{
-			((object)_subject).Should().NotBeNull();
-
 			Execute.Assertion
 				.ForCondition(_subject.HasValue())
 				.BecauseOf(because, becauseArgs)
@@ -89,8 +87,6 @@ namespace Functional.Primitives.FluentAssertions
 		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
 		public void NotHaveValue(string because = "", params object[] becauseArgs)
 		{
-			((object)_subject).Should().NotBeNull();
-
 			Execute.Assertion
 				.ForCondition(!_subject.HasValue())
 				.BecauseOf(because, becauseArgs)
