@@ -12,35 +12,37 @@ namespace Functional.Primitives.FluentAssertions.Tests
 		{
 			public class WithNoSpecialAssertions
 			{
-				[Fact]
-				public void ShouldNotThrowException() => new Action(() => Option.Some(3).Should().HaveValue()).Should().NotThrow();
+				private const int VALUE = 3;
 
 				[Fact]
-				public void ShouldThrowException() => new Action(() => Option.None<int>().Should().HaveValue()).Should().Throw<Exception>();
-			}
+				public void ShouldNotThrowException() => new Action(() =>
+				{
+					Option.Some(VALUE)
+						.Should()
+						.HaveValue();
 
-			public class WithExpectedValueAssertion
-			{
-				[Fact]
-				public void ShouldNotThrowException() => new Action(() => Option.Some(3).Should().HaveExpectedValue(3)).Should().NotThrow();
-
-				[Fact]
-				public void ShouldThrowExceptionIfUnexpectedValue() => new Action(() => Option.Some(3).Should().HaveExpectedValue(0)).Should().Throw<Exception>();
+				}).Should().NotThrow();
 
 				[Fact]
-				public void ShouldThrowExceptionIfNoValue() => new Action(() => Option.None<int>().Should().HaveExpectedValue(0)).Should().Throw<Exception>();
-			}
+				public void ShouldNotThrowExceptionWhenAdditionalAssertionSucceeds() => new Action(() =>
+				{
+					Option.Some(VALUE)
+						.Should()
+						.HaveValue()
+						.AndValue
+						.Should()
+						.Be(VALUE);
 
-			public class WithAssertionsToMatchProperties
-			{
-				[Fact]
-				public void ShouldNotThrowException() => new Action(() => Option.Some(3).Should().HaveValue(value => value.Should().BeGreaterOrEqualTo(0))).Should().NotThrow();
+				}).Should().NotThrow();
 
 				[Fact]
-				public void ShouldThrowExceptionIfNoMatchingValue() => new Action(() => Option.Some(3).Should().HaveValue(value => value.Should().BeLessOrEqualTo(0))).Should().Throw<Exception>();
+				public void ShouldThrowException() => new Action(() =>
+				{
+					Option.None<int>()
+						.Should()
+						.HaveValue();
 
-				[Fact]
-				public void ShouldThrowExceptionIfNoValue() => new Action(() => Option.None<int>().Should().HaveValue(value => value.Should().Be(0))).Should().Throw<Exception>();
+				}).Should().Throw<Exception>();
 			}
 		}
 

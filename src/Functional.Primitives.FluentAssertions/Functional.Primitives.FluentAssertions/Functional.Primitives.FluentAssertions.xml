@@ -45,6 +45,13 @@
             <param name="because">Additional information for if the assertion fails.</param>
             <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
         </member>
+        <member name="M:Functional.Primitives.FluentAssertions.OptionTypeAssertions`1.NotHaveValue(System.String,System.Object[])">
+            <summary>
+            Verifies that the subject <see cref="T:Functional.Option`1"/> does not hold a value.
+            </summary>
+            <param name="because">Additional information for if the assertion fails.</param>
+            <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
+        </member>
         <member name="M:Functional.Primitives.FluentAssertions.OptionTypeAssertions`1.HaveValue(System.Action{`0},System.String,System.Object[])">
             <summary>
             Verifies that the subject <see cref="T:Functional.Option`1"/> holds a value.  If so, execute an action that can be used to perform additional assertions.
@@ -70,13 +77,6 @@
             <param name="because">Additional information for if the assertion fails.</param>
             <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
         </member>
-        <member name="M:Functional.Primitives.FluentAssertions.OptionTypeAssertions`1.NotHaveValue(System.String,System.Object[])">
-            <summary>
-            Verifies that the subject <see cref="T:Functional.Option`1"/> does not hold a value.
-            </summary>
-            <param name="because">Additional information for if the assertion fails.</param>
-            <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
-        </member>
         <member name="T:Functional.Primitives.FluentAssertions.ResultTypeAssertions`2">
             <summary>
             Defines assertions for <see cref="T:Functional.Result`2"/> type.
@@ -93,6 +93,13 @@
         <member name="M:Functional.Primitives.FluentAssertions.ResultTypeAssertions`2.BeSuccessful(System.String,System.Object[])">
             <summary>
             Verifies that the subject <see cref="T:Functional.Result`2"/> holds a successful result.
+            </summary>
+            <param name="because">Additional information for if the assertion fails.</param>
+            <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
+        </member>
+        <member name="M:Functional.Primitives.FluentAssertions.ResultTypeAssertions`2.BeFaulted(System.String,System.Object[])">
+            <summary>
+            Verifies that the subject <see cref="T:Functional.Result`2"/> holds a faulted result.
             </summary>
             <param name="because">Additional information for if the assertion fails.</param>
             <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
@@ -139,13 +146,6 @@
             <param name="because">Additional information for if the assertion fails.</param>
             <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
         </member>
-        <member name="M:Functional.Primitives.FluentAssertions.ResultTypeAssertions`2.BeFaulted(System.String,System.Object[])">
-            <summary>
-            Verifies that the subject <see cref="T:Functional.Result`2"/> holds a faulted result.
-            </summary>
-            <param name="because">Additional information for if the assertion fails.</param>
-            <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
-        </member>
         <member name="M:Functional.Primitives.FluentAssertions.ResultTypeAssertions`2.BeFaulted(System.Func{`0,System.String},System.String,System.Object[])">
             <summary>
             Verifies that the subject <see cref="T:Functional.Result`2"/> holds a faulted result.
@@ -187,6 +187,23 @@
             <param name="config">A function to configure how objects are determined to be equivalent, to be used for this assertion only.</param>
             <param name="because">Additional information for if the assertion fails.</param>
             <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
+        </member>
+        <member name="T:Functional.Primitives.FluentAssertions.AndValueConstraint`1">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Functional.Primitives.FluentAssertions.AndValueConstraint`1.#ctor(`0)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Functional.Primitives.FluentAssertions.AndValueConstraint`1"/> class.
+            </summary>
+            <param name="subject">The subject.</param>
+        </member>
+        <member name="P:Functional.Primitives.FluentAssertions.AndValueConstraint`1.AndValue">
+            <summary>
+            
+            </summary>
         </member>
     </members>
 </doc>
