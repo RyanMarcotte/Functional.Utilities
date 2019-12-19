@@ -34,9 +34,9 @@ namespace Functional.Primitives.FluentAssertions
 			Execute.Assertion
 				.ForCondition(_subject.HasValue())
 				.BecauseOf(because, becauseArgs)
-				.FailWith($"Expected to have value, but received no value instead {{reason}}");
+				.FailWith("Expected to have value, but received no value instead {reason}");
 
-			return new AndValueConstraint<T>(_subject.Match(x => x, () => throw new InvalidOperationException("Must have value!")));
+			return new AndValueConstraint<T>(_subject.ValueUnsafe());
 		}
 
 		/// <summary>
@@ -49,7 +49,17 @@ namespace Functional.Primitives.FluentAssertions
 			Execute.Assertion
 				.ForCondition(!_subject.HasValue())
 				.BecauseOf(because, becauseArgs)
-				.FailWith($"Expected to not have value, but received a value instead {{reason}}");
+				.FailWith("Expected to not have value, but received a value instead {reason}"
+				          + Environment.NewLine
+				          + Environment.NewLine
+				          + "Value:"
+				          + _subject.ValueUnsafe());
 		}
+	}
+
+	internal static class OptionExtensions
+	{
+		public static T ValueUnsafe<T>(this Option<T> source)
+			=> source.Match(x => x, () => throw new InvalidOperationException("Must have value!"));
 	}
 }

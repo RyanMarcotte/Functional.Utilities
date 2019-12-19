@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using FluentAssertions.Execution;
+// ReSharper disable ImpureMethodCallOnReadonlyValueField
 
 namespace Functional.Primitives.FluentAssertions
 {
@@ -33,10 +34,14 @@ namespace Functional.Primitives.FluentAssertions
 			Execute.Assertion
 				.BecauseOf(because, becauseArgs)
 				.ForCondition(_subject.IsSuccess())
-				.FailWith("Expected result to be successful, but received faulted result instead {{reason}}");
+				.FailWith("Expected result to be successful, but received faulted result instead {reason}"
+				          + Environment.NewLine
+				          + Environment.NewLine
+				          + "Faulted result:"
+				          + Environment.NewLine
+				          + _subject.FailureUnsafe());
 
-			// ReSharper disable once ImpureMethodCallOnReadonlyValueField
-			return new AndValueConstraint<TSuccess>(_subject.Match(x => x, _ => throw new InvalidOperationException("Must be successful!")));
+			return new AndValueConstraint<TSuccess>(_subject.SuccessUnsafe());
 		}
 
 		/// <summary>
@@ -49,10 +54,23 @@ namespace Functional.Primitives.FluentAssertions
 			Execute.Assertion
 				.BecauseOf(because, becauseArgs)
 				.ForCondition(!_subject.IsSuccess())
-				.FailWith("Expected result to be faulted, but received successful result instead {{reason}}");
+				.FailWith("Expected result to be faulted, but received successful result instead {reason}"
+				          + Environment.NewLine
+				          + Environment.NewLine
+				          + "Successful result:"
+				          + Environment.NewLine
+				          + _subject.SuccessUnsafe());
 
-			// ReSharper disable once ImpureMethodCallOnReadonlyValueField
-			return new AndValueConstraint<TFailure>(_subject.Match(_ => throw new InvalidOperationException("Must be faulted!"), x => x));
+			return new AndValueConstraint<TFailure>(_subject.FailureUnsafe());
 		}
+	}
+
+	internal static class ResultExtensions
+	{
+		public static TSuccess SuccessUnsafe<TSuccess, TFailure>(this Result<TSuccess, TFailure> source)
+			=> source.Match(x => x, _ => throw new InvalidOperationException("Must be successful!"));
+
+		public static TFailure FailureUnsafe<TSuccess, TFailure>(this Result<TSuccess, TFailure> source)
+			=> source.Match(_ => throw new InvalidOperationException("Must be faulted!"), x => x);
 	}
 }
