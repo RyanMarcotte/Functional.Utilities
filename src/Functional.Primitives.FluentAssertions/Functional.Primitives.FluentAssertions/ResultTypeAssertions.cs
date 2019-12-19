@@ -34,14 +34,19 @@ namespace Functional.Primitives.FluentAssertions
 			Execute.Assertion
 				.BecauseOf(because, becauseArgs)
 				.ForCondition(_subject.IsSuccess())
-				.FailWith("Expected result to be successful, but received faulted result instead {reason}"
-				          + Environment.NewLine
-				          + Environment.NewLine
-				          + "Faulted result:"
-				          + Environment.NewLine
-				          + _subject.FailureUnsafe());
+				.FailWith(FailReasonForBeSuccessful);
 
 			return new AndValueConstraint<TSuccess>(_subject.SuccessUnsafe());
+		}
+
+		private FailReason FailReasonForBeSuccessful()
+		{
+			return new FailReason("Expected result to be successful, but received faulted result instead{reason}"
+			                      + Environment.NewLine
+			                      + Environment.NewLine
+			                      + "Faulted result:"
+								  + Environment.NewLine
+			                      + _subject.FailureUnsafe());
 		}
 
 		/// <summary>
@@ -54,14 +59,19 @@ namespace Functional.Primitives.FluentAssertions
 			Execute.Assertion
 				.BecauseOf(because, becauseArgs)
 				.ForCondition(!_subject.IsSuccess())
-				.FailWith("Expected result to be faulted, but received successful result instead {reason}"
-				          + Environment.NewLine
-				          + Environment.NewLine
-				          + "Successful result:"
-				          + Environment.NewLine
-				          + _subject.SuccessUnsafe());
+				.FailWith(FailReasonForBeFaulted);
 
 			return new AndValueConstraint<TFailure>(_subject.FailureUnsafe());
+		}
+
+		private FailReason FailReasonForBeFaulted()
+		{
+			return new FailReason("Expected result to be faulted, but received successful result instead{reason}"
+			                      + Environment.NewLine
+			                      + Environment.NewLine
+			                      + "Successful result:"
+			                      + Environment.NewLine
+			                      + _subject.SuccessUnsafe());
 		}
 	}
 

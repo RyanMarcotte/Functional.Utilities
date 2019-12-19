@@ -15,7 +15,7 @@ namespace Functional.Primitives.FluentAssertions.Tests
 			{
 				Result.Success<int, Exception>(VALUE)
 					.Should()
-					.BeSuccessful();
+					.BeSuccessful("an exception occurred");
 
 			}).Should().NotThrow();
 
