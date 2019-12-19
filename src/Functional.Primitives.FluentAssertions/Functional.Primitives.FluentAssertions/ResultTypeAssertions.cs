@@ -41,11 +41,8 @@ namespace Functional.Primitives.FluentAssertions
 
 		private FailReason FailReasonForBeSuccessful()
 		{
-			return new FailReason("Expected result to be successful, but received faulted result instead{reason}"
+			return new FailReason("Expected result to be successful, but received faulted result instead{reason}:"
 			                      + Environment.NewLine
-			                      + Environment.NewLine
-			                      + "Faulted result:"
-								  + Environment.NewLine
 			                      + _subject.FailureUnsafe());
 		}
 
@@ -66,10 +63,7 @@ namespace Functional.Primitives.FluentAssertions
 
 		private FailReason FailReasonForBeFaulted()
 		{
-			return new FailReason("Expected result to be faulted, but received successful result instead{reason}"
-			                      + Environment.NewLine
-			                      + Environment.NewLine
-			                      + "Successful result:"
+			return new FailReason("Expected result to be faulted, but received successful result instead{reason}:"
 			                      + Environment.NewLine
 			                      + _subject.SuccessUnsafe());
 		}
