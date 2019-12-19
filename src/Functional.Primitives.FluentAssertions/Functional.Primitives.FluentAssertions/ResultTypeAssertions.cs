@@ -55,26 +55,4 @@ namespace Functional.Primitives.FluentAssertions
 			return new AndValueConstraint<TFailure>(_subject.Match(_ => throw new InvalidOperationException("Must be faulted!"), x => x));
 		}
 	}
-
-	/// <summary>
-	/// 
-	/// </summary>
-	/// <typeparam name="T"></typeparam>
-	[DebuggerNonUserCode]
-	public class AndValueConstraint<T>
-	{
-		/// <summary>
-		/// Initializes a new instance of the <see cref="AndValueConstraint{T}"/> class.
-		/// </summary>
-		/// <param name="subject">The subject.</param>
-		public AndValueConstraint(T subject)
-		{
-			AndValue = subject;
-		}
-
-		/// <summary>
-		/// 
-		/// </summary>
-		public T AndValue { get; }
-	}
 }
