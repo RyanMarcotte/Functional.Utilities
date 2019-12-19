@@ -54,7 +54,7 @@ namespace Functional.Primitives.FluentAssertions
 
 		private FailReason FailReasonForNotHaveValue()
 		{
-			return new FailReason("Expected to not have value, but received a value instead {reason}"
+			return new FailReason("Expected to not have value, but received a value instead{reason}"
 			                      + Environment.NewLine
 			                      + Environment.NewLine
 			                      + "Value:"
