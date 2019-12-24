@@ -10,40 +10,37 @@ namespace Functional.Primitives.FluentAssertions.Tests
 	{
 		public class ValueChecks
 		{
-			public class WithNoSpecialAssertions
+			private const int VALUE = 3;
+
+			[Fact]
+			public void ShouldNotThrowException() => new Action(() =>
 			{
-				private const int VALUE = 3;
+				Option.Some(VALUE)
+					.Should()
+					.HaveValue();
 
-				[Fact]
-				public void ShouldNotThrowException() => new Action(() =>
-				{
-					Option.Some(VALUE)
-						.Should()
-						.HaveValue();
+			}).Should().NotThrow();
 
-				}).Should().NotThrow();
+			[Fact]
+			public void ShouldNotThrowExceptionWhenAdditionalAssertionSucceeds() => new Action(() =>
+			{
+				Option.Some(VALUE)
+					.Should()
+					.HaveValue()
+					.AndValue
+					.Should()
+					.Be(VALUE);
 
-				[Fact]
-				public void ShouldNotThrowExceptionWhenAdditionalAssertionSucceeds() => new Action(() =>
-				{
-					Option.Some(VALUE)
-						.Should()
-						.HaveValue()
-						.AndValue
-						.Should()
-						.Be(VALUE);
+			}).Should().NotThrow();
 
-				}).Should().NotThrow();
+			[Fact]
+			public void ShouldThrowException() => new Action(() =>
+			{
+				Option.None<int>()
+					.Should()
+					.HaveValue();
 
-				[Fact]
-				public void ShouldThrowException() => new Action(() =>
-				{
-					Option.None<int>()
-						.Should()
-						.HaveValue();
-
-				}).Should().Throw<Exception>();
-			}
+			}).Should().Throw<Exception>();
 		}
 
 		public class NoValueChecks

@@ -62,7 +62,7 @@ namespace Functional.Primitives.FluentAssertions
 			if (additionalAssertionAction == null) throw new ArgumentNullException(nameof(additionalAssertionAction));
 
 			BeSuccessful(faultedResultDescriptionFactory, because, becauseArgs);
-			additionalAssertionAction(_subject.GetSuccessValue());
+			additionalAssertionAction(_subject.SuccessUnsafe());
 		}
 
 		/// <summary>
@@ -89,7 +89,7 @@ namespace Functional.Primitives.FluentAssertions
 		{
 			BeSuccessful(because, becauseArgs);
 
-			var value = _subject.GetSuccessValue();
+			var value = _subject.SuccessUnsafe();
 			value.Should().BeEquivalentTo(
 				expectedValue,
 				config,
@@ -152,7 +152,7 @@ namespace Functional.Primitives.FluentAssertions
 			if (additionalAssertionAction == null) throw new ArgumentNullException(nameof(additionalAssertionAction));
 
 			BeFaulted(successfulResultDescriptionFactory, because, becauseArgs);
-			additionalAssertionAction(_subject.GetFailureValue());
+			additionalAssertionAction(_subject.FailureUnsafe());
 		}
 
 		/// <summary>
@@ -179,7 +179,7 @@ namespace Functional.Primitives.FluentAssertions
 		{
 			BeFaulted(because, becauseArgs);
 
-			var value = _subject.GetFailureValue();
+			var value = _subject.FailureUnsafe();
 			value.Should().BeEquivalentTo(
 				expectedValue,
 				config,

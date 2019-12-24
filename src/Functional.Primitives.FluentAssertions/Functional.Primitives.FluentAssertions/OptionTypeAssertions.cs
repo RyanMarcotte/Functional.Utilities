@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using FluentAssertions.Execution;
+using Functional.Primitives.FluentAssertions.Extensions;
 
 namespace Functional.Primitives.FluentAssertions
 {
@@ -34,7 +35,7 @@ namespace Functional.Primitives.FluentAssertions
 			Execute.Assertion
 				.ForCondition(_subject.HasValue())
 				.BecauseOf(because, becauseArgs)
-				.FailWith("Expected to have value, but received no value instead {reason}");
+				.FailWith("Expected to have value{reason}, but received no value instead.");
 
 			return new AndValueConstraint<T>(_subject.ValueUnsafe());
 		}
@@ -54,15 +55,13 @@ namespace Functional.Primitives.FluentAssertions
 
 		private FailReason FailReasonForNotHaveValue()
 		{
-			return new FailReason("Expected to not have value, but received a value instead{reason}:"
-			                      + Environment.NewLine
+			return new FailReason("Expected to not have value{reason}, but received a value instead:"
+								  + Environment.NewLine
 			                      + _subject.ValueUnsafe());
 		}
 	}
 
 	internal static class OptionExtensions
 	{
-		public static T ValueUnsafe<T>(this Option<T> source)
-			=> source.Match(x => x, () => throw new InvalidOperationException("Must have value!"));
 	}
 }

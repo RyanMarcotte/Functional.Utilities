@@ -3,9 +3,9 @@
 namespace Functional.Primitives.FluentAssertions
 {
 	/// <summary>
-	/// 
+	/// Encapsulates a value that assertions will be performed on.
 	/// </summary>
-	/// <typeparam name="T"></typeparam>
+	/// <typeparam name="T">The type to perform assertions on.</typeparam>
 	[DebuggerNonUserCode]
 	public class AndValueConstraint<T>
 	{
@@ -19,7 +19,7 @@ namespace Functional.Primitives.FluentAssertions
 		}
 
 		/// <summary>
-		/// 
+		/// The value to perform assertions on.
 		/// </summary>
 		public T AndValue { get; }
 	}

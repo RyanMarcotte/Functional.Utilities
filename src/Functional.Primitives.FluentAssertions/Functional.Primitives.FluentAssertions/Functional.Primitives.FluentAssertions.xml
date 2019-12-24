@@ -6,9 +6,9 @@
     <members>
         <member name="T:Functional.Primitives.FluentAssertions.AndValueConstraint`1">
             <summary>
-            
+            Encapsulates a value that assertions will be performed on.
             </summary>
-            <typeparam name="T"></typeparam>
+            <typeparam name="T">The type to perform assertions on.</typeparam>
         </member>
         <member name="M:Functional.Primitives.FluentAssertions.AndValueConstraint`1.#ctor(`0)">
             <summary>
@@ -18,7 +18,7 @@
         </member>
         <member name="P:Functional.Primitives.FluentAssertions.AndValueConstraint`1.AndValue">
             <summary>
-            
+            The value to perform assertions on.
             </summary>
         </member>
         <member name="T:Functional.Primitives.FluentAssertions.FunctionalPrimitiveAssertions">

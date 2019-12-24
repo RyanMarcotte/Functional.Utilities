@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using FluentAssertions.Execution;
+using Functional.Primitives.FluentAssertions.Extensions;
+
 // ReSharper disable ImpureMethodCallOnReadonlyValueField
 
 namespace Functional.Primitives.FluentAssertions
@@ -41,8 +43,8 @@ namespace Functional.Primitives.FluentAssertions
 
 		private FailReason FailReasonForBeSuccessful()
 		{
-			return new FailReason("Expected result to be successful, but received faulted result instead{reason}:"
-			                      + Environment.NewLine
+			return new FailReason("Expected result to be successful{reason}, but received faulted result instead:"
+								  + Environment.NewLine
 			                      + _subject.FailureUnsafe());
 		}
 
@@ -63,18 +65,13 @@ namespace Functional.Primitives.FluentAssertions
 
 		private FailReason FailReasonForBeFaulted()
 		{
-			return new FailReason("Expected result to be faulted, but received successful result instead{reason}:"
-			                      + Environment.NewLine
+			return new FailReason("Expected result to be faulted{reason}, but received successful result instead:"
+								  + Environment.NewLine
 			                      + _subject.SuccessUnsafe());
 		}
 	}
 
 	internal static class ResultExtensions
 	{
-		public static TSuccess SuccessUnsafe<TSuccess, TFailure>(this Result<TSuccess, TFailure> source)
-			=> source.Match(x => x, _ => throw new InvalidOperationException("Must be successful!"));
-
-		public static TFailure FailureUnsafe<TSuccess, TFailure>(this Result<TSuccess, TFailure> source)
-			=> source.Match(_ => throw new InvalidOperationException("Must be faulted!"), x => x);
 	}
 }
