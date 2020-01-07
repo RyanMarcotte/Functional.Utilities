@@ -70,8 +70,4 @@ namespace Functional.Primitives.FluentAssertions
 			                      + _subject.SuccessUnsafe());
 		}
 	}
-
-	internal static class ResultExtensions
-	{
-	}
 }
