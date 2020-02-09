@@ -60,8 +60,4 @@ namespace Functional.Primitives.FluentAssertions
 			                      + _subject.ValueUnsafe());
 		}
 	}
-
-	internal static class OptionExtensions
-	{
-	}
 }
