@@ -10,38 +10,37 @@ namespace Functional.Primitives.FluentAssertions.Tests
 	{
 		public class ValueChecks
 		{
-			public class WithNoSpecialAssertions
+			private const int VALUE = 3;
+
+			[Fact]
+			public void ShouldNotThrowException() => new Action(() =>
 			{
-				[Fact]
-				public void ShouldNotThrowException() => new Action(() => Option.Some(3).Should().HaveValue()).Should().NotThrow();
+				Option.Some(VALUE)
+					.Should()
+					.HaveValue();
 
-				[Fact]
-				public void ShouldThrowException() => new Action(() => Option.None<int>().Should().HaveValue()).Should().Throw<Exception>();
-			}
+			}).Should().NotThrow();
 
-			public class WithExpectedValueAssertion
+			[Fact]
+			public void ShouldNotThrowExceptionWhenAdditionalAssertionSucceeds() => new Action(() =>
 			{
-				[Fact]
-				public void ShouldNotThrowException() => new Action(() => Option.Some(3).Should().HaveExpectedValue(3)).Should().NotThrow();
+				Option.Some(VALUE)
+					.Should()
+					.HaveValue()
+					.AndValue
+					.Should()
+					.Be(VALUE);
 
-				[Fact]
-				public void ShouldThrowExceptionIfUnexpectedValue() => new Action(() => Option.Some(3).Should().HaveExpectedValue(0)).Should().Throw<Exception>();
+			}).Should().NotThrow();
 
-				[Fact]
-				public void ShouldThrowExceptionIfNoValue() => new Action(() => Option.None<int>().Should().HaveExpectedValue(0)).Should().Throw<Exception>();
-			}
-
-			public class WithAssertionsToMatchProperties
+			[Fact]
+			public void ShouldThrowException() => new Action(() =>
 			{
-				[Fact]
-				public void ShouldNotThrowException() => new Action(() => Option.Some(3).Should().HaveValue(value => value.Should().BeGreaterOrEqualTo(0))).Should().NotThrow();
+				Option.None<int>()
+					.Should()
+					.HaveValue();
 
-				[Fact]
-				public void ShouldThrowExceptionIfNoMatchingValue() => new Action(() => Option.Some(3).Should().HaveValue(value => value.Should().BeLessOrEqualTo(0))).Should().Throw<Exception>();
-
-				[Fact]
-				public void ShouldThrowExceptionIfNoValue() => new Action(() => Option.None<int>().Should().HaveValue(value => value.Should().Be(0))).Should().Throw<Exception>();
-			}
+			}).Should().Throw<Exception>();
 		}
 
 		public class NoValueChecks

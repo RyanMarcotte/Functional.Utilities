@@ -10,25 +10,33 @@
     <RepositoryUrl></RepositoryUrl>
     <RepositoryType></RepositoryType>
     <PackageTags>functional, MSTest, MSTest2, NUnit, xUnit2, xUnit, TDD, Fluent, netcore, netstandard</PackageTags>
-    <PackageLicenseUrl>https://github.com/RyanMarcotte/Functional.Utilities/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/RyanMarcotte/Functional.Utilities</PackageProjectUrl>
-    <Version>1.1.0</Version>
+    <Version>2.0.0</Version>
+    <PackageReleaseNotes>Simplify the API by leveraging existing FluentAssertions syntax off AndValue, AndSuccessValue, AndFailureValue subject accessors:
+- option.Should().HaveValue().AndValue.Should().Be(...)
+- result.Should().BeSuccessful().AndSuccessValue.Should().Be(...)
+- result.Should().BeFaulted().AndFailureValue.Should().Be(...)</PackageReleaseNotes>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>Functional.Primitives.FluentAssertions.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\Functional.Primitives.FluentAssertions.xml</DocumentationFile>
     <OutputPath>bin\Debug</OutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>Functional.Primitives.FluentAssertions.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\Functional.Primitives.FluentAssertions.xml</DocumentationFile>
     <OutputPath>bin\Release</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentAssertions" Version="5.6.0" />
-    <PackageReference Include="Functional.Primitives" Version="1.9.0" />
-    <PackageReference Include="Functional.Primitives.Extensions" Version="1.9.0" />
+    <None Remove="Functional.Primitives.FluentAssertions.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="[5.*,6.0)" />
+    <PackageReference Include="Functional.Primitives" Version="[2.*,3.0)" />
+    <PackageReference Include="Functional.Primitives.Extensions" Version="[2.*,3.0)" />
   </ItemGroup>
 
 </Project>

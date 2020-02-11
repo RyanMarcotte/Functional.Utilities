@@ -8,74 +8,66 @@ namespace Functional.Primitives.FluentAssertions.Tests
 	{
 		public class SuccessChecks
 		{
-			public class WithNoSpecialAssertions
+			private const int VALUE = 3;
+
+			[Fact]
+			public void ShouldNotThrowException() => new Action(() =>
 			{
-				[Fact]
-				public void ShouldNotThrowException() => new Action(() => Result.Success<int, Exception>(3).Should().BeSuccessful()).Should().NotThrow();
+				Result.Success<int, Exception>(VALUE)
+					.Should()
+					.BeSuccessful("an exception occurred");
 
-				[Fact]
-				public void ShouldThrowException() => new Action(() => Result.Failure<int, Exception>(new Exception()).Should().BeSuccessful()).Should().Throw<Exception>();
-			}
+			}).Should().NotThrow();
 
-			public class WithExpectedValueAssertion
+			[Fact]
+			public void ShouldNotThrowExceptionWhenAdditionalAssertionSucceeds() => new Action(() =>
 			{
-				[Fact]
-				public void ShouldNotThrowException() => new Action(() => Result.Success<int, Exception>(3).Should().BeSuccessfulWithExpectedValue(3)).Should().NotThrow();
+				Result.Success<int, Exception>(VALUE)
+					.Should()
+					.BeSuccessful()
+					.AndSuccessValue
+					.Should()
+					.Be(VALUE);
 
-				[Fact]
-				public void ShouldThrowExceptionIfNotExpectedSuccessValue() => new Action(() => Result.Success<int, Exception>(2).Should().BeSuccessfulWithExpectedValue(30)).Should().Throw<Exception>();
+			}).Should().NotThrow();
 
-				[Fact]
-				public void ShouldThrowExceptionIfFaultedResult() => new Action(() => Result.Failure<int, Exception>(new Exception()).Should().BeSuccessfulWithExpectedValue(3)).Should().Throw<Exception>();
-			}
-
-			public class WithAssertionsToMatchProperties
-			{
-				[Fact]
-				public void ShouldNotThrowException() => new Action(() => Result.Success<int, Exception>(3).Should().BeSuccessful(value => value.Should().BeGreaterOrEqualTo(0))).Should().NotThrow();
-
-				[Fact]
-				public void ShouldThrowExceptionIfNoMatchingSuccessValue() => new Action(() => Result.Success<int, Exception>(3).Should().BeSuccessful(value => value.Should().BeLessOrEqualTo(0))).Should().Throw<Exception>();
-
-				[Fact]
-				public void ShouldThrowExceptionIfFaultedResult() => new Action(() => Result.Failure<int, Exception>(new Exception()).Should().BeSuccessful(value => value.Should().Be(0))).Should().Throw<Exception>();
-			}
+			[Fact]
+			public void ShouldThrowException() => new Action(() => Result.Failure<int, Exception>(new Exception()).Should().BeSuccessful()).Should().Throw<Exception>();
 		}
 
 		public class FailureChecks
 		{
-			public class WithNoSpecialAssertions
+			private const string VALUE = "value";
+
+			[Fact]
+			public void ShouldNotThrowException() => new Action(() =>
 			{
-				[Fact]
-				public void ShouldNotThrowException() => new Action(() => Result.Failure<int, Exception>(new Exception()).Should().BeFaulted()).Should().NotThrow();
+				Result.Failure<int, Exception>(new Exception(VALUE))
+					.Should()
+					.BeFaulted();
 
-				[Fact]
-				public void ShouldThrowException() => new Action(() => Result.Success<int, Exception>(3).Should().BeFaulted()).Should().Throw<Exception>();
-			}
+			}).Should().NotThrow();
 
-			public class WithExpectedValueAssertion
+			[Fact]
+			public void ShouldNotThrowExceptionWhenAdditionalAssertionSucceeds() => new Action(() =>
 			{
-				[Fact]
-				public void ShouldNotThrowException() => new Action(() => Result.Failure<int, string>(string.Empty).Should().BeFaultedWithExpectedValue(string.Empty)).Should().NotThrow();
+				Result.Failure<int, Exception>(new Exception(VALUE))
+					.Should()
+					.BeFaulted()
+					.AndFailureValue
+					.Should()
+					.Match<Exception>(ex => ex.Message == VALUE);
 
-				[Fact]
-				public void ShouldThrowExceptionIfNotExpectedFailureValue() => new Action(() => Result.Failure<int, string>(string.Empty).Should().BeFaultedWithExpectedValue("not empty")).Should().Throw<Exception>();
+			}).Should().NotThrow();
 
-				[Fact]
-				public void ShouldThrowExceptionIfSuccessfulResult() => new Action(() => Result.Success<int, string>(3).Should().BeFaultedWithExpectedValue(string.Empty)).Should().Throw<Exception>();
-			}
-
-			public class WithAssertionsToMatchProperties
+			[Fact]
+			public void ShouldThrowException() => new Action(() =>
 			{
-				[Fact]
-				public void ShouldNotThrowException() => new Action(() => Result.Failure<string, int>(3).Should().BeFaulted(value => value.Should().BeGreaterOrEqualTo(0))).Should().NotThrow();
+				Result.Success<int, Exception>(3)
+					.Should()
+					.BeFaulted();
 
-				[Fact]
-				public void ShouldThrowExceptionIfNoMatchingSuccessValue() => new Action(() => Result.Failure<string, int>(3).Should().BeFaulted(value => value.Should().BeLessOrEqualTo(0))).Should().Throw<Exception>();
-
-				[Fact]
-				public void ShouldThrowExceptionIfFaultedResult() => new Action(() => Result.Success<string, int>(string.Empty).Should().BeFaulted(value => value.Should().Be(0))).Should().Throw<Exception>();
-			}
+			}).Should().Throw<Exception>();
 		}
 	}
 }
