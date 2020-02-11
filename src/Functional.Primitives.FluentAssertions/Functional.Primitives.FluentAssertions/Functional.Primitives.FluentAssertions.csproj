@@ -12,17 +12,17 @@
     <PackageTags>functional, MSTest, MSTest2, NUnit, xUnit2, xUnit, TDD, Fluent, netcore, netstandard</PackageTags>
     <PackageLicenseUrl>https://github.com/RyanMarcotte/Functional.Utilities/blob/master/LICENSE</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/RyanMarcotte/Functional.Utilities</PackageProjectUrl>
-    <Version>2.0.0</Version>
+    <Version>2.0.0-beta3</Version>
     <PackageReleaseNotes>Simplify the API</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>Functional.Primitives.FluentAssertions.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\Functional.Primitives.FluentAssertions.xml</DocumentationFile>
     <OutputPath>bin\Debug</OutputPath>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>Functional.Primitives.FluentAssertions.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\Functional.Primitives.FluentAssertions.xml</DocumentationFile>
     <OutputPath>bin\Release</OutputPath>
   </PropertyGroup>
 

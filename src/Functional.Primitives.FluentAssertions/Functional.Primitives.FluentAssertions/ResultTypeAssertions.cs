@@ -4,7 +4,6 @@ using FluentAssertions.Execution;
 using Functional.Primitives.FluentAssertions.Extensions;
 
 // ReSharper disable ImpureMethodCallOnReadonlyValueField
-
 namespace Functional.Primitives.FluentAssertions
 {
 	/// <summary>
@@ -31,14 +30,14 @@ namespace Functional.Primitives.FluentAssertions
 		/// </summary>
 		/// <param name="because">Additional information for if the assertion fails.</param>
 		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
-		public AndValueConstraint<TSuccess> BeSuccessful(string because = "", params object[] becauseArgs)
+		public AndResultSuccessConstraint<TSuccess> BeSuccessful(string because = "", params object[] becauseArgs)
 		{
 			Execute.Assertion
 				.BecauseOf(because, becauseArgs)
 				.ForCondition(_subject.IsSuccess())
 				.FailWith(FailReasonForBeSuccessful);
 
-			return new AndValueConstraint<TSuccess>(_subject.SuccessUnsafe());
+			return new AndResultSuccessConstraint<TSuccess>(_subject.SuccessUnsafe());
 		}
 
 		private FailReason FailReasonForBeSuccessful()
@@ -53,14 +52,14 @@ namespace Functional.Primitives.FluentAssertions
 		/// </summary>
 		/// <param name="because">Additional information for if the assertion fails.</param>
 		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
-		public AndValueConstraint<TFailure> BeFaulted(string because = "", params object[] becauseArgs)
+		public AndResultFailureConstraint<TFailure> BeFaulted(string because = "", params object[] becauseArgs)
 		{
 			Execute.Assertion
 				.BecauseOf(because, becauseArgs)
 				.ForCondition(!_subject.IsSuccess())
 				.FailWith(FailReasonForBeFaulted);
 
-			return new AndValueConstraint<TFailure>(_subject.FailureUnsafe());
+			return new AndResultFailureConstraint<TFailure>(_subject.FailureUnsafe());
 		}
 
 		private FailReason FailReasonForBeFaulted()

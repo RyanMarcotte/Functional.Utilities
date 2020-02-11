@@ -25,7 +25,7 @@ namespace Functional.Primitives.FluentAssertions.Tests
 				Result.Success<int, Exception>(VALUE)
 					.Should()
 					.BeSuccessful()
-					.AndValue
+					.AndSuccessValue
 					.Should()
 					.Be(VALUE);
 
@@ -54,7 +54,7 @@ namespace Functional.Primitives.FluentAssertions.Tests
 				Result.Failure<int, Exception>(new Exception(VALUE))
 					.Should()
 					.BeFaulted()
-					.AndValue
+					.AndFailureValue
 					.Should()
 					.Match<Exception>(ex => ex.Message == VALUE);
 

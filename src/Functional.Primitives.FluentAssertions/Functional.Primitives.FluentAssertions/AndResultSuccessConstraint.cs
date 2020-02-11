@@ -7,20 +7,20 @@ namespace Functional.Primitives.FluentAssertions
 	/// </summary>
 	/// <typeparam name="T">The type to perform assertions on.</typeparam>
 	[DebuggerNonUserCode]
-	public class AndValueConstraint<T>
+	public class AndResultSuccessConstraint<T>
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="AndValueConstraint{T}"/> class.
+		/// Initializes a new instance of the <see cref="AndResultSuccessConstraint{T}"/> class.
 		/// </summary>
 		/// <param name="subject">The subject.</param>
-		public AndValueConstraint(T subject)
+		public AndResultSuccessConstraint(T subject)
 		{
-			AndValue = subject;
+			AndSuccessValue = subject;
 		}
 
 		/// <summary>
 		/// The value to perform assertions on.
 		/// </summary>
-		public T AndValue { get; }
+		public T AndSuccessValue { get; }
 	}
 }

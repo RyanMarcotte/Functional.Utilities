@@ -28,14 +28,14 @@ namespace Functional.Primitives.FluentAssertions
 		/// </summary>
 		/// <param name="because">Additional information for if the assertion fails.</param>
 		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
-		public AndValueConstraint<T> HaveValue(string because = "", params object[] becauseArgs)
+		public AndOptionValueConstraint<T> HaveValue(string because = "", params object[] becauseArgs)
 		{
 			Execute.Assertion
 				.ForCondition(_subject.HasValue())
 				.BecauseOf(because, becauseArgs)
 				.FailWith("Expected to have value{reason}, but received no value instead.");
 
-			return new AndValueConstraint<T>(_subject.ValueUnsafe());
+			return new AndOptionValueConstraint<T>(_subject.ValueUnsafe());
 		}
 
 		/// <summary>
