@@ -10,7 +10,6 @@
     <RepositoryUrl></RepositoryUrl>
     <RepositoryType></RepositoryType>
     <PackageTags>functional, MSTest, MSTest2, NUnit, xUnit2, xUnit, TDD, Fluent, netcore, netstandard</PackageTags>
-    <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/RyanMarcotte/Functional.Utilities</PackageProjectUrl>
     <Version>2.0.0</Version>
     <PackageReleaseNotes>Simplify the API by leveraging existing FluentAssertions syntax off AndValue, AndSuccessValue, AndFailureValue subject accessors:
