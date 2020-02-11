@@ -31,9 +31,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentAssertions" Version="5.*" />
-    <PackageReference Include="Functional.Primitives" Version="2.*" />
-    <PackageReference Include="Functional.Primitives.Extensions" Version="2.*" />
+    <PackageReference Include="FluentAssertions" Version="[5.*,6.0)" />
+    <PackageReference Include="Functional.Primitives" Version="[2.*,3.0)" />
+    <PackageReference Include="Functional.Primitives.Extensions" Version="[2.*,3.0)" />
   </ItemGroup>
 
 </Project>

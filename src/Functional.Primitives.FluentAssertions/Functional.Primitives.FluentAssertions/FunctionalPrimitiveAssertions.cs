@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Functional.Primitives.FluentAssertions
+﻿namespace Functional.Primitives.FluentAssertions
 {
 	/// <summary>
 	/// Defines additional fluent assertion gateways for types defined in Functional.Primitives namespace.
