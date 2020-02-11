@@ -10,13 +10,14 @@
     <RepositoryUrl></RepositoryUrl>
     <RepositoryType></RepositoryType>
     <PackageTags>functional, MSTest, MSTest2, NUnit, xUnit2, xUnit, TDD, Fluent, netcore, netstandard</PackageTags>
-    <PackageLicenseUrl>https://github.com/RyanMarcotte/Functional.Utilities/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/RyanMarcotte/Functional.Utilities</PackageProjectUrl>
     <Version>2.0.0</Version>
     <PackageReleaseNotes>Simplify the API by leveraging existing FluentAssertions syntax off AndValue, AndSuccessValue, AndFailureValue subject accessors:
 - option.Should().HaveValue().AndValue.Should().Be(...)
 - result.Should().BeSuccessful().AndSuccessValue.Should().Be(...)
 - result.Should().BeFaulted().AndFailureValue.Should().Be(...)</PackageReleaseNotes>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
