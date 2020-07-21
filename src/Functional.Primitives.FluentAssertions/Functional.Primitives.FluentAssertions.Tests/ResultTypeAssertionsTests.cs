@@ -69,5 +69,60 @@ namespace Functional.Primitives.FluentAssertions.Tests
 
 			}).Should().Throw<Exception>();
 		}
+
+		public class EqualityChecks
+		{
+			[Fact]
+			public void ShouldNotThrowExceptionWhenBothSuccessAndBothHaveSameSuccessValues() => new Action(() =>
+			{
+				Result.Success<int, string>(1337)
+					.Should()
+					.Be(Result.Success<int, string>(1337));
+			}).Should().NotThrow();
+
+			[Fact]
+			public void ShouldNotThrowExceptionWhenBothFaultedAndBothHaveSameFailureValues() => new Action(() =>
+			{
+				Result.Failure<int, string>("error")
+					.Should()
+					.Be(Result.Failure<int, string>("error"));
+			}).Should().NotThrow();
+
+			[Fact]
+			public void ShouldThrowExceptionWhenBothSuccessButHaveDifferentSuccessValues() => new Action(() =>
+			{
+				Result.Success<int, string>(3)
+					.Should()
+					.Be(Result.Success<int, string>(4));
+
+			}).Should().Throw<Exception>();
+
+			[Fact]
+			public void ShouldThrowExceptionWhenBothFaultedButHaveDifferentFailureValues() => new Action(() =>
+			{
+				Result.Failure<int, string>("1")
+					.Should()
+					.Be(Result.Failure<int, string>("2"));
+
+			}).Should().Throw<Exception>();
+
+			[Fact]
+			public void ShouldThrowExceptionWhenLeftIsSuccessAndRightIsFaulted() => new Action(() =>
+			{
+				Result.Success<int, string>(3)
+					.Should()
+					.Be(Result.Failure<int, string>("e"));
+
+			}).Should().Throw<Exception>();
+
+			[Fact]
+			public void ShouldThrowExceptionWhenLeftIsFaultedAndRightIsSuccess() => new Action(() =>
+			{
+				Result.Failure<int, string>("e")
+					.Should()
+					.Be(Result.Success<int, string>(3));
+
+			}).Should().Throw<Exception>();
+		}
 	}
 }

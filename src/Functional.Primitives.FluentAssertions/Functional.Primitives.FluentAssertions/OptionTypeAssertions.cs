@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Text;
+using FluentAssertions;
 using FluentAssertions.Execution;
+using FluentAssertions.Primitives;
 using Functional.Primitives.FluentAssertions.Extensions;
 
 namespace Functional.Primitives.FluentAssertions
@@ -31,14 +33,14 @@ namespace Functional.Primitives.FluentAssertions
 		/// <param name="because">Additional information for if the assertion fails.</param>
 		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
 		/// <returns></returns>
-		public OptionTypeAssertions<T> Be(Option<T> expected, string because = "", params object[] becauseArgs)
+		public AndConstraint<ObjectAssertions> Be(Option<T> expected, string because = "", params object[] becauseArgs)
 		{
 			Execute.Assertion
 				.ForCondition(_subject.Equals(expected))
 				.BecauseOf(because, becauseArgs)
 				.FailWith(MakeFailReason);
 
-			return this;
+			return new AndConstraint<ObjectAssertions>(new ObjectAssertions(_subject));
 
 			FailReason MakeFailReason()
 			{

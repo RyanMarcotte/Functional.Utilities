@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Text;
+using FluentAssertions;
 using FluentAssertions.Execution;
+using FluentAssertions.Primitives;
 using Functional.Primitives.FluentAssertions.Extensions;
 
 // ReSharper disable ImpureMethodCallOnReadonlyValueField
@@ -26,6 +29,33 @@ namespace Functional.Primitives.FluentAssertions
 		}
 
 		/// <summary>
+		/// Verifies that the subject is equal to an expected value.
+		/// </summary>
+		/// <param name="expected">The expected value.</param>
+		/// <param name="because">Additional information for if the assertion fails.</param>
+		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
+		/// <returns></returns>
+		public AndConstraint<ObjectAssertions> Be(Result<TSuccess, TFailure> expected, string because = "", params object[] becauseArgs)
+		{
+			Execute.Assertion
+				.ForCondition(_subject.Equals(expected))
+				.BecauseOf(because, becauseArgs)
+				.FailWith(MakeFailReason);
+
+			return new AndConstraint<ObjectAssertions>(new ObjectAssertions(_subject));
+
+			FailReason MakeFailReason()
+			{
+				var builder = new StringBuilder();
+				builder.AppendLine($"Expected to be equal{{reason}}, but the two Result<{typeof(TSuccess)}, {typeof(TFailure)}> are not equal.");
+				builder.AppendLine("Subject: " + _subject);
+				builder.AppendLine("Expected: " + expected);
+
+				return new FailReason(builder.ToString());
+			}
+		}
+
+		/// <summary>
 		/// Verifies that the subject <see cref="Result{TSuccess, TFailure}"/> holds a successful result.
 		/// </summary>
 		/// <param name="because">Additional information for if the assertion fails.</param>
@@ -38,13 +68,15 @@ namespace Functional.Primitives.FluentAssertions
 				.FailWith(FailReasonForBeSuccessful);
 
 			return new AndResultSuccessConstraint<TSuccess>(_subject.SuccessUnsafe());
-		}
 
-		private FailReason FailReasonForBeSuccessful()
-		{
-			return new FailReason("Expected result to be successful{reason}, but received faulted result instead:"
-								  + Environment.NewLine
-			                      + _subject.FailureUnsafe());
+			FailReason FailReasonForBeSuccessful()
+			{
+				var builder = new StringBuilder();
+				builder.AppendLine("Expected result to be successful{reason}, but received faulted result instead:");
+				builder.AppendLine(_subject.FailureUnsafe().ToString());
+
+				return new FailReason(builder.ToString());
+			}
 		}
 
 		/// <summary>
@@ -60,13 +92,15 @@ namespace Functional.Primitives.FluentAssertions
 				.FailWith(FailReasonForBeFaulted);
 
 			return new AndResultFailureConstraint<TFailure>(_subject.FailureUnsafe());
-		}
 
-		private FailReason FailReasonForBeFaulted()
-		{
-			return new FailReason("Expected result to be faulted{reason}, but received successful result instead:"
-								  + Environment.NewLine
-			                      + _subject.SuccessUnsafe());
+			FailReason FailReasonForBeFaulted()
+			{
+				var builder = new StringBuilder();
+				builder.AppendLine("Expected result to be faulted{reason}, but received successful result instead:");
+				builder.AppendLine(_subject.SuccessUnsafe().ToString());
+
+				return new FailReason(builder.ToString());
+			}
 		}
 	}
 }
