@@ -23,6 +23,14 @@ var option = Option.None<int>();
 option.Should().NotHaveValue();
 ```
 
+``` csharp
+var option = Option.Some(1337);
+var otherOption = Option.Some(1337);
+
+// verify that the option is equal to another option
+option.Should().Be(otherOption);
+```
+
 ## `Result<TSuccess, TFailure>`
 
 ``` csharp
@@ -46,4 +54,12 @@ result.Should().BeFaulted();
 // verify that the result represents a faulted value and that the contained value matches some condition(s)
 result.Should().BeFaulted().AndValue.Should().Be(string.Empty);
 result.Should().BeFaulted().AndValue.Should().BeNullOrWhiteSpace();
+```
+
+``` csharp
+var result = Result.Success<int, string>(1337);
+var otherResult = Result.Success<int, string>(1337);
+
+// verify that the result is equal to another result
+result.Should().Be(otherResult);
 ```
