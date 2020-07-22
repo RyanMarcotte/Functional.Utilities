@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Text;
+using FluentAssertions;
 using FluentAssertions.Execution;
+using FluentAssertions.Primitives;
 using Functional.Primitives.FluentAssertions.Extensions;
 
 namespace Functional.Primitives.FluentAssertions
@@ -21,6 +24,33 @@ namespace Functional.Primitives.FluentAssertions
 		public OptionTypeAssertions(Option<T> subject)
 		{
 			_subject = subject;
+		}
+
+		/// <summary>
+		/// Verifies that the subject is equal to an expected value.
+		/// </summary>
+		/// <param name="expected">The expected value.</param>
+		/// <param name="because">Additional information for if the assertion fails.</param>
+		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
+		/// <returns></returns>
+		public AndConstraint<ObjectAssertions> Be(Option<T> expected, string because = "", params object[] becauseArgs)
+		{
+			Execute.Assertion
+				.ForCondition(_subject.Equals(expected))
+				.BecauseOf(because, becauseArgs)
+				.FailWith(MakeFailReason);
+
+			return new AndConstraint<ObjectAssertions>(new ObjectAssertions(_subject));
+
+			FailReason MakeFailReason()
+			{
+				var builder = new StringBuilder();
+				builder.AppendLine($"Expected to be equal{{reason}}, but the two Option<{typeof(T)}> are not equal.");
+				builder.AppendLine("Subject: " + _subject);
+				builder.AppendLine("Expected: " + expected);
+
+				return new FailReason(builder.ToString());
+			}
 		}
 
 		/// <summary>
@@ -49,13 +79,15 @@ namespace Functional.Primitives.FluentAssertions
 				.ForCondition(!_subject.HasValue())
 				.BecauseOf(because, becauseArgs)
 				.FailWith(FailReasonForNotHaveValue);
-		}
 
-		private FailReason FailReasonForNotHaveValue()
-		{
-			return new FailReason("Expected to not have value{reason}, but received a value instead:"
-								  + Environment.NewLine
-			                      + _subject.ValueUnsafe());
+			FailReason FailReasonForNotHaveValue()
+			{
+				var builder = new StringBuilder();
+				builder.AppendLine("Expected to not have value{reason}, but received a value instead:");
+				builder.AppendLine(_subject.ValueUnsafe().ToString());
+
+				return new FailReason(builder.ToString());
+			}
 		}
 	}
 }
