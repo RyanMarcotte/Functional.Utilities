@@ -1,8 +1,10 @@
 # Functional.Primitives.FluentAssertions
 
-This library extends [FluentAssertions](https://fluentassertions.com/) to provide assertion clauses for types defined by the [`Functional.Primitives`](https://github.com/JohannesMoersch/Functional) NuGet package.
+This library extends [FluentAssertions](https://fluentassertions.com/) to provide assertion clauses for types defined by the [`Functional.Primitives`](https://github.com/JohannesMoersch/Functional) NuGet package: `Option<T>` and `Result<TSuccess, TFailure>`.
 
 ## `Option<T>`
+
+### `HaveValue`
 
 ``` csharp
 var option = Option.Some(1337);
@@ -16,12 +18,16 @@ option.Should().HaveValue().AndValue.Should().BeGreaterThanOrEqualTo(0);
 option.Should().HaveValue().AndValue.Should().BeGreaterThanOrEqualTo(0).And.LessThanOrEqualTo(2000);
 ```
 
+### `NotHaveValue`
+
 ``` csharp
 var option = Option.None<int>();
 
 // verify that the option does not have a value
 option.Should().NotHaveValue();
 ```
+
+### `Be`
 
 ``` csharp
 var option = Option.Some(1337);
@@ -32,6 +38,8 @@ option.Should().Be(otherOption);
 ```
 
 ## `Result<TSuccess, TFailure>`
+
+### `BeSuccessful`
 
 ``` csharp
 var result = Result.Success<int, string>(1337);
@@ -45,6 +53,8 @@ result.Should().BeSuccessful().AndValue.Should().BeGreaterThanOrEqualTo(0);
 result.Should().BeSuccessful().AndValue.Should().BeGreaterThanOrEqualTo(0).And.BeLessThanOrEqualTo(2000);
 ```
 
+### `BeFaulted`
+
 ``` csharp
 var result = Result.Failure<int, string>(string.Empty);
 
@@ -55,6 +65,8 @@ result.Should().BeFaulted();
 result.Should().BeFaulted().AndValue.Should().Be(string.Empty);
 result.Should().BeFaulted().AndValue.Should().BeNullOrWhiteSpace();
 ```
+
+### `Be`
 
 ``` csharp
 var result = Result.Success<int, string>(1337);
