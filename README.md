@@ -48,9 +48,9 @@ var result = Result.Success<int, string>(1337);
 result.Should().BeSuccessful();
 
 // verify that the result represents a successful value and that the contained value matches some condition(s)
-result.Should().BeSuccessful().AndValue.Should().Be(1337);
-result.Should().BeSuccessful().AndValue.Should().BeGreaterThanOrEqualTo(0);
-result.Should().BeSuccessful().AndValue.Should().BeGreaterThanOrEqualTo(0).And.BeLessThanOrEqualTo(2000);
+result.Should().BeSuccessful().AndSuccessValue.Should().Be(1337);
+result.Should().BeSuccessful().AndSuccessValue.Should().BeGreaterThanOrEqualTo(0);
+result.Should().BeSuccessful().AndSuccessValue.Should().BeGreaterThanOrEqualTo(0).And.BeLessThanOrEqualTo(2000);
 ```
 
 ### `BeFaulted`
@@ -62,8 +62,8 @@ var result = Result.Failure<int, string>(string.Empty);
 result.Should().BeFaulted();
 
 // verify that the result represents a faulted value and that the contained value matches some condition(s)
-result.Should().BeFaulted().AndValue.Should().Be(string.Empty);
-result.Should().BeFaulted().AndValue.Should().BeNullOrWhiteSpace();
+result.Should().BeFaulted().AndFailureValue.Should().Be(string.Empty);
+result.Should().BeFaulted().AndFailureValue.Should().BeNullOrWhiteSpace();
 ```
 
 ### `Be`
