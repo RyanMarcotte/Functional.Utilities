@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Functional.Unions.FluentAssertions</Authors>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentAssertions" Version="5.10.3" />
+    <PackageReference Include="Functional.Unions" Version="2.3.0" />
+    <PackageReference Include="Functional.Unions.Extensions" Version="2.3.0" />
+  </ItemGroup>
+
+</Project>
