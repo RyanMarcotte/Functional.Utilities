@@ -31,5 +31,35 @@ namespace Functional.Unions.FluentAssertions.Extensions
 			where TUnionType : struct
 			where TUnionDefinition : UnionDefinitionBase<TUnionType, TUnionDefinition, TOne, TTwo>
 			=> unionValue.Match(one => typeof(TOne), two => typeof(TTwo));
+
+		public static Type GetValueType<TUnionType, TUnionDefinition, TOne, TTwo, TThree>(this IUnionValue<UnionDefinitionBase<TUnionType, TUnionDefinition, TOne, TTwo, TThree>> unionValue)
+			where TUnionType : struct
+			where TUnionDefinition : UnionDefinitionBase<TUnionType, TUnionDefinition, TOne, TTwo, TThree>
+			=> unionValue.Match(one => typeof(TOne), two => typeof(TTwo), three => typeof(TThree));
+
+		public static Type GetValueType<TUnionType, TUnionDefinition, TOne, TTwo, TThree, TFour>(this IUnionValue<UnionDefinitionBase<TUnionType, TUnionDefinition, TOne, TTwo, TThree, TFour>> unionValue)
+			where TUnionType : struct
+			where TUnionDefinition : UnionDefinitionBase<TUnionType, TUnionDefinition, TOne, TTwo, TThree, TFour>
+			=> unionValue.Match(one => typeof(TOne), two => typeof(TTwo), three => typeof(TThree), four => typeof(TFour));
+
+		public static Type GetValueType<TUnionType, TUnionDefinition, TOne, TTwo, TThree, TFour, TFive>(this IUnionValue<UnionDefinitionBase<TUnionType, TUnionDefinition, TOne, TTwo, TThree, TFour, TFive>> unionValue)
+			where TUnionType : struct
+			where TUnionDefinition : UnionDefinitionBase<TUnionType, TUnionDefinition, TOne, TTwo, TThree, TFour, TFive>
+			=> unionValue.Match(one => typeof(TOne), two => typeof(TTwo), three => typeof(TThree), four => typeof(TFour), five => typeof(TFive));
+
+		public static Type GetValueType<TUnionType, TUnionDefinition, TOne, TTwo, TThree, TFour, TFive, TSix>(this IUnionValue<UnionDefinitionBase<TUnionType, TUnionDefinition, TOne, TTwo, TThree, TFour, TFive, TSix>> unionValue)
+			where TUnionType : struct
+			where TUnionDefinition : UnionDefinitionBase<TUnionType, TUnionDefinition, TOne, TTwo, TThree, TFour, TFive, TSix>
+			=> unionValue.Match(one => typeof(TOne), two => typeof(TTwo), three => typeof(TThree), four => typeof(TFour), five => typeof(TFive), six => typeof(TSix));
+
+		public static Type GetValueType<TUnionType, TUnionDefinition, TOne, TTwo, TThree, TFour, TFive, TSix, TSeven>(this IUnionValue<UnionDefinitionBase<TUnionType, TUnionDefinition, TOne, TTwo, TThree, TFour, TFive, TSix, TSeven>> unionValue)
+			where TUnionType : struct
+			where TUnionDefinition : UnionDefinitionBase<TUnionType, TUnionDefinition, TOne, TTwo, TThree, TFour, TFive, TSix, TSeven>
+			=> unionValue.Match(one => typeof(TOne), two => typeof(TTwo), three => typeof(TThree), four => typeof(TFour), five => typeof(TFive), six => typeof(TSix), seven => typeof(TSeven));
+
+		public static Type GetValueType<TUnionType, TUnionDefinition, TOne, TTwo, TThree, TFour, TFive, TSix, TSeven, TEight>(this IUnionValue<UnionDefinitionBase<TUnionType, TUnionDefinition, TOne, TTwo, TThree, TFour, TFive, TSix, TSeven, TEight>> unionValue)
+			where TUnionType : struct
+			where TUnionDefinition : UnionDefinitionBase<TUnionType, TUnionDefinition, TOne, TTwo, TThree, TFour, TFive, TSix, TSeven, TEight>
+			=> unionValue.Match(one => typeof(TOne), two => typeof(TTwo), three => typeof(TThree), four => typeof(TFour), five => typeof(TFive), six => typeof(TSix), seven => typeof(TSeven), eight => typeof(TEight));
 	}
 }
