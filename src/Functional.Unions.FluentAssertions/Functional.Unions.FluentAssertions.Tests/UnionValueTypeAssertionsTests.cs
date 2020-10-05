@@ -39,6 +39,21 @@ namespace Functional.Unions.FluentAssertions.Tests
 			public void When_EqualityIsFalse_Then_ShouldThrowException() => new Action(() =>
 				Union.FromTypes<ClassOne, ClassTwo>().Create(ModelTwo).Value().Should().Be(Union.FromTypes<ClassOne, ClassTwo>().Create(new ClassTwo()).Value())
 			).Should().Throw<Exception>();
+
+			[Fact]
+			public void When_TypeIsTwoAndExpectedTypeIsOne_Then_ShouldThrowException() => new Action(() =>
+				Union.FromTypes<ClassOne, ClassTwo>().Create(ModelTwo).Value().Should().BeOfTypeOne()
+			).Should().Throw<Exception>();
+
+			[Fact]
+			public void When_TypeIsOneAndExpectedTypeIsTwo_Then_ShouldNotThrowException() => new Action(() =>
+				Union.FromTypes<ClassOne, ClassTwo>().Create(ModelTwo).Value().Should().BeOfTypeTwo()
+			).Should().NotThrow();
+
+			[Fact]
+			public void When_TypeIsOneAndAdditionalAssertionSucceeds_Then_ShouldNotThrowException() => new Action(() =>
+				Union.FromTypes<ClassOne, ClassTwo>().Create(ModelTwo).Value().Should().BeOfTypeTwo().AndValue.Should().Be(ModelTwo)
+			).Should().NotThrow();
 		}
 
 		public class DefinitionWithTwoTypes
@@ -67,6 +82,21 @@ namespace Functional.Unions.FluentAssertions.Tests
 			public void When_EqualityIsFalse_Then_ShouldThrowException() => new Action(() =>
 				Union.FromDefinition<TwoDefinition>().Create(ModelTwo).Value().Should().Be(Union.FromDefinition<TwoDefinition>().Create(new ClassTwo()).Value())
 			).Should().Throw<Exception>();
+
+			[Fact]
+			public void When_TypeIsTwoAndExpectedTypeIsOne_Then_ShouldThrowException() => new Action(() =>
+				Union.FromDefinition<TwoDefinition>().Create(ModelTwo).Value().Should().BeOfTypeOne()
+			).Should().Throw<Exception>();
+
+			[Fact]
+			public void When_TypeIsTwoAndExpectedTypeIsNotValueType_Then_ShouldNotThrowException() => new Action(() =>
+				Union.FromDefinition<TwoDefinition>().Create(ModelTwo).Value().Should().BeOfTypeTwo()
+			).Should().NotThrow();
+
+			[Fact]
+			public void When_TypeIsTwoAndAdditionalAssertionSucceeds_Then_ShouldNotThrowException() => new Action(() =>
+				Union.FromDefinition<TwoDefinition>().Create(ModelTwo).Value().Should().BeOfTypeTwo().AndValue.Should().Be(ModelTwo)
+			).Should().NotThrow();
 		}
 	}
 }

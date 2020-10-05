@@ -19,7 +19,7 @@ namespace Functional.Unions.FluentAssertions
 		}
 
 		/// <summary>
-		///  Verifies that the subject is equal to an expected value.
+		/// Verifies that the subject is equal to an expected value.
 		/// </summary>
 		/// <param name="expected">The expected value.</param>
 		/// <param name="because">Additional information for if the assertion fails.</param>
@@ -36,7 +36,41 @@ namespace Functional.Unions.FluentAssertions
 		}
 
 		/// <summary>
-		///  Verifies that the subject's value is of a particular type in the Union
+		/// Verifies that the subject's value is of type <see cref="TOne"/>
+		/// </summary>
+		/// <param name="because">Additional information for if the assertion fails.</param>
+		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
+		/// <param name="ignore">Ignore this parameter as it should always be the default value.</param>
+		/// <returns></returns>
+		public AndUnionValueConstraint<TOne> BeOfTypeOne(string because = "", object[] becauseArgs = default, TTwo ignore = default)
+		{
+			Execute.Assertion
+			.BecauseOf(because, becauseArgs)
+			.ForCondition(_subject.One().HasValue())
+			.FailWith(() => GetFailReasonForBeOfType<TOne>(_subject.GetValueType(), _subject));
+
+			return new AndUnionValueConstraint<TOne>(_subject.One().ThrowOnNone(() => new InvalidOperationException("Must have value!")));
+		}
+
+		/// <summary>
+		/// Verifies that the subject's value is of type <see cref="TTwo"/>
+		/// </summary>
+		/// <param name="because">Additional information for if the assertion fails.</param>
+		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
+		/// <param name="ignore">Ignore this parameter as it should always be the default value.</param>
+		/// <returns></returns>
+		public AndUnionValueConstraint<TTwo> BeOfTypeTwo(string because = "", object[] becauseArgs = default, TTwo ignore = default)
+		{
+			Execute.Assertion
+			.BecauseOf(because, becauseArgs)
+			.ForCondition(_subject.Two().HasValue())
+			.FailWith(() => GetFailReasonForBeOfType<TTwo>(_subject.GetValueType(), _subject));
+
+			return new AndUnionValueConstraint<TTwo>(_subject.Two().ThrowOnNone(() => new InvalidOperationException("Must have value!")));
+		}
+
+		/// <summary>
+		/// Verifies that the subject's value is of a particular type in the Union
 		/// </summary>
 		/// <typeparam name="TExpected">The type in the Union that the value is expected to be of.</typeparam>
 		/// <param name="because">Additional information for if the assertion fails.</param>
@@ -48,7 +82,7 @@ namespace Functional.Unions.FluentAssertions
 			=> BeOfUnionType(() => _subject.One().ThrowOnNone(() => throw new InvalidOperationException("Must have value!")), because, becauseArgs);
 
 		/// <summary>
-		///  Verifies that the subject's value is of a particular type in the Union
+		/// Verifies that the subject's value is of a particular type in the Union
 		/// </summary>
 		/// <typeparam name="TExpected">The type in the Union that the value is expected to be of.</typeparam>
 		/// <param name="because">Additional information for if the assertion fails.</param>
