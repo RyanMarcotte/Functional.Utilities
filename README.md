@@ -37,6 +37,41 @@ var otherOption = Option.Some(1337);
 option.Should().Be(otherOption);
 ```
 
+## `Task<Option<T>>`
+
+### `HaveValue`
+
+``` csharp
+var optionTask = Task.FromResult(Option.Some(1337));
+
+// await the task and verify that the resulting option contains a value
+await optionTask.Should().HaveValue();
+
+// await the task and verify that the resulting option contains a value and that the contained value matches some condition(s)
+await optionTask.Should().HaveValue().AndValue(v => v.Should().Be(1337));
+await optionTask.Should().HaveValue().AndValue(v => v.Should().BeGreaterThanOrEqualTo(0));
+await optionTask.Should().HaveValue().AndValue(v => v.Should().BeGreaterThanOrEqualTo(0).And.LessThanOrEqualTo(2000));
+```
+
+### `NotHaveValue`
+
+``` csharp
+var optionTask = Task.FromResult(Option.None<int>());
+
+// await the task and verify that the resulting option does not have a value
+await optionTask.Should().NotHaveValue();
+```
+
+### `Be`
+
+``` csharp
+var optionTask = Task.FromResult(Option.Some(1337));
+var otherOption = Task.FromResult(Option.Some(1337));
+
+// await the task and verify that the resulting option is equal to another option
+await optionTask.Should().Be(otherOption);
+```
+
 ## `Result<TSuccess, TFailure>`
 
 ### `BeSuccessful`
@@ -74,4 +109,43 @@ var otherResult = Result.Success<int, string>(1337);
 
 // verify that the result is equal to another result
 result.Should().Be(otherResult);
+```
+
+## `Task<Result<TSuccess, TFailure>>`
+
+### `BeSuccessful`
+
+``` csharp
+var resultTask = Task.FromResult(Result.Success<int, string>(1337));
+
+// await the Task and verify that the result represents a successful value
+await resultTask.Should().BeSuccessful();
+
+// await the Task and verify that the result represents a successful value and that the contained value matches some condition(s)
+await resultTask.Should().BeSuccessful().AndSuccessValue(s => s.Should().Be(1337));
+await resultTask.Should().BeSuccessful().AndSuccessValue(s => s.Should().BeGreaterThanOrEqualTo(0));
+await resultTask.Should().BeSuccessful().AndSuccessValue(s => s.Should().BeGreaterThanOrEqualTo(0).And.BeLessThanOrEqualTo(2000));
+```
+
+### `BeFaulted`
+
+``` csharp
+var resultTask = Task.FromResult(Result.Failure<int, string>(string.Empty));
+
+// await the Task and verify that the result represents a faulted value
+await resultTask.Should().BeFaulted();
+
+// await the Task and verify that the result represents a faulted value and that the contained value matches some condition(s)
+await resultTask.Should().BeFaulted().AndFailureValue(f => f.Should().Be(string.Empty));
+await resultTask.Should().BeFaulted().AndFailureValue(f => f.Should().BeNullOrWhiteSpace());
+```
+
+### `Be`
+
+``` csharp
+var resultTask = Task.FromResult(Result.Success<int, string>(1337));
+var otherResult = Result.Success<int, string>(1337);
+
+// await the Task and verify that the result is equal to another result
+await resultTask.Should().Be(otherResult);
 ```

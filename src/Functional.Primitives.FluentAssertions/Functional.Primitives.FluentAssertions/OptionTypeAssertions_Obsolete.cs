@@ -21,7 +21,7 @@ namespace Functional.Primitives.FluentAssertions
 			if (additionalAssertionAction == null) throw new ArgumentNullException(nameof(additionalAssertionAction));
 
 			HaveValue(because, becauseArgs);
-			additionalAssertionAction(_subject.GetValue());
+			additionalAssertionAction(_subject.ValueUnsafe());
 		}
 
 		/// <summary>
@@ -48,7 +48,7 @@ namespace Functional.Primitives.FluentAssertions
 		{
 			HaveValue(because, becauseArgs);
 
-			var value = _subject.GetValue();
+			var value = _subject.ValueUnsafe();
 			value.Should().BeEquivalentTo(
 				expectedValue,
 				config,
