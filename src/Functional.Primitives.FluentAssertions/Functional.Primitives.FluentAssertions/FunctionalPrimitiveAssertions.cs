@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
+using Functional.Primitives.FluentAssertions;
 
-namespace Functional.Primitives.FluentAssertions
+// ReSharper disable once CheckNamespace (make assertion methods easy to discover)
+namespace Functional
 {
 	/// <summary>
 	/// Defines additional fluent assertion gateways for types defined in Functional.Primitives namespace.
