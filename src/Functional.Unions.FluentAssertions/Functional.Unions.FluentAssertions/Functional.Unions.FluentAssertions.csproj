@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Authors>Ryan Marcotte + contributors</Authors>
-    <Version>3.0.0</Version>
+    <Authors>Justin Cooney + contributors</Authors>
+    <Version>1.0.0</Version>
     <Description>This package provides extensions to FluentAssertions for the Functional.Unions package.</Description>
     <Copyright>2020</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
