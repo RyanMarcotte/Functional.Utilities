@@ -1,4 +1,6 @@
-﻿namespace Functional.Unions.FluentAssertions
+﻿using Functional.Unions.FluentAssertions;
+
+namespace Functional
 {
 	/// <summary>
 	/// Defines additional fluent assertion gateways for types defined in Functional.Unions namespace.

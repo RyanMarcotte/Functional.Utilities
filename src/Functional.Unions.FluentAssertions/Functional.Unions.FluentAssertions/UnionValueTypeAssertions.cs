@@ -45,7 +45,7 @@ namespace Functional.Unions.FluentAssertions
 		/// <returns></returns>
 		public AndUnionValueConstraint<TOne> BeOfUnionType<TExpected>(string because = "", object[] becauseArgs = default, TOne ignore = default)
 			where TExpected : TOne
-			=> BeOfUnionType(() => _subject.One().ValueUnsafe(), because, becauseArgs);
+			=> BeOfUnionType(() => _subject.One().ThrowOnNone(() => throw new InvalidOperationException("Must have value!")), because, becauseArgs);
 
 		/// <summary>
 		///  Verifies that the subject's value is of a particular type in the Union
@@ -57,7 +57,7 @@ namespace Functional.Unions.FluentAssertions
 		/// <returns></returns>
 		public AndUnionValueConstraint<TTwo> BeOfUnionType<TExpected>(string because = "", object[] becauseArgs = default, TTwo ignore = default)
 			where TExpected : TTwo
-			=> BeOfUnionType(() => _subject.Two().ValueUnsafe(), because, becauseArgs);
+			=> BeOfUnionType(() => _subject.Two().ThrowOnNone(() => throw new InvalidOperationException("Must have value!")), because, becauseArgs);
 
 		private AndUnionValueConstraint<TExpected> BeOfUnionType<TExpected>(Func<TExpected> getValue, string because = "", params object[] becauseArgs)
 		{
