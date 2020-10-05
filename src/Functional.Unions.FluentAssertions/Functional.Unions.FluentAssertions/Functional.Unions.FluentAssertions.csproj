@@ -2,7 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Authors>Functional.Unions.FluentAssertions</Authors>
+    <Authors>Ryan Marcotte + contributors</Authors>
+    <Version>2.1.0</Version>
+    <Description>This package provides extensions to FluentAssertions for the Functional.Unions package.</Description>
+    <Copyright>2020</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/RyanMarcotte/Functional.FluentAssertions</PackageProjectUrl>
+    <PackageTags>functional. MSTest, MSTest2, NUnit, xUnit2, xUnit, TDD, Fluent, netcore, netstandard</PackageTags>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
