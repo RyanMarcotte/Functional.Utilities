@@ -48,7 +48,7 @@ namespace Functional.Primitives.FluentAssertions
 			=> (await source).BeFaulted(because, becauseArgs);
 
 		/// <summary>
-		/// Invokes the provided action on the succesful value of the result.
+		/// Invokes the provided action on the successful value of the result.
 		/// </summary>
 		/// <typeparam name="TSuccess">The success value type.</typeparam>
 		/// <param name="source">The <see cref="ResultTypeAssertions{TSuccess, TFailure}"/> task with the success value to perform additional assertion actions on.</param>

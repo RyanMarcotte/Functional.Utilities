@@ -41,7 +41,7 @@ namespace Functional.Primitives.FluentAssertions
 		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
 		/// <returns></returns>
 		public static async Task NotHaveValue<T>(this Task<OptionTypeAssertions<T>> source, string because = "", params object[] becauseArgs)
-			=> (await source).NotHaveValue();
+			=> (await source).NotHaveValue(because, becauseArgs);
 
 		/// <summary>
 		/// Invokes the provided action on the value of the option.

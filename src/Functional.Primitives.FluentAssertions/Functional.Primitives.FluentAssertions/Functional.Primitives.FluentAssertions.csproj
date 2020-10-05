@@ -4,15 +4,15 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Description>This package provides extensions to FluentAssertions for the Functional.Primitives package.</Description>
-    <Authors>Ryan Marcotte</Authors>
+    <Authors>Ryan Marcotte + contributors</Authors>
     <Company />
     <Copyright>2019</Copyright>
     <RepositoryUrl></RepositoryUrl>
     <RepositoryType></RepositoryType>
     <PackageTags>functional, MSTest, MSTest2, NUnit, xUnit2, xUnit, TDD, Fluent, netcore, netstandard</PackageTags>
     <PackageProjectUrl>https://github.com/RyanMarcotte/Functional.Utilities</PackageProjectUrl>
-    <Version>2.1.0</Version>
-    <PackageReleaseNotes>Add equality check assertions (.Should().Be(...)) for Option&lt;T&gt; and Result&lt;TSuccess, TFailure&gt;</PackageReleaseNotes>
+    <Version>2.2.0</Version>
+    <PackageReleaseNotes>Add extension methods for asserting Task&lt;Option&lt;T&gt;&gt; and Task&lt;Result&lt;TSuccess, TFailure&gt;&gt;</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
