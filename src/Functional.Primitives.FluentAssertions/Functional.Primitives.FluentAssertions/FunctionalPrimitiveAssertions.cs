@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Functional.Primitives.FluentAssertions;
 
-// ReSharper disable once CheckNamespace (make assertion methods easy to discover, avoid method+namespace collision with FluentAssertion's Should)
+// ReSharper disable once CheckNamespace (make assertion methods easy to discover)
 namespace Functional
 {
 	/// <summary>
