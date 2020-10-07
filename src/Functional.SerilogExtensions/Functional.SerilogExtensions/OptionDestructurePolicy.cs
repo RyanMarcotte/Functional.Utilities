@@ -6,6 +6,9 @@ using Serilog.Events;
 
 namespace Functional.SerilogExtensions
 {
+	/// <summary>
+	/// Determine how, when destructuring, a supplied <see cref="Option{TValue}"/> is represented as a complex log event property.
+	/// </summary>
 	public class OptionDestructurePolicy : IDestructuringPolicy
 	{
 		private static readonly ConcurrentDictionary<Type, MethodInfo> _destructureOptionMethodLookup = new ConcurrentDictionary<Type, MethodInfo>();
@@ -13,11 +16,22 @@ namespace Functional.SerilogExtensions
 
 		private readonly OptionDestructurePolicyConfiguration _configuration;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="OptionDestructurePolicy"/> class.
+		/// </summary>
+		/// <param name="configuration">The configuration.</param>
 		public OptionDestructurePolicy(OptionDestructurePolicyConfiguration configuration)
 		{
 			_configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
 		}
 
+		/// <summary>
+		/// If supported, destructure the provided value.
+		/// </summary>
+		/// <param name="value">The value to destructure.</param>
+		/// <param name="propertyValueFactory">Recursively apply policies to destructure additional values.</param>
+		/// <param name="result">The destructured value, or null.</param>
+		/// <returns>True if the value could be destructured under this policy.</returns>
 		public bool TryDestructure(object value, ILogEventPropertyValueFactory propertyValueFactory, out LogEventPropertyValue result)
 		{
 			result = null;
