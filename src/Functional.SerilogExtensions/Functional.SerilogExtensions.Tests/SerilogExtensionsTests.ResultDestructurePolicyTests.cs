@@ -1,6 +1,7 @@
 using System.IO;
 using System.Linq;
 using FluentAssertions;
+using Functional.SerilogExtensions.Tests._Infrastructure;
 using Serilog;
 using Serilog.Sinks.TestCorrelator;
 using Xunit;
@@ -11,7 +12,7 @@ namespace Functional.SerilogExtensions.Tests
 	{
 		public class ResultDestructurePolicyTests
 		{
-			[Fact]
+			/*[Fact]
 			public void WriteResultOfPrimitiveType()
 			{
 				const int AMOUNT = 1337;
@@ -61,7 +62,7 @@ namespace Functional.SerilogExtensions.Tests
 					writer.Flush();
 					writer.ToString().Should().Contain(AMOUNT.ToString());
 				}
-			}
+			}*/
 		}
 	}
 }

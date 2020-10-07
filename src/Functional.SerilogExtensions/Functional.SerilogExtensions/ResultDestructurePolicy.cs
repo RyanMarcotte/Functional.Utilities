@@ -4,7 +4,7 @@ using Serilog.Events;
 
 namespace Functional.SerilogExtensions
 {
-	public class OptionDestructurePolicy : IDestructuringPolicy
+	public class ResultDestructurePolicy : IDestructuringPolicy
 	{
 		public bool TryDestructure(object value, ILogEventPropertyValueFactory propertyValueFactory, out LogEventPropertyValue result)
 		{

@@ -1,10 +1,26 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Reflection;
+using Xunit;
+using Xunit.Sdk;
 
 namespace Functional.SerilogExtensions.Tests
 {
 	public partial class SerilogExtensionsTests
 	{
+		private class SingleParameterArrangement : DataAttribute
+		{
+			private readonly InlineDataAttribute _inlineData;
+
+			public SingleParameterArrangement(object value)
+			{
+				_inlineData = new InlineDataAttribute(value);
+			}
+
+			public override IEnumerable<object[]> GetData(MethodInfo testMethod) => _inlineData.GetData(testMethod);
+		}
+
 		[DebuggerDisplay("${" + nameof(AmountInDollars) + "}")]
 		private class Money : IEquatable<Money>
 		{
@@ -39,9 +55,19 @@ namespace Functional.SerilogExtensions.Tests
 			public static bool operator !=(Money left, Money right) => !Equals(left, right);
 		}
 
-		private class ClassWithOption
+		private class ClassWithSimpleOption
 		{
-			public ClassWithOption(Option<Money> value)
+			public ClassWithSimpleOption(Option<int> value)
+			{
+				Value = value;
+			}
+
+			public Option<int> Value { get; }
+		}
+
+		private class ClassWithComplexOption
+		{
+			public ClassWithComplexOption(Option<Money> value)
 			{
 				Value = value;
 			}
