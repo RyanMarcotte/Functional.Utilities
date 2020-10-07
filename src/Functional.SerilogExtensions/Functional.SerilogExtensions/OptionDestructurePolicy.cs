@@ -45,7 +45,7 @@ namespace Functional.SerilogExtensions
 		{
 			return option.Match(
 				value => propertyValueFactory.CreatePropertyValue(value, true),
-				() => propertyValueFactory.CreatePropertyValue(noValueFactory.Invoke()));
+				() => propertyValueFactory.CreatePropertyValue(noValueFactory.Invoke(), true));
 		}
 	}
 }

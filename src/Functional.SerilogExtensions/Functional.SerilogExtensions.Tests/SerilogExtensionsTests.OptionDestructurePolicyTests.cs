@@ -133,6 +133,30 @@ namespace Functional.SerilogExtensions.Tests
 			}
 
 			#endregion
+
+			#region Models
+
+			private class ClassWithSimpleOption
+			{
+				public ClassWithSimpleOption(Option<int> value)
+				{
+					Value = value;
+				}
+
+				public Option<int> Value { get; }
+			}
+
+			private class ClassWithComplexOption
+			{
+				public ClassWithComplexOption(Option<Money> value)
+				{
+					Value = value;
+				}
+
+				public Option<Money> Value { get; }
+			}
+
+			#endregion
 		}
 	}
 }

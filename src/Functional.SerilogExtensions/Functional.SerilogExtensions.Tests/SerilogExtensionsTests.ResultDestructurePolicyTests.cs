@@ -132,6 +132,30 @@ namespace Functional.SerilogExtensions.Tests
 			}
 
 			#endregion
+
+			#region Models
+
+			private class ClassWithSimpleResult
+			{
+				public ClassWithSimpleResult(Result<int, string> value)
+				{
+					Value = value;
+				}
+
+				public Result<int, string> Value { get; }
+			}
+
+			private class ClassWithComplexResult
+			{
+				public ClassWithComplexResult(Result<Money, Error> value)
+				{
+					Value = value;
+				}
+
+				public Result<Money, Error> Value { get; }
+			}
+
+			#endregion
 		}
 	}
 }

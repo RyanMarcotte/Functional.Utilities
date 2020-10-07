@@ -16,6 +16,6 @@ This library extends [FluentAssertions](https://fluentassertions.com/) to provid
 
 ## `Functional.SerilogExtensions`
 
-This library extends [`Serilog`](https://github.com/serilog/serilog) to make logging `Option<T>` and `Result<TSuccess, TFailure>` data easier.
+This library extends [`Serilog`](https://github.com/serilog/serilog) to make logging `Option<T>` and `Result<TSuccess, TFailure>` data payloads easier.
 
 [View the ReadMe](src/Functional.SerilogExtensions/README.md)
