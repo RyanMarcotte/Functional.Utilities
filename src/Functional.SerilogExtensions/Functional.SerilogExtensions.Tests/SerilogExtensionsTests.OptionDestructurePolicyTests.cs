@@ -21,9 +21,11 @@ namespace Functional.SerilogExtensions.Tests
 
 			public OptionDestructurePolicyTests()
 			{
+				var configuration = new OptionDestructurePolicyConfiguration(value => value, () => NO_VALUE);
+
 				_logger = new LoggerConfiguration()
 					.WriteTo.Sink(new TestCorrelatorSink())
-					.Destructure.With(new OptionDestructurePolicy(() => NO_VALUE))
+					.Destructure.With(new OptionDestructurePolicy(configuration))
 					.CreateLogger();
 
 				_context = TestCorrelator.CreateContext();

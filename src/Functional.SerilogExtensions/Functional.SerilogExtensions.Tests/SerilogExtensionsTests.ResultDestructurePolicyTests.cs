@@ -20,9 +20,13 @@ namespace Functional.SerilogExtensions.Tests
 
 			public ResultDestructurePolicyTests()
 			{
+				var configuration = new ResultDestructurePolicyConfiguration(
+					success => new { IsSuccessful = true, Data = success },
+					failure => new { IsSuccessful = false, Data = failure });
+
 				_logger = new LoggerConfiguration()
 					.WriteTo.Sink(new TestCorrelatorSink())
-					.Destructure.With(new ResultDestructurePolicy())
+					.Destructure.With(new ResultDestructurePolicy(configuration))
 					.CreateLogger();
 
 				_context = TestCorrelator.CreateContext();
@@ -41,7 +45,7 @@ namespace Functional.SerilogExtensions.Tests
 
 				TestCorrelator.GetLogEventsFromContextGuid(_context.Guid).ToArray()
 					.Should()
-					.ContainSingleWithProperty($"{PROPERTY_KEY}", x => x.Should().Contain(SUCCESS_VALUE.ToString()));
+					.ContainSingleWithProperty($"{PROPERTY_KEY}", x => x.Should().ContainAll("IsSuccessful: True", SUCCESS_VALUE.ToString()));
 			}
 
 			[Theory]
@@ -57,7 +61,7 @@ namespace Functional.SerilogExtensions.Tests
 
 				TestCorrelator.GetLogEventsFromContextGuid(_context.Guid).ToArray()
 					.Should()
-					.ContainSingleWithProperty($"{PROPERTY_KEY}", x => x.Should().Contain(FAILURE_VALUE));
+					.ContainSingleWithProperty($"{PROPERTY_KEY}", x => x.Should().ContainAll("IsSuccessful: False", FAILURE_VALUE));
 			}
 
 			public void Dispose()

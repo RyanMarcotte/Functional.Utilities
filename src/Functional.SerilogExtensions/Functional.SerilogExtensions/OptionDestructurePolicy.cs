@@ -11,17 +11,11 @@ namespace Functional.SerilogExtensions
 		private static readonly ConcurrentDictionary<Type, MethodInfo> _destructureOptionMethodLookup = new ConcurrentDictionary<Type, MethodInfo>();
 		private static readonly MethodInfo _destructureOptionMethodInfo = typeof(OptionDestructurePolicy).GetMethod(nameof(TryDestructure_Impl), BindingFlags.Static | BindingFlags.NonPublic);
 
-		private readonly Func<object> _noValueFactory;
+		private readonly OptionDestructurePolicyConfiguration _configuration;
 
-		public OptionDestructurePolicy()
-			: this(() => null)
+		public OptionDestructurePolicy(OptionDestructurePolicyConfiguration configuration)
 		{
-
-		}
-
-		public OptionDestructurePolicy(Func<object> noValueFactory)
-		{
-			_noValueFactory = noValueFactory ?? throw new ArgumentNullException(nameof(noValueFactory));
+			_configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
 		}
 
 		public bool TryDestructure(object value, ILogEventPropertyValueFactory propertyValueFactory, out LogEventPropertyValue result)
@@ -36,16 +30,16 @@ namespace Functional.SerilogExtensions
 			
 			result = (LogEventPropertyValue)_destructureOptionMethodLookup
 				.GetOrAdd(optionType, x => _destructureOptionMethodInfo.MakeGenericMethod(optionType))
-				.Invoke(null, new[] { value, propertyValueFactory, _noValueFactory });
+				.Invoke(null, new[] { value, propertyValueFactory, _configuration });
 
 			return true;
 		}
 
-		private static LogEventPropertyValue TryDestructure_Impl<T>(Option<T> option, ILogEventPropertyValueFactory propertyValueFactory, Func<object> noValueFactory)
+		private static LogEventPropertyValue TryDestructure_Impl<T>(Option<T> option, ILogEventPropertyValueFactory propertyValueFactory, OptionDestructurePolicyConfiguration configuration)
 		{
 			return option.Match(
-				value => propertyValueFactory.CreatePropertyValue(value, true),
-				() => propertyValueFactory.CreatePropertyValue(noValueFactory.Invoke(), true));
+				value => propertyValueFactory.CreatePropertyValue(configuration.ValueFactory.Invoke(value), true),
+				() => propertyValueFactory.CreatePropertyValue(configuration.NoValueFactory.Invoke(), true));
 		}
 	}
 }

@@ -22,9 +22,14 @@ namespace Functional.SerilogExtensions.Tests
 
 			public OptionAndResultDestructurePolicyTests()
 			{
+				var optionConfiguration = new OptionDestructurePolicyConfiguration(value => value, () => NO_VALUE);
+				var resultConfiguration = new ResultDestructurePolicyConfiguration(
+					success => new { IsSuccessful = true, Data = success },
+					failure => new { IsSuccessful = false, Data = failure });
+
 				_logger = new LoggerConfiguration()
 					.WriteTo.Sink(new TestCorrelatorSink())
-					.Destructure.FunctionalOptionAndResultTypes(() => NO_VALUE)
+					.Destructure.FunctionalOptionAndResultTypes(optionConfiguration, resultConfiguration)
 					.CreateLogger();
 
 				_context = TestCorrelator.CreateContext();
@@ -43,7 +48,7 @@ namespace Functional.SerilogExtensions.Tests
 
 				TestCorrelator.GetLogEventsFromContextGuid(_context.Guid).ToArray()
 					.Should()
-					.ContainSingleWithProperty($"{PROPERTY_KEY}", x => x.Should().Contain(SUCCESS_VALUE.ToString()));
+					.ContainSingleWithProperty($"{PROPERTY_KEY}", x => x.Should().ContainAll("IsSuccessful: True", SUCCESS_VALUE.ToString()));
 			}
 
 			[Theory]
@@ -59,7 +64,7 @@ namespace Functional.SerilogExtensions.Tests
 
 				TestCorrelator.GetLogEventsFromContextGuid(_context.Guid).ToArray()
 					.Should()
-					.ContainSingleWithProperty($"{PROPERTY_KEY}", x => x.Should().Contain(NO_VALUE.ToString()));
+					.ContainSingleWithProperty($"{PROPERTY_KEY}", x => x.Should().ContainAll("IsSuccessful: True", NO_VALUE));
 			}
 
 			public void Dispose()

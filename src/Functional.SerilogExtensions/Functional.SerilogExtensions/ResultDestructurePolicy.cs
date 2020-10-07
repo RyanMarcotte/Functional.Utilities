@@ -11,19 +11,11 @@ namespace Functional.SerilogExtensions
 		private static readonly ConcurrentDictionary<(Type, Type), MethodInfo> _destructureResultMethodLookup = new ConcurrentDictionary<(Type, Type), MethodInfo>();
 		private static readonly MethodInfo _destructureResultMethodInfo = typeof(ResultDestructurePolicy).GetMethod(nameof(TryDestructure_Impl), BindingFlags.Static | BindingFlags.NonPublic);
 
-		private readonly Func<object, object> _successValueFactory;
-		private readonly Func<object, object> _failureValueFactory;
+		private readonly ResultDestructurePolicyConfiguration _configuration;
 
-		public ResultDestructurePolicy()
-			: this(success => new { IsSuccessful = true, Data = success }, failure => new { IsSuccessful = false, Data = failure })
+		public ResultDestructurePolicy(ResultDestructurePolicyConfiguration configuration)
 		{
-
-		}
-
-		public ResultDestructurePolicy(Func<object, object> successValueFactory, Func<object, object> failureValueFactory)
-		{
-			_successValueFactory = successValueFactory ?? throw new ArgumentNullException(nameof(successValueFactory));
-			_failureValueFactory = failureValueFactory ?? throw new ArgumentNullException(nameof(failureValueFactory));
+			_configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
 		}
 
 		public bool TryDestructure(object value, ILogEventPropertyValueFactory propertyValueFactory, out LogEventPropertyValue result)
@@ -39,20 +31,16 @@ namespace Functional.SerilogExtensions
 
 			result = (LogEventPropertyValue)_destructureResultMethodLookup
 				.GetOrAdd((successType, failureType), tuple => _destructureResultMethodInfo.MakeGenericMethod(tuple.Item1, tuple.Item2))
-				.Invoke(null, new[] { value, propertyValueFactory, _successValueFactory, _failureValueFactory });
+				.Invoke(null, new[] { value, propertyValueFactory, _configuration });
 
 			return true;
 		}
 
-		private static LogEventPropertyValue TryDestructure_Impl<TSuccess, TFailure>(
-			Result<TSuccess, TFailure> result,
-			ILogEventPropertyValueFactory propertyValueFactory,
-			Func<object, object> successValueFactory,
-			Func<object, object> failureValueFactory)
+		private static LogEventPropertyValue TryDestructure_Impl<TSuccess, TFailure>(Result<TSuccess, TFailure> result, ILogEventPropertyValueFactory propertyValueFactory, ResultDestructurePolicyConfiguration configuration)
 		{
 			return result.Match(
-				success => propertyValueFactory.CreatePropertyValue(successValueFactory.Invoke(success), true),
-				failure => propertyValueFactory.CreatePropertyValue(failureValueFactory.Invoke(failure), true));
+				success => propertyValueFactory.CreatePropertyValue(configuration.SuccessValueFactory.Invoke(success), true),
+				failure => propertyValueFactory.CreatePropertyValue(configuration.FailureValueFactory.Invoke(failure), true));
 	}
 	}
 }

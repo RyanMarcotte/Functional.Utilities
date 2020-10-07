@@ -15,6 +15,15 @@ namespace Functional.SerilogExtensions.Tests._Infrastructure
 			_subject = subject ?? throw new ArgumentNullException(nameof(subject));
 		}
 
+		public void ContainsSingleWithProperty(string key)
+		{
+			_subject.AsEnumerable().Should().ContainSingle();
+
+			// ReSharper disable once PossibleNullReferenceException (constructor disallows null)
+			foreach (var logEvent in _subject)
+				logEvent.Properties.TryGetValue(key, out _).Should().BeTrue($"expected property with key '{key}'");
+		}
+
 		public void ContainSingleWithProperty(string key, Action<string> action)
 		{
 			_subject.AsEnumerable().Should().ContainSingle();
@@ -22,14 +31,15 @@ namespace Functional.SerilogExtensions.Tests._Infrastructure
 			// ReSharper disable once PossibleNullReferenceException (constructor disallows null)
 			foreach (var logEvent in _subject)
 			{
-				using var writer = new StringWriter();
 				logEvent.Properties.TryGetValue(key, out var propertyValue).Should().BeTrue($"expected property with key '{key}'");
-				
-				// ReSharper disable once PossibleNullReferenceException (exception is thrown on previous line if null)
-				propertyValue.Render(writer);
 
-				writer.Flush();
-				action.Invoke(writer.ToString());
+				using (var writer = new StringWriter())
+				{
+					// ReSharper disable once PossibleNullReferenceException
+					propertyValue.Render(writer);
+					writer.Flush();
+					action.Invoke(writer.ToString());
+				}
 			}
 		}
 	}

@@ -7,9 +7,9 @@ namespace Serilog.Configuration
 	public static class LoggerDestructuringConfigurationExtensions
 	{
 		public static LoggerConfiguration FunctionalOptionAndResultTypes(this LoggerDestructuringConfiguration source)
-			=> source.With(new OptionDestructurePolicy(), new ResultDestructurePolicy());
+			=> source.FunctionalOptionAndResultTypes(new OptionDestructurePolicyConfiguration(), new ResultDestructurePolicyConfiguration());
 
-		public static LoggerConfiguration FunctionalOptionAndResultTypes(this LoggerDestructuringConfiguration source, Func<object> noValueFactory, Func<object, object> successValueFactory, Func<object, object> failureValueFactory)
-			=> source.With(new OptionDestructurePolicy(noValueFactory), new ResultDestructurePolicy(successValueFactory, failureValueFactory));
+		public static LoggerConfiguration FunctionalOptionAndResultTypes(this LoggerDestructuringConfiguration source, OptionDestructurePolicyConfiguration optionConfiguration, ResultDestructurePolicyConfiguration resultConfiguration)
+			=> source.With(new OptionDestructurePolicy(optionConfiguration), new ResultDestructurePolicy(resultConfiguration));
 	}
 }
