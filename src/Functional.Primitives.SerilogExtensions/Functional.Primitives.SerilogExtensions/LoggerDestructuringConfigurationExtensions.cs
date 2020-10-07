@@ -1,6 +1,6 @@
 ﻿using System;
 using Functional;
-using Functional.SerilogExtensions;
+using Functional.Primitives.SerilogExtensions;
 
 // ReSharper disable once CheckNamespace (make the extensions easy to discover)
 namespace Serilog.Configuration

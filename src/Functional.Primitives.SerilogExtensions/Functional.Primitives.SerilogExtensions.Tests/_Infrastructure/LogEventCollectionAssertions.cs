@@ -4,7 +4,7 @@ using System.Linq;
 using FluentAssertions;
 using Serilog.Events;
 
-namespace Functional.SerilogExtensions.Tests._Infrastructure
+namespace Functional.Primitives.SerilogExtensions.Tests._Infrastructure
 {
 	internal class LogEventCollectionAssertions
 	{

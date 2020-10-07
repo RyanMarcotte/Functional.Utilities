@@ -4,7 +4,7 @@ using System.Reflection;
 using Serilog.Core;
 using Serilog.Events;
 
-namespace Functional.SerilogExtensions
+namespace Functional.Primitives.SerilogExtensions
 {
 	/// <summary>
 	/// Determine how, when destructuring, a supplied <see cref="Result{TSuccess,TFailure}"/> is represented as a complex log event property.

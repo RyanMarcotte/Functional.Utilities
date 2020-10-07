@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Serilog.Events;
 
-namespace Functional.SerilogExtensions.Tests._Infrastructure
+namespace Functional.Primitives.SerilogExtensions.Tests._Infrastructure
 {
 	internal static class LogEventCollectionExtensions
 	{

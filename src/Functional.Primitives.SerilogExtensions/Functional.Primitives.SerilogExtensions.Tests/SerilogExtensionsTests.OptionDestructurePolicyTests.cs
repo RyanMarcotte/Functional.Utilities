@@ -1,12 +1,12 @@
 using System;
 using System.Linq;
 using FluentAssertions;
-using Functional.SerilogExtensions.Tests._Infrastructure;
+using Functional.Primitives.SerilogExtensions.Tests._Infrastructure;
 using Serilog;
 using Serilog.Sinks.TestCorrelator;
 using Xunit;
 
-namespace Functional.SerilogExtensions.Tests
+namespace Functional.Primitives.SerilogExtensions.Tests
 {
 	public partial class SerilogExtensionsTests
 	{

@@ -5,7 +5,7 @@ using System.Reflection;
 using Xunit;
 using Xunit.Sdk;
 
-namespace Functional.SerilogExtensions.Tests
+namespace Functional.Primitives.SerilogExtensions.Tests
 {
 	public partial class SerilogExtensionsTests
 	{

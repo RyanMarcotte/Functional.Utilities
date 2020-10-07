@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Functional.SerilogExtensions
+namespace Functional.Primitives.SerilogExtensions
 {
 	/// <summary>
 	/// Encapsulates configuration options for writing <see cref="Option{TValue}"/> log event properties.
