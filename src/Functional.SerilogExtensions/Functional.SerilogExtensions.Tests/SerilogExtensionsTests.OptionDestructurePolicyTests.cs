@@ -1,14 +1,10 @@
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Reflection;
 using FluentAssertions;
 using Functional.SerilogExtensions.Tests._Infrastructure;
 using Serilog;
 using Serilog.Sinks.TestCorrelator;
 using Xunit;
-using Xunit.Sdk;
 
 namespace Functional.SerilogExtensions.Tests
 {
@@ -18,6 +14,7 @@ namespace Functional.SerilogExtensions.Tests
 		public class OptionDestructurePolicyTests : IDisposable
 		{
 			private const int VALUE = 1337;
+			private const string NO_VALUE = "NONE";
 
 			private readonly ILogger _logger;
 			private readonly ITestCorrelatorContext _context;
@@ -26,7 +23,7 @@ namespace Functional.SerilogExtensions.Tests
 			{
 				_logger = new LoggerConfiguration()
 					.WriteTo.Sink(new TestCorrelatorSink())
-					//.Destructure.With(new OptionDestructurePolicy())
+					.Destructure.With(new OptionDestructurePolicy(() => NO_VALUE))
 					.CreateLogger();
 
 				_context = TestCorrelator.CreateContext();
@@ -41,7 +38,7 @@ namespace Functional.SerilogExtensions.Tests
 			{
 				const string PROPERTY_KEY = "PAYLOAD";
 				
-				_logger.Information($"{{{PROPERTY_KEY}}}", propertyValue);
+				_logger.Information($"{{@{PROPERTY_KEY}}}", propertyValue);
 				
 				TestCorrelator.GetLogEventsFromContextGuid(_context.Guid).ToArray()
 					.Should()
@@ -57,11 +54,11 @@ namespace Functional.SerilogExtensions.Tests
 			{
 				const string PROPERTY_KEY = "PAYLOAD";
 
-				_logger.Information($"{{{PROPERTY_KEY}}}", propertyValue);
+				_logger.Information($"{{@{PROPERTY_KEY}}}", propertyValue);
 
 				TestCorrelator.GetLogEventsFromContextGuid(_context.Guid).ToArray()
 					.Should()
-					.ContainSingleWithProperty($"{PROPERTY_KEY}", x => x.Should().Contain("None"));
+					.ContainSingleWithProperty($"{PROPERTY_KEY}", x => x.Should().Contain(NO_VALUE));
 			}
 
 			public void Dispose()
