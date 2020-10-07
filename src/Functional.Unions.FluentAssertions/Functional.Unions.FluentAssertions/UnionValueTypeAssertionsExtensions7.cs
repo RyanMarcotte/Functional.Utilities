@@ -1,8 +1,10 @@
 ﻿using FluentAssertions;
 using FluentAssertions.Primitives;
+using Functional.Unions.FluentAssertions;
 using System.Threading.Tasks;
 
-namespace Functional.Unions.FluentAssertions
+// ReSharper disable once CheckNamespace (ease of discoverability)
+namespace Functional
 {
 	/// <summary>
 	/// Extension methods for the <see cref="UnionValueTypeAssertions{TUnionType,TUnionDefinition,TOne,TTwo,TThree,TFour,TFive,TSix,TSeven}"/> class.

@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Functional.Unions.FluentAssertions;
+using System;
 using System.Threading.Tasks;
 
-namespace Functional.Unions.FluentAssertions
+// ReSharper disable once CheckNamespace (ease of discoverability)
+namespace Functional
 {
 	/// <summary>
 	/// Extension methods for the <see cref="AndUnionValueConstraint{T}"/> class.
