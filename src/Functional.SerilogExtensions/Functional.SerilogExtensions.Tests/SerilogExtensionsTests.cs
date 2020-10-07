@@ -22,7 +22,7 @@ namespace Functional.SerilogExtensions.Tests
 		}
 
 		[DebuggerDisplay("${" + nameof(AmountInDollars) + "}")]
-		private class Money : IEquatable<Money>
+		private class Money
 		{
 			public static Option<Money> CreateOption(decimal? amountInDollars)
 				=> Option.FromNullable(amountInDollars).Map(value => new Money(value));
@@ -33,26 +33,16 @@ namespace Functional.SerilogExtensions.Tests
 			}
 
 			public decimal AmountInDollars { get; }
+		}
 
-			public bool Equals(Money other)
+		public class Error
+		{
+			public Error(string message)
 			{
-				if (other is null) return false;
-				if (ReferenceEquals(this, other)) return true;
-
-				return AmountInDollars == other.AmountInDollars;
+				Message = message ?? throw new ArgumentNullException(nameof(message));
 			}
 
-			public override bool Equals(object obj)
-			{
-				if (obj is null) return false;
-				if (ReferenceEquals(this, obj)) return true;
-
-				return obj.GetType() == GetType() && Equals((Money)obj);
-			}
-
-			public override int GetHashCode() => AmountInDollars.GetHashCode();
-			public static bool operator ==(Money left, Money right) => Equals(left, right);
-			public static bool operator !=(Money left, Money right) => !Equals(left, right);
+			public string Message { get; }
 		}
 
 		private class ClassWithSimpleOption
@@ -75,14 +65,24 @@ namespace Functional.SerilogExtensions.Tests
 			public Option<Money> Value { get; }
 		}
 
-		private class ClassWithResult
+		private class ClassWithSimpleResult
 		{
-			public ClassWithResult(Result<Money, string> value)
+			public ClassWithSimpleResult(Result<int, string> value)
 			{
 				Value = value;
 			}
 
-			public Result<Money, string> Value { get; }
+			public Result<int, string> Value { get; }
+		}
+
+		private class ClassWithComplexResult
+		{
+			public ClassWithComplexResult(Result<Money, Error> value)
+			{
+				Value = value;
+			}
+
+			public Result<Money, Error> Value { get; }
 		}
 
 		private class ClassWithResultOfOption

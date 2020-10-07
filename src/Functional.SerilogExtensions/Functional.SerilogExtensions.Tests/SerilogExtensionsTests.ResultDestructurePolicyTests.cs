@@ -1,4 +1,4 @@
-using System.IO;
+using System;
 using System.Linq;
 using FluentAssertions;
 using Functional.SerilogExtensions.Tests._Infrastructure;
@@ -10,59 +10,128 @@ namespace Functional.SerilogExtensions.Tests
 {
 	public partial class SerilogExtensionsTests
 	{
-		public class ResultDestructurePolicyTests
+		public class ResultDestructurePolicyTests : IDisposable
 		{
-			/*[Fact]
-			public void WriteResultOfPrimitiveType()
-			{
-				const int AMOUNT = 1337;
+			private const int SUCCESS_VALUE = 1337;
+			private const string FAILURE_VALUE = "something went wrong";
 
-				var logger = new LoggerConfiguration()
+			private readonly ILogger _logger;
+			private readonly ITestCorrelatorContext _context;
+
+			public ResultDestructurePolicyTests()
+			{
+				_logger = new LoggerConfiguration()
 					.WriteTo.Sink(new TestCorrelatorSink())
-					//.Destructure.With(new ResultDestructurePolicy())
+					.Destructure.With(new ResultDestructurePolicy())
 					.CreateLogger();
 
-				using var context = TestCorrelator.CreateContext();
+				_context = TestCorrelator.CreateContext();
+			}
 
-				logger.Information("{PAYLOAD}", Result.Success<int, string>(AMOUNT));
-				var logEventCollection = TestCorrelator.GetLogEventsFromContextGuid(context.Guid).ToArray();
+			[Theory]
+			[SuccessfulResultOfPrimitiveType]
+			[SuccessfulResultOfComplexType]
+			[ClassContainingSuccessfulResultOfPrimitiveType]
+			[ClassContainingSuccessfulResultOfComplexType]
+			public void WriteSuccessfulResult(object propertyValue)
+			{
+				const string PROPERTY_KEY = "PAYLOAD";
 
-				logEventCollection.Should().ContainSingle();
-				foreach (var logEvent in logEventCollection)
+				_logger.Information($"{{@{PROPERTY_KEY}}}", propertyValue);
+
+				TestCorrelator.GetLogEventsFromContextGuid(_context.Guid).ToArray()
+					.Should()
+					.ContainSingleWithProperty($"{PROPERTY_KEY}", x => x.Should().Contain(SUCCESS_VALUE.ToString()));
+			}
+
+			[Theory]
+			[FaultedResultOfPrimitiveType]
+			[FaultedResultOfComplexType]
+			[ClassContainingFaultedResultOfPrimitiveType]
+			[ClassContainingFaultedResultOfComplexType]
+			public void WriteFaultedResult(object propertyValue)
+			{
+				const string PROPERTY_KEY = "PAYLOAD";
+
+				_logger.Information($"{{@{PROPERTY_KEY}}}", propertyValue);
+
+				TestCorrelator.GetLogEventsFromContextGuid(_context.Guid).ToArray()
+					.Should()
+					.ContainSingleWithProperty($"{PROPERTY_KEY}", x => x.Should().Contain(FAILURE_VALUE));
+			}
+
+			public void Dispose()
+			{
+				_context.Dispose();
+			}
+
+			#region Arrangements
+
+			private class SuccessfulResultOfPrimitiveType : SingleParameterArrangement
+			{
+				public SuccessfulResultOfPrimitiveType()
+					: base(Result.Success<int, string>(SUCCESS_VALUE))
 				{
-					using var writer = new StringWriter();
-					logEvent.Properties["PAYLOAD"].Render(writer);
-
-					writer.Flush();
-					writer.ToString().Should().Contain(AMOUNT.ToString());
 				}
 			}
 
-			[Fact]
-			public void WriteClassContainingResultOfComplexType()
+			private class FaultedResultOfPrimitiveType : SingleParameterArrangement
 			{
-				const int AMOUNT = 1337;
-
-				var logger = new LoggerConfiguration()
-					.WriteTo.Sink(new TestCorrelatorSink())
-					//.Destructure.With(new ResultDestructurePolicy())
-					.CreateLogger();
-
-				using var context = TestCorrelator.CreateContext();
-
-				logger.Information("{PAYLOAD}", new ClassWithResult(Result.Success<Money, string>(new Money(AMOUNT))));
-				var logEventCollection = TestCorrelator.GetLogEventsFromContextGuid(context.Guid).ToArray();
-
-				logEventCollection.Should().ContainSingle();
-				foreach (var logEvent in logEventCollection)
+				public FaultedResultOfPrimitiveType()
+					: base(Result.Failure<int, string>(FAILURE_VALUE))
 				{
-					using var writer = new StringWriter();
-					logEvent.Properties["PAYLOAD"].Render(writer);
-
-					writer.Flush();
-					writer.ToString().Should().Contain(AMOUNT.ToString());
 				}
-			}*/
+			}
+
+			private class SuccessfulResultOfComplexType : SingleParameterArrangement
+			{
+				public SuccessfulResultOfComplexType()
+					: base(Result.Success<Money, string>(new Money(SUCCESS_VALUE)))
+				{
+				}
+			}
+
+			private class FaultedResultOfComplexType : SingleParameterArrangement
+			{
+				public FaultedResultOfComplexType()
+					: base(Result.Failure<int, Error>(new Error(FAILURE_VALUE)))
+				{
+				}
+			}
+
+			private class ClassContainingSuccessfulResultOfPrimitiveType : SingleParameterArrangement
+			{
+				public ClassContainingSuccessfulResultOfPrimitiveType()
+					: base(new ClassWithSimpleResult(Result.Success<int, string>(SUCCESS_VALUE)))
+				{
+				}
+			}
+
+			private class ClassContainingFaultedResultOfPrimitiveType : SingleParameterArrangement
+			{
+				public ClassContainingFaultedResultOfPrimitiveType()
+					: base(new ClassWithSimpleResult(Result.Failure<int, string>(FAILURE_VALUE)))
+				{
+				}
+			}
+
+			private class ClassContainingSuccessfulResultOfComplexType : SingleParameterArrangement
+			{
+				public ClassContainingSuccessfulResultOfComplexType()
+					: base(new ClassWithComplexResult(Result.Success<Money, Error>(new Money(SUCCESS_VALUE))))
+				{
+				}
+			}
+
+			private class ClassContainingFaultedResultOfComplexType : SingleParameterArrangement
+			{
+				public ClassContainingFaultedResultOfComplexType()
+					: base(new ClassWithComplexResult(Result.Failure<Money, Error>(new Error(FAILURE_VALUE))))
+				{
+				}
+			}
+
+			#endregion
 		}
 	}
 }
