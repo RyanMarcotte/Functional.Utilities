@@ -11,4 +11,12 @@ namespace Functional.SerilogExtensions
 			throw new NotImplementedException();
 		}
 	}
+
+	public class ResultDestructurePolicy : IDestructuringPolicy
+	{
+		public bool TryDestructure(object value, ILogEventPropertyValueFactory propertyValueFactory, out LogEventPropertyValue result)
+		{
+			throw new NotImplementedException();
+		}
+	}
 }
