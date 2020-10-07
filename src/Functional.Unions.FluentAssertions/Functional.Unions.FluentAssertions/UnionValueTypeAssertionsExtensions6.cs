@@ -3,6 +3,7 @@ using FluentAssertions.Primitives;
 using Functional.Unions.FluentAssertions;
 using System.Threading.Tasks;
 
+// ReSharper disable once CheckNamespace (ease of discoverability)
 namespace Functional
 {
 	/// <summary>

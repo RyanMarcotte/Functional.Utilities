@@ -4,6 +4,7 @@ using Functional.Primitives.FluentAssertions;
 using System;
 using System.Threading.Tasks;
 
+// ReSharper disable once CheckNamespace (ease of discoverability)
 namespace Functional
 {
 	/// <summary>
