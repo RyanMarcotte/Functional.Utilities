@@ -4,7 +4,10 @@ using System.Threading.Tasks;
 
 namespace Functional.Unions.FluentAssertions
 {
-	public static partial class UnionValueTypeAssertionsExtensions
+	/// <summary>
+	/// Extension methods for the <see cref="UnionValueTypeAssertions{TUnionType,TUnionDefinition,TOne,TTwo,TThree,TFour,TFive,TSix,TSeven}"/> class.
+	/// </summary>
+	public static class UnionValueTypeAssertionsExtensions7
 	{
 		/// <summary>
 		/// Verifies that the subject is equal to an expected value.
@@ -18,7 +21,7 @@ namespace Functional.Unions.FluentAssertions
 		/// <typeparam name="TFive"></typeparam>
 		/// <typeparam name="TSix"></typeparam>
 		/// <typeparam name="TSeven"></typeparam>
-		/// <param name="source">The source <see cref="UnionValueTypeAssertions"/>.</param>
+		/// <param name="source">The source <see cref="UnionValueTypeAssertions{TUnionType,TUnionDefinition,TOne,TTwo,TThree,TFour,TFive,TSix,TSeven}"/>.</param>
 		/// <param name="expected">The expected value.</param>
 		/// <param name="because">Additional information for if the assertion fails.</param>
 		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
@@ -29,7 +32,7 @@ namespace Functional.Unions.FluentAssertions
 			=> (await source).Be(expected, because, becauseArgs);
 
 		/// <summary>
-		/// Verifies that the subject's value is of type <see cref="TOne"/>.
+		/// Verifies that the subject's value is of type <typeparamref name="TOne"/>.
 		/// </summary>
 		/// <typeparam name="TUnionType">Type of the union.</typeparam>
 		/// <typeparam name="TUnionDefinition">Type of the union definition.</typeparam>
@@ -40,7 +43,7 @@ namespace Functional.Unions.FluentAssertions
 		/// <typeparam name="TFive"></typeparam>
 		/// <typeparam name="TSix"></typeparam>
 		/// <typeparam name="TSeven"></typeparam>
-		/// <param name="source">The source <see cref="UnionValueTypeAssertions"/>.</param>
+		/// <param name="source">The source <see cref="UnionValueTypeAssertions{TUnionType,TUnionDefinition,TOne,TTwo,TThree,TFour,TFive,TSix,TSeven}"/>.</param>
 		/// <param name="because">Additional information for if the assertion fails.</param>
 		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
 		/// <returns></returns>
@@ -50,7 +53,7 @@ namespace Functional.Unions.FluentAssertions
 			=> (await source).BeOfTypeOne(because, becauseArgs);
 
 		/// <summary>
-		/// Verifies that the subject's value is of type <see cref="TTwo"/>.
+		/// Verifies that the subject's value is of type <typeparamref name="TTwo"/>.
 		/// </summary>
 		/// <typeparam name="TUnionType">Type of the union.</typeparam>
 		/// <typeparam name="TUnionDefinition">Type of the union definition.</typeparam>
@@ -61,7 +64,7 @@ namespace Functional.Unions.FluentAssertions
 		/// <typeparam name="TFive"></typeparam>
 		/// <typeparam name="TSix"></typeparam>
 		/// <typeparam name="TSeven"></typeparam>
-		/// <param name="source">The source <see cref="UnionValueTypeAssertions"/>.</param>
+		/// <param name="source">The source <see cref="UnionValueTypeAssertions{TUnionType,TUnionDefinition,TOne,TTwo,TThree,TFour,TFive,TSix,TSeven}"/>.</param>
 		/// <param name="because">Additional information for if the assertion fails.</param>
 		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
 		/// <returns></returns>
@@ -71,7 +74,7 @@ namespace Functional.Unions.FluentAssertions
 			=> (await source).BeOfTypeTwo(because, becauseArgs);
 
 		/// <summary>
-		/// Verifies that the subject's value is of type <see cref="TThree"/>.
+		/// Verifies that the subject's value is of type <typeparamref name="TThree"/>.
 		/// </summary>
 		/// <typeparam name="TUnionType">Type of the union.</typeparam>
 		/// <typeparam name="TUnionDefinition">Type of the union definition.</typeparam>
@@ -82,7 +85,7 @@ namespace Functional.Unions.FluentAssertions
 		/// <typeparam name="TFive"></typeparam>
 		/// <typeparam name="TSix"></typeparam>
 		/// <typeparam name="TSeven"></typeparam>
-		/// <param name="source">The source <see cref="UnionValueTypeAssertions"/>.</param>
+		/// <param name="source">The source <see cref="UnionValueTypeAssertions{TUnionType,TUnionDefinition,TOne,TTwo,TThree,TFour,TFive,TSix,TSeven}"/>.</param>
 		/// <param name="because">Additional information for if the assertion fails.</param>
 		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
 		/// <returns></returns>
@@ -92,7 +95,7 @@ namespace Functional.Unions.FluentAssertions
 			=> (await source).BeOfTypeThree(because, becauseArgs);
 
 		/// <summary>
-		/// Verifies that the subject's value is of type <see cref="TFour"/>.
+		/// Verifies that the subject's value is of type <typeparamref name="TFour"/>.
 		/// </summary>
 		/// <typeparam name="TUnionType">Type of the union.</typeparam>
 		/// <typeparam name="TUnionDefinition">Type of the union definition.</typeparam>
@@ -103,7 +106,7 @@ namespace Functional.Unions.FluentAssertions
 		/// <typeparam name="TFive"></typeparam>
 		/// <typeparam name="TSix"></typeparam>
 		/// <typeparam name="TSeven"></typeparam>
-		/// <param name="source">The source <see cref="UnionValueTypeAssertions"/>.</param>
+		/// <param name="source">The source <see cref="UnionValueTypeAssertions{TUnionType,TUnionDefinition,TOne,TTwo,TThree,TFour,TFive,TSix,TSeven}"/>.</param>
 		/// <param name="because">Additional information for if the assertion fails.</param>
 		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
 		/// <returns></returns>
@@ -113,7 +116,7 @@ namespace Functional.Unions.FluentAssertions
 			=> (await source).BeOfTypeFour(because, becauseArgs);
 
 		/// <summary>
-		/// Verifies that the subject's value is of type <see cref="TFive"/>.
+		/// Verifies that the subject's value is of type <typeparamref name="TFive"/>.
 		/// </summary>
 		/// <typeparam name="TUnionType">Type of the union.</typeparam>
 		/// <typeparam name="TUnionDefinition">Type of the union definition.</typeparam>
@@ -124,7 +127,7 @@ namespace Functional.Unions.FluentAssertions
 		/// <typeparam name="TFive"></typeparam>
 		/// <typeparam name="TSix"></typeparam>
 		/// <typeparam name="TSeven"></typeparam>
-		/// <param name="source">The source <see cref="UnionValueTypeAssertions"/>.</param>
+		/// <param name="source">The source <see cref="UnionValueTypeAssertions{TUnionType,TUnionDefinition,TOne,TTwo,TThree,TFour,TFive,TSix,TSeven}"/>.</param>
 		/// <param name="because">Additional information for if the assertion fails.</param>
 		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
 		/// <returns></returns>
@@ -134,7 +137,7 @@ namespace Functional.Unions.FluentAssertions
 			=> (await source).BeOfTypeFive(because, becauseArgs);
 
 		/// <summary>
-		/// Verifies that the subject's value is of type <see cref="TSix"/>.
+		/// Verifies that the subject's value is of type <typeparamref name="TSix"/>.
 		/// </summary>
 		/// <typeparam name="TUnionType">Type of the union.</typeparam>
 		/// <typeparam name="TUnionDefinition">Type of the union definition.</typeparam>
@@ -145,7 +148,7 @@ namespace Functional.Unions.FluentAssertions
 		/// <typeparam name="TFive"></typeparam>
 		/// <typeparam name="TSix"></typeparam>
 		/// <typeparam name="TSeven"></typeparam>
-		/// <param name="source">The source <see cref="UnionValueTypeAssertions"/>.</param>
+		/// <param name="source">The source <see cref="UnionValueTypeAssertions{TUnionType,TUnionDefinition,TOne,TTwo,TThree,TFour,TFive,TSix,TSeven}"/>.</param>
 		/// <param name="because">Additional information for if the assertion fails.</param>
 		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
 		/// <returns></returns>
@@ -155,7 +158,7 @@ namespace Functional.Unions.FluentAssertions
 			=> (await source).BeOfTypeSix(because, becauseArgs);
 
 		/// <summary>
-		/// Verifies that the subject's value is of type <see cref="TSeven"/>.
+		/// Verifies that the subject's value is of type <typeparamref name="TSeven"/>.
 		/// </summary>
 		/// <typeparam name="TUnionType">Type of the union.</typeparam>
 		/// <typeparam name="TUnionDefinition">Type of the union definition.</typeparam>
@@ -166,7 +169,7 @@ namespace Functional.Unions.FluentAssertions
 		/// <typeparam name="TFive"></typeparam>
 		/// <typeparam name="TSix"></typeparam>
 		/// <typeparam name="TSeven"></typeparam>
-		/// <param name="source">The source <see cref="UnionValueTypeAssertions"/>.</param>
+		/// <param name="source">The source <see cref="UnionValueTypeAssertions{TUnionType,TUnionDefinition,TOne,TTwo,TThree,TFour,TFive,TSix,TSeven}"/>.</param>
 		/// <param name="because">Additional information for if the assertion fails.</param>
 		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
 		/// <returns></returns>

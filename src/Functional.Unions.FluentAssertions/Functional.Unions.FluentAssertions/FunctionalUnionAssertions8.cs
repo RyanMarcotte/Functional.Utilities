@@ -9,7 +9,7 @@ namespace Functional
 	public static partial class FunctionalUnionAssertions
 	{
 		/// <summary>
-		/// Returns a <see cref="UnionValueTypeAssertions"/> object that can be used to assert the current <see cref="IUnionValue"/>.
+		/// Returns a <see cref="UnionValueTypeAssertions{TUnionType,TUnionDefinition,TOne,TTwo,TThree,TFour,TFive,TSix,TSeven,TEight}"/> object that can be used to assert the current <see cref="IUnionValue"/>.
 		/// </summary>
 		/// <typeparam name="TOne"></typeparam>
 		/// <typeparam name="TTwo"></typeparam>
@@ -25,7 +25,7 @@ namespace Functional
 			=> new UnionValueTypeAssertions<Union<TOne, TTwo, TThree, TFour, TFive, TSix, TSeven, TEight>, AdhocUnionDefinition<TOne, TTwo, TThree, TFour, TFive, TSix, TSeven, TEight>, TOne, TTwo, TThree, TFour, TFive, TSix, TSeven, TEight>(unionValue);
 
 		/// <summary>
-		/// Returns a <see cref="UnionValueTypeAssertions"/> object that can be used to assert the current <see cref="IUnionValue"/>.
+		/// Returns a <see cref="UnionValueTypeAssertions{TUnionType,TUnionDefinition,TOne,TTwo,TThree,TFour,TFive,TSix,TSeven,TEight}"/> object that can be used to assert the current <see cref="IUnionValue"/>.
 		/// </summary>
 		/// <typeparam name="TUnionDefinition">The type of the union definition.</typeparam>
 		/// <typeparam name="TOne"></typeparam>
@@ -43,7 +43,7 @@ namespace Functional
 			=> new UnionValueTypeAssertions<Union<TUnionDefinition>, TUnionDefinition, TOne, TTwo, TThree, TFour, TFive, TSix, TSeven, TEight>(unionValue);
 
 		/// <summary>
-		/// Returns a <see cref="UnionValueTypeAssertions"/> object that can be used to assert the current <see cref="IUnionValue"/>.
+		/// Returns a <see cref="UnionValueTypeAssertions{TUnionType,TUnionDefinition,TOne,TTwo,TThree,TFour,TFive,TSix,TSeven,TEight}"/> object that can be used to assert the current <see cref="IUnionValue"/>.
 		/// </summary>
 		/// <typeparam name="TOne"></typeparam>
 		/// <typeparam name="TTwo"></typeparam>
@@ -59,7 +59,7 @@ namespace Functional
 			=> new UnionValueTypeAssertions<Union<TOne, TTwo, TThree, TFour, TFive, TSix, TSeven, TEight>, AdhocUnionDefinition<TOne, TTwo, TThree, TFour, TFive, TSix, TSeven, TEight>, TOne, TTwo, TThree, TFour, TFive, TSix, TSeven, TEight>(await unionValue);
 
 		/// <summary>
-		/// Returns a <see cref="UnionValueTypeAssertions"/> object that can be used to assert the current <see cref="IUnionValue"/>.
+		/// Returns a <see cref="UnionValueTypeAssertions{TUnionType,TUnionDefinition,TOne,TTwo,TThree,TFour,TFive,TSix,TSeven,TEight}"/> object that can be used to assert the current <see cref="IUnionValue"/>.
 		/// </summary>
 		/// <typeparam name="TUnionDefinition">The type of the union definition.</typeparam>
 		/// <typeparam name="TOne"></typeparam>

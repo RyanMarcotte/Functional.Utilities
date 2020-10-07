@@ -9,7 +9,7 @@ namespace Functional
 	public static partial class FunctionalUnionAssertions
 	{
 		/// <summary>
-		/// Returns a <see cref="UnionValueTypeAssertions"/> object that can be used to assert the current <see cref="IUnionValue"/>.
+		/// Returns a <see cref="UnionValueTypeAssertions{TUnionType,TUnionDefinition,TOne,TTwo,TThree}"/> object that can be used to assert the current <see cref="IUnionValue"/>.
 		/// </summary>
 		/// <typeparam name="TOne"></typeparam>
 		/// <typeparam name="TTwo"></typeparam>
@@ -20,7 +20,7 @@ namespace Functional
 			=> new UnionValueTypeAssertions<Union<TOne, TTwo, TThree>, AdhocUnionDefinition<TOne, TTwo, TThree>, TOne, TTwo, TThree>(unionValue);
 
 		/// <summary>
-		/// Returns a <see cref="UnionValueTypeAssertions"/> object that can be used to assert the current <see cref="IUnionValue"/>.
+		/// Returns a <see cref="UnionValueTypeAssertions{TUnionType,TUnionDefinition,TOne,TTwo,TThree}"/> object that can be used to assert the current <see cref="IUnionValue"/>.
 		/// </summary>
 		/// <typeparam name="TUnionDefinition">The type of the union definition.</typeparam>
 		/// <typeparam name="TOne"></typeparam>
@@ -33,7 +33,7 @@ namespace Functional
 			=> new UnionValueTypeAssertions<Union<TUnionDefinition>, TUnionDefinition, TOne, TTwo, TThree>(unionValue);
 
 		/// <summary>
-		/// Returns a <see cref="UnionValueTypeAssertions"/> object that can be used to assert the current <see cref="IUnionValue"/>.
+		/// Returns a <see cref="UnionValueTypeAssertions{TUnionType,TUnionDefinition,TOne,TTwo,TThree}"/> object that can be used to assert the current <see cref="IUnionValue"/>.
 		/// </summary>
 		/// <typeparam name="TOne"></typeparam>
 		/// <typeparam name="TTwo"></typeparam>
@@ -44,7 +44,7 @@ namespace Functional
 			=> new UnionValueTypeAssertions<Union<TOne, TTwo, TThree>, AdhocUnionDefinition<TOne, TTwo, TThree>, TOne, TTwo, TThree>(await unionValue);
 
 		/// <summary>
-		/// Returns a <see cref="UnionValueTypeAssertions"/> object that can be used to assert the current <see cref="IUnionValue"/>.
+		/// Returns a <see cref="UnionValueTypeAssertions{TUnionType,TUnionDefinition,TOne,TTwo,TThree}"/> object that can be used to assert the current <see cref="IUnionValue"/>.
 		/// </summary>
 		/// <typeparam name="TUnionDefinition">The type of the union definition.</typeparam>
 		/// <typeparam name="TOne"></typeparam>

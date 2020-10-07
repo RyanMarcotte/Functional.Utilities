@@ -7,12 +7,29 @@ using static Functional.Unions.FluentAssertions.Extensions.UnionExtensions;
 
 namespace Functional.Unions.FluentAssertions
 {
+	/// <summary>
+	/// Contains a number to methods to assert that an <see cref="IUnionValue{TUnionDefinition}"/> is in an expected state.
+	/// </summary>
+	/// <typeparam name="TUnionType"></typeparam>
+	/// <typeparam name="TUnionDefinition"></typeparam>
+	/// <typeparam name="TOne"></typeparam>
+	/// <typeparam name="TTwo"></typeparam>
+	/// <typeparam name="TThree"></typeparam>
+	/// <typeparam name="TFour"></typeparam>
+	/// <typeparam name="TFive"></typeparam>
+	/// <typeparam name="TSix"></typeparam>
+	/// <typeparam name="TSeven"></typeparam>
+	/// <typeparam name="TEight"></typeparam>
 	public class UnionValueTypeAssertions<TUnionType, TUnionDefinition, TOne, TTwo, TThree, TFour, TFive, TSix, TSeven, TEight>
 		where TUnionType : struct
 		where TUnionDefinition : UnionDefinitionBase<TUnionType, TUnionDefinition, TOne, TTwo, TThree, TFour, TFive, TSix, TSeven, TEight>
 	{
 		private readonly IUnionValue<UnionDefinitionBase<TUnionType, TUnionDefinition, TOne, TTwo, TThree, TFour, TFive, TSix, TSeven, TEight>> _subject;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="UnionValueTypeAssertions{TUnionType,TUnionDefinition,TOne,TTwo,TThree,TFour,TFive,TSix,TSeven,TEight}"/> class.
+		/// </summary>
+		/// <param name="unionValue"></param>
 		public UnionValueTypeAssertions(IUnionValue<UnionDefinitionBase<TUnionType, TUnionDefinition, TOne, TTwo, TThree, TFour, TFive, TSix, TSeven, TEight>> unionValue)
 		{
 			_subject = unionValue;
@@ -36,7 +53,7 @@ namespace Functional.Unions.FluentAssertions
 		}
 
 		/// <summary>
-		/// Verifies that the subject's value is of type <see cref="TOne"/>.
+		/// Verifies that the subject's value is of type <typeparamref name="TOne"/>.
 		/// </summary>
 		/// <param name="because">Additional information for if the assertion fails.</param>
 		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
@@ -52,7 +69,7 @@ namespace Functional.Unions.FluentAssertions
 		}
 
 		/// <summary>
-		/// Verifies that the subject's value is of type <see cref="TTwo"/>.
+		/// Verifies that the subject's value is of type <typeparamref name="TTwo"/>.
 		/// </summary>
 		/// <param name="because">Additional information for if the assertion fails.</param>
 		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
@@ -68,7 +85,7 @@ namespace Functional.Unions.FluentAssertions
 		}
 
 		/// <summary>
-		/// Verifies that the subject's value is of type <see cref="TThree"/>.
+		/// Verifies that the subject's value is of type <typeparamref name="TThree"/>.
 		/// </summary>
 		/// <param name="because">Additional information for if the assertion fails.</param>
 		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
@@ -84,7 +101,7 @@ namespace Functional.Unions.FluentAssertions
 		}
 
 		/// <summary>
-		/// Verifies that the subject's value is of type <see cref="TFour"/>.
+		/// Verifies that the subject's value is of type <typeparamref name="TFour"/>.
 		/// </summary>
 		/// <param name="because">Additional information for if the assertion fails.</param>
 		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
@@ -100,7 +117,7 @@ namespace Functional.Unions.FluentAssertions
 		}
 
 		/// <summary>
-		/// Verifies that the subject's value is of type <see cref="TFive"/>.
+		/// Verifies that the subject's value is of type <typeparamref name="TFive"/>.
 		/// </summary>
 		/// <param name="because">Additional information for if the assertion fails.</param>
 		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
@@ -116,7 +133,7 @@ namespace Functional.Unions.FluentAssertions
 		}
 
 		/// <summary>
-		/// Verifies that the subject's value is of type <see cref="TSix"/>.
+		/// Verifies that the subject's value is of type <typeparamref name="TSix"/>.
 		/// </summary>
 		/// <param name="because">Additional information for if the assertion fails.</param>
 		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
@@ -132,7 +149,7 @@ namespace Functional.Unions.FluentAssertions
 		}
 
 		/// <summary>
-		/// Verifies that the subject's value is of type <see cref="TSeven"/>.
+		/// Verifies that the subject's value is of type <typeparamref name="TSeven"/>.
 		/// </summary>
 		/// <param name="because">Additional information for if the assertion fails.</param>
 		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
@@ -148,7 +165,7 @@ namespace Functional.Unions.FluentAssertions
 		}
 
 		/// <summary>
-		/// Verifies that the subject's value is of type <see cref="TEight"/>.
+		/// Verifies that the subject's value is of type <typeparamref name="TEight"/>.
 		/// </summary>
 		/// <param name="because">Additional information for if the assertion fails.</param>
 		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
