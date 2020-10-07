@@ -4,9 +4,11 @@ This library extends [`Serilog`](https://github.com/serilog/serilog) to make log
 
 ``` csharp
 // configure the payloads to generate for Option.None<T>
-var optionConfiguration = new OptionDestructurePolicyConfiguration(data => data, () => "NONE");
+// treats Option<T> like a nullable object (T?)
+var optionConfiguration = new OptionDestructurePolicyConfiguration(data => data, () => null);
 
 // configure the payloads to generate for Result<TSuccess, TFailure>
+// uses anonymous objects to include state information
 var resultConfiguration = new ResultDestructurePolicyConfiguration(
     success => new { IsSuccessful = true, Data = success },
     failure => new { IsSuccessful = false, Data = failure });
@@ -21,9 +23,9 @@ class ClassContainingOption { public Option<int> Value { get; } }
 
 // log destructured payloads containing Option<T> with '@' operator
 _logger.Information("{@PAYLOAD}", Option.Some(1337)); // payload logged is '1337'
-_logger.Information("{@PAYLOAD}", Option.None<int>()); // payload logged is 'NONE'
+_logger.Information("{@PAYLOAD}", Option.None<int>()); // payload logged is 'null'
 _logger.Information("{@PAYLOAD}", new ClassContainingOption(Option.Some(1337))); // payload logged is '{ Value: 1337 }'
-_logger.Information("{@PAYLOAD}", new ClassContainingOption(Option.None<int>())); // payload logged is '{ Value: "NONE" }'
+_logger.Information("{@PAYLOAD}", new ClassContainingOption(Option.None<int>())); // payload logged is '{ Value: null }'
 
 class ClassContainingResult { public Result<int, string> Value { get; } }
 
@@ -36,7 +38,7 @@ _logger.Information("{@PAYLOAD}", new ClassContainingResult(Result.Failure<int, 
 // log destructured payloads containing Result<Option<T>, TFailure> with '@' operator
 // other cases omitted for brevity...  the destructure policies apply recursively
 _logger.Information("{@PAYLOAD}", Result.Success<Option<int>, string>(Option.Some(1337)); // payload logged is '{ IsSuccessful: True, Data: { Value: 1337 } }'
-_logger.Information("{@PAYLOAD}", Result.Success<Option<int>, string>(Option.Some(1337)); // payload logged is '{ IsSuccessful: True, Data: { Value: "NONE" } }'
+_logger.Information("{@PAYLOAD}", Result.Success<Option<int>, string>(Option.Some(1337)); // payload logged is '{ IsSuccessful: True, Data: { Value: null } }'
 ```
 
 Consult the [Serilog documentation](https://github.com/serilog/serilog/wiki/Structured-Data#preserving-object-structure) for more information about object destructuring and destructuring policies.
