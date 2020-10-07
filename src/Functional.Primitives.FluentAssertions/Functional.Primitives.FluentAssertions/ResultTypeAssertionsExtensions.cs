@@ -1,9 +1,10 @@
 ﻿using FluentAssertions;
 using FluentAssertions.Primitives;
+using Functional.Primitives.FluentAssertions;
 using System;
 using System.Threading.Tasks;
 
-namespace Functional.Primitives.FluentAssertions
+namespace Functional
 {
 	/// <summary>
 	/// A collection of extensions for <see cref="ResultTypeAssertions{TSuccess, TFailure}"/>

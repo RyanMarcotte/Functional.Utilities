@@ -1,8 +1,9 @@
 ﻿using FluentAssertions;
 using FluentAssertions.Primitives;
+using Functional.Unions.FluentAssertions;
 using System.Threading.Tasks;
 
-namespace Functional.Unions.FluentAssertions
+namespace Functional
 {
 	/// <summary>
 	/// Extension methods for the <see cref="UnionValueTypeAssertions{TUnionType,TUnionDefinition,TOne,TTwo,TThree,TFour,TFive,TSix,TSeven,TEight}"/> class.
