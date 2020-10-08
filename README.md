@@ -1,4 +1,4 @@
-# `Functional.Utilities`
+# Functional.Utilities
 
 ## `Functional.Primitives.FluentAssertions`
 
