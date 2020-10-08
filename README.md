@@ -1,4 +1,4 @@
-# Functional.FluentAssertions
+# Functional.Utilities
 
 This repository contains a set of libraries that make working with [`Functional` types](https://github.com/JohannesMoersch/Functional) easier.
 
