@@ -1,6 +1,6 @@
 # `Functional.SerilogExtensions`
 
-This library extends [`Serilog`](https://github.com/serilog/serilog) to make logging `Option<T>` and `Result<TSuccess, TFailure>` data payloads easier.  This is done using *destructuring policies*; specifically [`OptionDestructurePolicy`](Functional.SerilogExtensions/OptionDestructurePolicy.cs) and [`ResultDestructurePolicy`](Functional.SerilogExtensions/ResultDestructurePolicy.cs).
+This library extends [`Serilog`](https://github.com/serilog/serilog) to make logging `Option<T>` and `Result<TSuccess, TFailure>` data payloads easier.  This is done using *destructuring policies*; specifically [`OptionDestructurePolicy`](../src/Functional.Primitives.SerilogExtensions/OptionDestructurePolicy.cs) and [`ResultDestructurePolicy`](../src/Functional.Primitives.SerilogExtensions/ResultDestructurePolicy.cs).
 
 ``` csharp
 // configure the payloads to generate for Option.None<T>
