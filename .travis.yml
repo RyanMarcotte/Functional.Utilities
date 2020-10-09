@@ -9,3 +9,12 @@ script:
  - dotnet restore
  - dotnet build -c Release
  - dotnet test Functional.Primitives.FluentAssertions.Tests/Functional.Primitives.FluentAssertions.Tests.csproj
+ - cd ../../src/Functional.Unions.FluentAssertions
+ - dotnet restore
+ - dotnet build -c Release
+ - dotnet test Functional.Unions.FluentAssertions.Tests/Functional.Unions.FluentAssertions.Tests.csproj
+ - cd ../../src/Functional.Primitives.SerilogExtensions
+ - dotnet restore
+ - dotnet build -c Release
+ - dotnet test Functional.Primitives.SerilogExtensions.Tests/Functional.Primitives.SerilogExtensions.Tests.csproj
+ 
