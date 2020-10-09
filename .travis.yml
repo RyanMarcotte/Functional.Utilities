@@ -4,17 +4,17 @@ sudo: required
 dist: xenial
 dotnet: 3.1
 
+addons:
+ apt:
+  sources:
+   - sourceline: 'ppa:mike42/mdcheckr'
+  packages:
+   - mdcheckr
+   
 script:
- - cd src/Functional.Primitives.FluentAssertions
+ - git ls-files | grep '\.md$' | tr '\n' '\0' | xargs -0 mdcheckr
+ - cd src
  - dotnet restore
  - dotnet build -c Release
- - dotnet test Functional.Primitives.FluentAssertions.Tests/Functional.Primitives.FluentAssertions.Tests.csproj
- - cd ../../src/Functional.Unions.FluentAssertions
- - dotnet restore
- - dotnet build -c Release
- - dotnet test Functional.Unions.FluentAssertions.Tests/Functional.Unions.FluentAssertions.Tests.csproj
- - cd ../../src/Functional.Primitives.SerilogExtensions
- - dotnet restore
- - dotnet build -c Release
- - dotnet test Functional.Primitives.SerilogExtensions.Tests/Functional.Primitives.SerilogExtensions.Tests.csproj
+ - dotnet test
  
