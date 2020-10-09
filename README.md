@@ -6,16 +6,16 @@ This repository contains a set of libraries that make working with [`Functional`
 
 This library extends [FluentAssertions](https://fluentassertions.com/) to provide assertion clauses for types defined by the [`Functional.Primitives`](https://github.com/JohannesMoersch/Functional) NuGet package: `Option<T>` and `Result<TSuccess, TFailure>`.
 
-[View the ReadMe](src/Functional.Primitives.FluentAssertions/README.md)
+[View the ReadMe](docs/Functional.Primitives.FluentAssertions.md)
 
 ## `Functional.Unions.FluentAssertions`
 
 This library extends [FluentAssertions](https://fluentassertions.com/) to provide assertion clauses for types defined by the [`Functional.Unions`](https://github.com/JohannesMoersch/Functional) NuGet package: `IUnionValue<TUnionDefinition>`.
 
-[View the ReadMe](src/Functional.Unions.FluentAssertions/README.md)
+[View the ReadMe](docs/Functional.Unions.FluentAssertions.md)
 
 ## `Functional.SerilogExtensions`
 
 This library extends [`Serilog`](https://github.com/serilog/serilog) to make logging `Option<T>` and `Result<TSuccess, TFailure>` data payloads easier.
 
-[View the ReadMe](src/Functional.SerilogExtensions/README.md)
+[View the ReadMe](docs/Functional.SerilogExtensions.md)
