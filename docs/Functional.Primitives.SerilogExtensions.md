@@ -31,7 +31,7 @@ class ClassContainingResult { public Result<int, string> Value { get; } }
 
 // log destructured payloads containing Result<TSuccess, TFailure> with '@' operator
 _logger.Information("{@PAYLOAD}", Result.Success<int, string>(1337)); // payload logged is '{ IsSuccessful: True, Data: 1337 }'
-_logger.Information("{@PAYLOAD}", Result.Failure<int, string>("ERROR")); // payload logged is '{ IsSuccessful: False, Data: 1337 }'
+_logger.Information("{@PAYLOAD}", Result.Failure<int, string>("ERROR")); // payload logged is '{ IsSuccessful: False, Data: "ERROR" }'
 _logger.Information("{@PAYLOAD}", new ClassContainingResult(Result.Success<int, string>(1337))); // payload logged is '{ Value: { IsSuccessful: True, Data: 1337 } }'
 _logger.Information("{@PAYLOAD}", new ClassContainingResult(Result.Failure<int, string>("ERROR"))); // payload logged is '{ Value: { IsSuccessful: False, Data: "ERROR" } }'
 
