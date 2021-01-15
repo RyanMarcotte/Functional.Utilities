@@ -11,8 +11,8 @@
     <RepositoryType></RepositoryType>
     <PackageTags>functional, MSTest, MSTest2, NUnit, xUnit2, xUnit, TDD, Fluent, netcore, netstandard</PackageTags>
     <PackageProjectUrl>https://github.com/RyanMarcotte/Functional.Utilities</PackageProjectUrl>
-    <Version>3.0.1</Version>
-    <PackageReleaseNotes>Deletes Obsolete methods and help fix method discoverability issue</PackageReleaseNotes>
+    <Version>3.1.0</Version>
+    <PackageReleaseNotes>Include assertion context for better error messages</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
