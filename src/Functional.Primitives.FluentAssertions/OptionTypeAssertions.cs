@@ -13,7 +13,7 @@ namespace Functional.Primitives.FluentAssertions
 	/// </summary>
 	/// <typeparam name="T">The contained type.</typeparam>
 	[DebuggerNonUserCode]
-	public partial class OptionTypeAssertions<T>
+	public class OptionTypeAssertions<T>
 	{
 		private const string IDENTIFIER = "option";
 
@@ -49,7 +49,7 @@ namespace Functional.Primitives.FluentAssertions
 			FailReason MakeFailReason()
 			{
 				var builder = new StringBuilder();
-				builder.AppendLine($"Expected {{context:{IDENTIFIER}}} to be equal to the expected value{{reason}}, but the two Option<{typeof(T)}> are not equal.");
+				builder.AppendLine($"Expected {{context:{IDENTIFIER}}} to be equal to the expected option{{reason}}, but the two Option<{typeof(T)}> are not equal.");
 				builder.AppendLine("Subject: " + _subject);
 				builder.AppendLine("Expected: " + expected);
 

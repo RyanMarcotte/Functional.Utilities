@@ -32,7 +32,24 @@ namespace Functional.Primitives.FluentAssertions.Tests
 			}).Should().NotThrow();
 
 			[Fact]
-			public void ShouldThrowException() => new Action(() => Result.Failure<int, Exception>(new Exception()).Should().BeSuccessful()).Should().Throw<Exception>();
+			public void ShouldThrowExceptionWithNameOfLocalVariable()
+			{
+				var localVariable = Result.Failure<int, Exception>(new Exception());
+				new Action(() => localVariable.Should().BeSuccessful())
+					.Should()
+					.Throw<Exception>()
+					.And.Message.Should().Contain(nameof(localVariable));
+			}
+
+			[Fact]
+			public void ShouldThrowExceptionWithNameOfClassMember()
+			{
+				var envelope = new ResultEnvelope<int, Exception>(Result.Failure<int, Exception>(new Exception()));
+				new Action(() => envelope.Data.Should().BeSuccessful())
+					.Should()
+					.Throw<Exception>()
+					.And.Message.Should().ContainAll(nameof(envelope), nameof(ResultEnvelope<int, Exception>.Data));
+			}
 		}
 
 		public class FailureChecks
@@ -61,13 +78,24 @@ namespace Functional.Primitives.FluentAssertions.Tests
 			}).Should().NotThrow();
 
 			[Fact]
-			public void ShouldThrowException() => new Action(() =>
+			public void ShouldThrowExceptionWithNameOfLocalVariable()
 			{
-				Result.Success<int, Exception>(3)
+				var localVariable = Result.Success<int, Exception>(3);
+				new Action(() => localVariable.Should().BeFaulted())
 					.Should()
-					.BeFaulted();
+					.Throw<Exception>()
+					.And.Message.Should().Contain(nameof(localVariable));
+			}
 
-			}).Should().Throw<Exception>();
+			[Fact]
+			public void ShouldThrowExceptionWithNameOfClassMember()
+			{
+				var envelope = new ResultEnvelope<int, Exception>(Result.Success<int, Exception>(3));
+				new Action(() => envelope.Data.Should().BeFaulted())
+					.Should()
+					.Throw<Exception>()
+					.And.Message.Should().Contain(nameof(envelope), nameof(ResultEnvelope<int, Exception>.Data));
+			}
 		}
 
 		public class EqualityChecks
@@ -89,40 +117,94 @@ namespace Functional.Primitives.FluentAssertions.Tests
 			}).Should().NotThrow();
 
 			[Fact]
-			public void ShouldThrowExceptionWhenBothSuccessButHaveDifferentSuccessValues() => new Action(() =>
+			public void ShouldThrowExceptionWithNameOfLocalVariableWhenBothSuccessButHaveDifferentSuccessValues()
 			{
-				Result.Success<int, string>(3)
+				var localVariable = Result.Success<int, string>(3);
+				new Action(() => localVariable.Should().Be(Result.Success<int, string>(4)))
 					.Should()
-					.Be(Result.Success<int, string>(4));
-
-			}).Should().Throw<Exception>();
+					.Throw<Exception>()
+					.And.Message.Should().Contain(nameof(localVariable));
+			}
 
 			[Fact]
-			public void ShouldThrowExceptionWhenBothFaultedButHaveDifferentFailureValues() => new Action(() =>
+			public void ShouldThrowExceptionWithNameOfClassMemberWhenBothSuccessButHaveDifferentSuccessValues()
 			{
-				Result.Failure<int, string>("1")
+				var envelope = new ResultEnvelope<int, string>(Result.Success<int, string>(3));
+				new Action(() => envelope.Data.Should().Be(Result.Success<int, string>(4)))
 					.Should()
-					.Be(Result.Failure<int, string>("2"));
-
-			}).Should().Throw<Exception>();
+					.Throw<Exception>()
+					.And.Message.Should().ContainAll(nameof(envelope), nameof(ResultEnvelope<int, Exception>.Data));
+			}
 
 			[Fact]
-			public void ShouldThrowExceptionWhenLeftIsSuccessAndRightIsFaulted() => new Action(() =>
+			public void ShouldThrowExceptionWithNameOfLocalVariableWhenBothFaultedButHaveDifferentFailureValues()
 			{
-				Result.Success<int, string>(3)
+				var localVariable = Result.Failure<int, string>("1");
+				new Action(() => localVariable.Should().Be(Result.Failure<int, string>("2")))
 					.Should()
-					.Be(Result.Failure<int, string>("e"));
-
-			}).Should().Throw<Exception>();
+					.Throw<Exception>()
+					.And.Message.Should().Contain(nameof(localVariable));
+			}
 
 			[Fact]
-			public void ShouldThrowExceptionWhenLeftIsFaultedAndRightIsSuccess() => new Action(() =>
+			public void ShouldThrowExceptionWithNameOfClassMemberWhenBothFaultedButHaveDifferentFailureValues()
 			{
-				Result.Failure<int, string>("e")
+				var envelope = new ResultEnvelope<int, string>(Result.Failure<int, string>("1"));
+				new Action(() => envelope.Data.Should().Be(Result.Failure<int, string>("2")))
 					.Should()
-					.Be(Result.Success<int, string>(3));
+					.Throw<Exception>()
+					.And.Message.Should().Contain(nameof(envelope), nameof(ResultEnvelope<int, string>.Data));
+			}
 
-			}).Should().Throw<Exception>();
+			[Fact]
+			public void ShouldThrowExceptionWithNameOfLocalVariableWhenLeftIsSuccessAndRightIsFaulted()
+			{
+				var localVariable = Result.Success<int, string>(3);
+				new Action(() => localVariable.Should().Be(Result.Failure<int, string>("e")))
+					.Should()
+					.Throw<Exception>()
+					.And.Message.Should().Contain(nameof(localVariable));
+			}
+
+			[Fact]
+			public void ShouldThrowExceptionWithNameOfClassMemberWhenLeftIsSuccessAndRightIsFaulted()
+			{
+				var envelope = new ResultEnvelope<int, string>(Result.Success<int, string>(3));
+				new Action(() => envelope.Data.Should().Be(Result.Failure<int, string>("e")))
+					.Should()
+					.Throw<Exception>()
+					.And.Message.Should().Contain(nameof(envelope), nameof(ResultEnvelope<int, string>.Data));
+			}
+
+			[Fact]
+			public void ShouldThrowExceptionWithNameOfLocalVariableWhenLeftIsFaultedAndRightIsSuccess()
+			{
+				var localVariable = Result.Failure<int, string>("e");
+				new Action(() => localVariable.Should().Be(Result.Success<int, string>(3)))
+					.Should()
+					.Throw<Exception>()
+					.And.Message.Should().Contain(nameof(localVariable));
+			}
+
+			[Fact]
+			public void ShouldThrowExceptionWithNameOfClassMemberWhenLeftIsFaultedAndRightIsSuccess()
+			{
+				var envelope = new ResultEnvelope<int, string>(Result.Failure<int, string>("e"));
+				new Action(() => envelope.Data.Should().Be(Result.Success<int, string>(3)))
+					.Should()
+					.Throw<Exception>()
+					.And.Message.Should().Contain(nameof(envelope), nameof(ResultEnvelope<int, string>.Data));
+			}
+		}
+
+		private class ResultEnvelope<TSuccess, TFailure>
+		{
+			public ResultEnvelope(Result<TSuccess, TFailure> data)
+			{
+				Data = data;
+			}
+
+			public Result<TSuccess, TFailure> Data { get; }
 		}
 	}
 }
