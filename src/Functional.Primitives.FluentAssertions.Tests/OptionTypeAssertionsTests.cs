@@ -32,13 +32,24 @@ namespace Functional.Primitives.FluentAssertions.Tests
 			}).Should().NotThrow();
 
 			[Fact]
-			public void ShouldThrowException() => new Action(() =>
+			public void ShouldThrowExceptionWithNameOfVariable()
 			{
-				Option.None<int>()
+				var localVariable = Option.None<int>();
+				new Action(() => localVariable.Should().HaveValue())
 					.Should()
-					.HaveValue();
+					.Throw<Exception>()
+					.And.Message.Should().ContainAll(nameof(localVariable));
+			}
 
-			}).Should().Throw<Exception>();
+			[Fact]
+			public void ShouldThrowExceptionWithNameOfClassMember()
+			{
+				var envelope = new OptionEnvelope<int>(Option.None<int>());
+				new Action(() => envelope.Data.Should().HaveValue())
+					.Should()
+					.Throw<Exception>()
+					.And.Message.Should().ContainAll(nameof(envelope), nameof(OptionEnvelope<int>.Data));
+			}
 		}
 
 		public class NoValueChecks
@@ -47,7 +58,24 @@ namespace Functional.Primitives.FluentAssertions.Tests
 			public void ShouldNotThrowException() => new Action(() => Option.None<int>().Should().NotHaveValue()).Should().NotThrow();
 
 			[Fact]
-			public void ShouldThrowException() => new Action(() => Option.Some(3).Should().NotHaveValue()).Should().Throw<Exception>();
+			public void ShouldThrowExceptionWithNameOfVariable()
+			{
+				var localVariable = Option.Some(3);
+				new Action(() => localVariable.Should().NotHaveValue())
+					.Should()
+					.Throw<Exception>()
+					.And.Message.Should().Contain(nameof(localVariable));
+			}
+
+			[Fact]
+			public void ShouldThrowExceptionWithNameOfClassMember()
+			{
+				var envelope = new OptionEnvelope<int>(Option.Some(15));
+				new Action(() => envelope.Data.Should().NotHaveValue())
+					.Should()
+					.Throw<Exception>()
+					.And.Message.Should().ContainAll(nameof(envelope), nameof(OptionEnvelope<int>.Data));
+			}
 		}
 
 		public class IntegerOptionChecks
@@ -71,28 +99,64 @@ namespace Functional.Primitives.FluentAssertions.Tests
 			}).Should().NotThrow();
 
 			[Fact]
-			public void ShouldThrowExceptionWhenBothSomeButDifferentValues() => new Action(() =>
+			public void ShouldThrowExceptionWithNameOfVariableWhenBothSomeButDifferentValues()
 			{
-				Option.Some(VALUE)
+				var localVariable = Option.Some(VALUE);
+				new Action(() => localVariable.Should().Be(Option.Some(VALUE + 1)))
 					.Should()
-					.Be(Option.Some(VALUE+1));
-			}).Should().Throw<Exception>();
+					.Throw<Exception>()
+					.And.Message.Should().Contain(nameof(localVariable));
+			}
 
 			[Fact]
-			public void ShouldThrowExceptionWhenLeftIsSomeButRightIsNone() => new Action(() =>
+			public void ShouldThrowExceptionWithNameOfClassMemberWhenBothSomeButDifferentValues()
 			{
-				Option.Some(VALUE)
+				var envelope = new OptionEnvelope<int>(Option.Some(VALUE));
+				new Action(() => envelope.Data.Should().Be(Option.Some(VALUE + 1)))
 					.Should()
-					.Be(Option.None<int>());
-			}).Should().Throw<Exception>();
+					.Throw<Exception>()
+					.And.Message.Should().ContainAll(nameof(envelope), nameof(OptionEnvelope<int>.Data));
+			}
 
 			[Fact]
-			public void ShouldThrowExceptionWhenLeftIsNoneButRightIsSome() => new Action(() =>
+			public void ShouldThrowExceptionWithNameOfVariableWhenLeftIsSomeButRightIsNone()
 			{
-				Option.None<int>()
+				var localVariable = Option.Some(VALUE);
+				new Action(() => localVariable.Should().Be(Option.None<int>()))
 					.Should()
-					.Be(Option.Some(VALUE));
-			}).Should().Throw<Exception>();
+					.Throw<Exception>()
+					.And.Message.Should().Contain(nameof(localVariable));
+			}
+
+			[Fact]
+			public void ShouldThrowExceptionWithNameOfClassMemberWhenLeftIsSomeButRightIsNone()
+			{
+				var envelope = new OptionEnvelope<int>(Option.Some(VALUE));
+				new Action(() => envelope.Data.Should().Be(Option.None<int>()))
+					.Should()
+					.Throw<Exception>()
+					.And.Message.Should().ContainAll(nameof(envelope), nameof(OptionEnvelope<int>.Data));
+			}
+
+			[Fact]
+			public void ShouldThrowExceptionWithNameOfVariableWhenLeftIsNoneButRightIsSome()
+			{
+				var localVariable = Option.None<int>();
+				new Action(() => localVariable.Should().Be(Option.Some(VALUE)))
+					.Should()
+					.Throw<Exception>()
+					.And.Message.Should().Contain(nameof(localVariable));
+			}
+
+			[Fact]
+			public void ShouldThrowExceptionWithNameOfClassMemberWhenLeftIsNoneButRightIsSome()
+			{
+				var envelope = new OptionEnvelope<int>(Option.None<int>());
+				new Action(() => envelope.Data.Should().Be(Option.Some(VALUE)))
+					.Should()
+					.Throw<Exception>()
+					.And.Message.Should().Contain(nameof(envelope), nameof(OptionEnvelope<int>.Data));
+			}
 		}
 
 		public class StringOptionChecks
@@ -116,28 +180,64 @@ namespace Functional.Primitives.FluentAssertions.Tests
 			}).Should().NotThrow();
 
 			[Fact]
-			public void ShouldThrowExceptionWhenBothSomeButDifferentValues() => new Action(() =>
+			public void ShouldThrowExceptionWithNameOfVariableWhenBothSomeButDifferentValues()
 			{
-				Option.Some(VALUE)
+				var localVariable = Option.Some(VALUE);
+				new Action(() => localVariable.Should().Be(Option.Some(VALUE + 1)))
 					.Should()
-					.Be(Option.Some(VALUE + 1));
-			}).Should().Throw<Exception>();
+					.Throw<Exception>()
+					.And.Message.Should().Contain(nameof(localVariable));
+			}
 
 			[Fact]
-			public void ShouldThrowExceptionWhenLeftIsSomeButRightIsNone() => new Action(() =>
+			public void ShouldThrowExceptionWithNameOfClassMemberWhenBothSomeButDifferentValues()
 			{
-				Option.Some(VALUE)
+				var envelope = new OptionEnvelope<string>(Option.Some(VALUE));
+				new Action(() => envelope.Should().Be(Option.Some(VALUE + 1)))
 					.Should()
-					.Be(Option.None<string>());
-			}).Should().Throw<Exception>();
+					.Throw<Exception>()
+					.And.Message.Should().ContainAll(nameof(envelope), nameof(OptionEnvelope<string>.Data));
+			}
 
 			[Fact]
-			public void ShouldThrowExceptionWhenLeftIsNoneButRightIsSome() => new Action(() =>
+			public void ShouldThrowExceptionWithNameOfVariableWhenLeftIsSomeButRightIsNone()
 			{
-				Option.None<string>()
+				var localVariable = Option.Some(VALUE);
+				new Action(() => localVariable.Should().Be(Option.None<string>()))
 					.Should()
-					.Be(Option.Some(VALUE));
-			}).Should().Throw<Exception>();
+					.Throw<Exception>()
+					.And.Message.Should().Contain(nameof(localVariable));
+			}
+
+			[Fact]
+			public void ShouldThrowExceptionWithNameOfClassMemberWhenLeftIsSomeButRightIsNone()
+			{
+				var envelope = new OptionEnvelope<string>(Option.Some(VALUE));
+				new Action(() => envelope.Should().Be(Option.None<string>()))
+					.Should()
+					.Throw<Exception>()
+					.And.Message.Should().ContainAll(nameof(envelope), nameof(OptionEnvelope<string>.Data));
+			}
+
+			[Fact]
+			public void ShouldThrowExceptionWithNameOfVariableWhenLeftIsNoneButRightIsSome()
+			{
+				var localVariable = Option.None<string>();
+				new Action(() => localVariable.Should().Be(Option.Some(VALUE)))
+					.Should()
+					.Throw<Exception>()
+					.And.Message.Should().Contain(nameof(localVariable));
+			}
+
+			[Fact]
+			public void ShouldThrowExceptionWithNameOfClassMemberWhenLeftIsNoneButRightIsSome()
+			{
+				var envelope = new OptionEnvelope<string>(Option.None<string>());
+				new Action(() => envelope.Should().Be(Option.Some(VALUE)))
+					.Should()
+					.Throw<Exception>()
+					.And.Message.Should().ContainAll(nameof(envelope), nameof(OptionEnvelope<string>.Data));
+			}
 		}
 
 		public class EquatableClassOptionChecks
@@ -161,28 +261,64 @@ namespace Functional.Primitives.FluentAssertions.Tests
 			}).Should().NotThrow();
 
 			[Fact]
-			public void ShouldThrowExceptionWhenBothSomeButDifferentValues() => new Action(() =>
+			public void ShouldThrowExceptionWithNameOfLocalVariableWhenBothSomeButDifferentValues()
 			{
-				Option.Some(new EquatableClass(VALUE))
+				var localVariable = Option.Some(new EquatableClass(VALUE));
+				new Action(() => localVariable.Should().Be(Option.Some(new EquatableClass(VALUE + 1))))
 					.Should()
-					.Be(Option.Some(new EquatableClass(VALUE + 1)));
-			}).Should().Throw<Exception>();
+					.Throw<Exception>()
+					.And.Message.Should().Contain(nameof(localVariable));
+			}
 
 			[Fact]
-			public void ShouldThrowExceptionWhenLeftIsSomeButRightIsNone() => new Action(() =>
+			public void ShouldThrowExceptionWithNameOfClassMemberWhenBothSomeButDifferentValues()
 			{
-				Option.Some(new EquatableClass(VALUE))
+				var envelope = new OptionEnvelope<EquatableClass>(Option.Some(new EquatableClass(VALUE)));
+				new Action(() => envelope.Data.Should().Be(Option.Some(new EquatableClass(VALUE + 1))))
 					.Should()
-					.Be(Option.None<EquatableClass>());
-			}).Should().Throw<Exception>();
+					.Throw<Exception>()
+					.And.Message.Should().ContainAll(nameof(envelope), nameof(OptionEnvelope<EquatableClass>.Data));
+			}
 
 			[Fact]
-			public void ShouldThrowExceptionWhenLeftIsNoneButRightIsSome() => new Action(() =>
+			public void ShouldThrowExceptionWithNameOfLocalVariableWhenLeftIsSomeButRightIsNone()
 			{
-				Option.None<EquatableClass>()
+				var localVariable = Option.Some(new EquatableClass(VALUE));
+				new Action(() => localVariable.Should().Be(Option.None<EquatableClass>()))
 					.Should()
-					.Be(Option.Some(new EquatableClass(VALUE)));
-			}).Should().Throw<Exception>();
+					.Throw<Exception>()
+					.And.Message.Should().Contain(nameof(localVariable));
+			}
+
+			[Fact]
+			public void ShouldThrowExceptionWithNameOfClassMemberWhenLeftIsSomeButRightIsNone()
+			{
+				var envelope = new OptionEnvelope<EquatableClass>(Option.Some(new EquatableClass(VALUE)));
+				new Action(() => envelope.Data.Should().Be(Option.None<EquatableClass>()))
+					.Should()
+					.Throw<Exception>()
+					.And.Message.Should().ContainAll(nameof(envelope), nameof(OptionEnvelope<EquatableClass>.Data));
+			}
+
+			[Fact]
+			public void ShouldThrowExceptionWithNameOfLocalVariableWhenLeftIsNoneButRightIsSome()
+			{
+				var localVariable = Option.None<EquatableClass>();
+				new Action(() => localVariable.Should().Be(Option.Some(new EquatableClass(VALUE))))
+					.Should()
+					.Throw<Exception>()
+					.And.Message.Should().Contain(nameof(localVariable));
+			}
+
+			[Fact]
+			public void ShouldThrowExceptionWithNameOfClassMemberWhenLeftIsNoneButRightIsSome()
+			{
+				var envelope = new OptionEnvelope<EquatableClass>(Option.None<EquatableClass>());
+				new Action(() => envelope.Data.Should().Be(Option.Some(new EquatableClass(VALUE))))
+					.Should()
+					.Throw<Exception>()
+					.And.Message.Should().ContainAll(nameof(envelope), nameof(OptionEnvelope<EquatableClass>.Data));
+			}
 
 			#region Models
 
@@ -215,6 +351,16 @@ namespace Functional.Primitives.FluentAssertions.Tests
 			}
 
 			#endregion
+		}
+
+		private class OptionEnvelope<T>
+		{
+			public OptionEnvelope(Option<T> data)
+			{
+				Data = data;
+			}
+
+			public Option<T> Data { get; }
 		}
 	}
 }
