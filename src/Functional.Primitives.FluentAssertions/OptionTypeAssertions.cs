@@ -13,8 +13,10 @@ namespace Functional.Primitives.FluentAssertions
 	/// </summary>
 	/// <typeparam name="T">The contained type.</typeparam>
 	[DebuggerNonUserCode]
-	public partial class OptionTypeAssertions<T>
+	public class OptionTypeAssertions<T>
 	{
+		private const string IDENTIFIER = "option";
+
 		private readonly Option<T> _subject;
 
 		/// <summary>
@@ -33,11 +35,13 @@ namespace Functional.Primitives.FluentAssertions
 		/// <param name="because">Additional information for if the assertion fails.</param>
 		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
 		/// <returns></returns>
+		[CustomAssertion]
 		public AndConstraint<ObjectAssertions> Be(Option<T> expected, string because = "", params object[] becauseArgs)
 		{
 			Execute.Assertion
 				.ForCondition(_subject.Equals(expected))
 				.BecauseOf(because, becauseArgs)
+				.WithDefaultIdentifier(IDENTIFIER)
 				.FailWith(MakeFailReason);
 
 			return new AndConstraint<ObjectAssertions>(new ObjectAssertions(_subject));
@@ -45,7 +49,7 @@ namespace Functional.Primitives.FluentAssertions
 			FailReason MakeFailReason()
 			{
 				var builder = new StringBuilder();
-				builder.AppendLine($"Expected to be equal{{reason}}, but the two Option<{typeof(T)}> are not equal.");
+				builder.AppendLine($"Expected {{context:{IDENTIFIER}}} to be equal to the expected option{{reason}}, but the two Option<{typeof(T)}> are not equal.");
 				builder.AppendLine("Subject: " + _subject);
 				builder.AppendLine("Expected: " + expected);
 
@@ -58,12 +62,14 @@ namespace Functional.Primitives.FluentAssertions
 		/// </summary>
 		/// <param name="because">Additional information for if the assertion fails.</param>
 		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
+		[CustomAssertion]
 		public AndOptionValueConstraint<T> HaveValue(string because = "", params object[] becauseArgs)
 		{
 			Execute.Assertion
 				.ForCondition(_subject.HasValue())
 				.BecauseOf(because, becauseArgs)
-				.FailWith("Expected to have value{reason}, but received no value instead.");
+				.WithDefaultIdentifier(IDENTIFIER)
+				.FailWith($"Expected {{context:{IDENTIFIER}}} to have value{{reason}}, but received no value instead.", _subject);
 
 			return new AndOptionValueConstraint<T>(_subject.ValueUnsafe());
 		}
@@ -73,17 +79,19 @@ namespace Functional.Primitives.FluentAssertions
 		/// </summary>
 		/// <param name="because">Additional information for if the assertion fails.</param>
 		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
+		[CustomAssertion]
 		public void NotHaveValue(string because = "", params object[] becauseArgs)
 		{
 			Execute.Assertion
 				.ForCondition(!_subject.HasValue())
 				.BecauseOf(because, becauseArgs)
+				.WithDefaultIdentifier(IDENTIFIER)
 				.FailWith(FailReasonForNotHaveValue);
 
 			FailReason FailReasonForNotHaveValue()
 			{
 				var builder = new StringBuilder();
-				builder.AppendLine("Expected to not have value{reason}, but received a value instead:");
+				builder.AppendLine($"Expected {{context:{IDENTIFIER}}} to not have value{{reason}}, but received a value instead:");
 				builder.AppendLine(_subject.ValueUnsafe().ToString());
 
 				return new FailReason(builder.ToString());
