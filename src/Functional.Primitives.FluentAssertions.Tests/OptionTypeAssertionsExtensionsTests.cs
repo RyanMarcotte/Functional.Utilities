@@ -16,7 +16,7 @@ namespace Functional.Primitives.FluentAssertions.Tests
 				Task.FromResult(Option.Some(VALUE))
 					.Should()
 					.HaveValue())
-			.Should().NotThrow();
+					.Should().NotThrowAsync();
 
 			[Fact]
 			public void ShouldNotThrowExceptionWhenAdditionalAssertionSucceeds() => new Func<Task>(() =>
@@ -24,14 +24,14 @@ namespace Functional.Primitives.FluentAssertions.Tests
 					.Should()
 					.HaveValue()
 					.AndValue(value => value.Should().Be(VALUE)))
-			.Should().NotThrow();
+					.Should().NotThrowAsync();
 
 			[Fact]
 			public void ShouldThrowException() => new Func<Task>(() =>
 				Task.FromResult(Option.None<int>())
 					.Should()
 					.HaveValue())
-			.Should().Throw<Exception>();
+					.Should().ThrowAsync<Exception>();
 
 			[Fact]
 			public void ShouldThrowExceptionWhenAdditionalAssertionFails() => new Func<Task>(() =>
@@ -39,16 +39,16 @@ namespace Functional.Primitives.FluentAssertions.Tests
 					.Should()
 					.HaveValue()
 					.AndValue(value => value.Should().Be(VALUE)))
-			.Should().NotThrow();
+					.Should().NotThrowAsync();
 		}
 
 		public class NoValueChecks
 		{
 			[Fact]
-			public void ShouldNotThrowException() => new Func<Task>(() => Task.FromResult(Option.None<int>()).Should().NotHaveValue()).Should().NotThrow();
+			public void ShouldNotThrowException() => new Func<Task>(() => Task.FromResult(Option.None<int>()).Should().NotHaveValue()).Should().NotThrowAsync();
 
 			[Fact]
-			public void ShouldThrowException() => new Func<Task>(() => Task.FromResult(Option.Some(3)).Should().NotHaveValue()).Should().Throw<Exception>();
+			public void ShouldThrowException() => new Func<Task>(() => Task.FromResult(Option.Some(3)).Should().NotHaveValue()).Should().ThrowAsync<Exception>();
 		}
 
 		public class IntegerOptionChecks
@@ -60,35 +60,35 @@ namespace Functional.Primitives.FluentAssertions.Tests
 				Task.FromResult(Option.Some(VALUE))
 					.Should()
 					.Be(Option.Some(VALUE)))
-			.Should().NotThrow();
+					.Should().NotThrowAsync();
 
 			[Fact]
 			public void ShouldNotThrowExceptionWhenBothNone() => new Func<Task>(() =>
 				Task.FromResult(Option.None<int>())
 					.Should()
 					.Be(Option.None<int>()))
-			.Should().NotThrow();
+					.Should().NotThrowAsync();
 
 			[Fact]
 			public void ShouldThrowExceptionWhenBothSomeButDifferentValues() => new Func<Task>(() =>
 				Task.FromResult(Option.Some(VALUE))
 					.Should()
 					.Be(Option.Some(VALUE+1)))
-			.Should().Throw<Exception>();
+					.Should().ThrowAsync<Exception>();
 
 			[Fact]
 			public void ShouldThrowExceptionWhenLeftIsSomeButRightIsNone() => new Func<Task>(() =>
 				Task.FromResult(Option.Some(VALUE))
 					.Should()
 					.Be(Option.None<int>()))
-			.Should().Throw<Exception>();
+					.Should().ThrowAsync<Exception>();
 
 			[Fact]
 			public void ShouldThrowExceptionWhenLeftIsNoneButRightIsSome() => new Func<Task>(() =>
 				Task.FromResult(Option.None<int>())
 					.Should()
 					.Be(Option.Some(VALUE)))
-			.Should().Throw<Exception>();
+					.Should().ThrowAsync<Exception>();
 		}
 
 		public class StringOptionChecks
@@ -100,35 +100,35 @@ namespace Functional.Primitives.FluentAssertions.Tests
 				Task.FromResult(Option.Some(VALUE))
 					.Should()
 					.Be(Option.Some(VALUE)))
-			.Should().NotThrow();
+					.Should().NotThrowAsync();
 
 			[Fact]
 			public void ShouldNotThrowExceptionWhenBothNone() => new Func<Task>(() =>
 				Task.FromResult(Option.None<string>())
 					.Should()
 					.Be(Option.None<string>()))
-			.Should().NotThrow();
+					.Should().NotThrowAsync();
 
 			[Fact]
 			public void ShouldThrowExceptionWhenBothSomeButDifferentValues() => new Func<Task>(() =>
 				Task.FromResult(Option.Some(VALUE))
 					.Should()
 					.Be(Option.Some(VALUE + 1)))
-			.Should().Throw<Exception>();
+					.Should().ThrowAsync<Exception>();
 
 			[Fact]
 			public void ShouldThrowExceptionWhenLeftIsSomeButRightIsNone() => new Func<Task>(() =>
 				Task.FromResult(Option.Some(VALUE))
 					.Should()
 					.Be(Option.None<string>()))
-			.Should().Throw<Exception>();
+					.Should().ThrowAsync<Exception>();
 
 			[Fact]
 			public void ShouldThrowExceptionWhenLeftIsNoneButRightIsSome() => new Func<Task>(() =>
 				Task.FromResult(Option.None<string>())
 					.Should()
 					.Be(Option.Some(VALUE)))
-			.Should().Throw<Exception>();
+					.Should().ThrowAsync<Exception>();
 		}
 
 		public class EquatableClassOptionChecks
@@ -140,35 +140,35 @@ namespace Functional.Primitives.FluentAssertions.Tests
 				Task.FromResult(Option.Some(new EquatableClass(VALUE)))
 					.Should()
 					.Be(Option.Some(new EquatableClass(VALUE))))
-			.Should().NotThrow();
+					.Should().NotThrowAsync();
 
 			[Fact]
 			public void ShouldNotThrowExceptionWhenBothNone() => new Func<Task>(() =>
 				Task.FromResult(Option.None<string>())
 					.Should()
 					.Be(Option.None<string>()))
-			.Should().NotThrow();
+					.Should().NotThrowAsync();
 
 			[Fact]
 			public void ShouldThrowExceptionWhenBothSomeButDifferentValues() => new Func<Task>(() =>
 				Task.FromResult(Option.Some(new EquatableClass(VALUE)))
 					.Should()
 					.Be(Option.Some(new EquatableClass(VALUE + 1))))
-			.Should().Throw<Exception>();
+					.Should().ThrowAsync<Exception>();
 
 			[Fact]
 			public void ShouldThrowExceptionWhenLeftIsSomeButRightIsNone() => new Func<Task>(() =>
 				Task.FromResult(Option.Some(new EquatableClass(VALUE)))
 					.Should()
 					.Be(Option.None<EquatableClass>()))
-			.Should().Throw<Exception>();
+					.Should().ThrowAsync<Exception>();
 
 			[Fact]
 			public void ShouldThrowExceptionWhenLeftIsNoneButRightIsSome() => new Func<Task>(() =>
 				Task.FromResult(Option.None<EquatableClass>())
 					.Should()
 					.Be(Option.Some(new EquatableClass(VALUE))))
-			.Should().Throw<Exception>();
+					.Should().ThrowAsync<Exception>();
 
 			#region Models
 
