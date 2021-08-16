@@ -61,11 +61,22 @@ namespace Functional.Primitives.FluentAssertions
 
 		/// <summary>
 		/// Verifies that the subject <see cref="Result{TSuccess, TFailure}"/> holds a successful result.
+		/// <typeparamref name="TFailure"/>.ToString() will be used to produce part of the error message when the assertion fails.
 		/// </summary>
 		/// <param name="because">Additional information for if the assertion fails.</param>
 		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
 		[CustomAssertion]
 		public AndResultSuccessConstraint<TSuccess> BeSuccessful(string because = "", params object[] becauseArgs)
+			=> BeSuccessful(x => x.ToString(), because, becauseArgs);
+
+		/// <summary>
+		/// Verifies that the subject <see cref="Result{TSuccess, TFailure}"/> holds a successful result.
+		/// </summary>
+		/// <param name="outputFunc">Function that maps <typeparamref name="TFailure"/> to a string that will be included in the error message when the assertion fails.  Recommended for complex types.</param>
+		/// <param name="because">Additional information for if the assertion fails.</param>
+		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
+		[CustomAssertion]
+		public AndResultSuccessConstraint<TSuccess> BeSuccessful(Func<TFailure, string> outputFunc, string because = "", params object[] becauseArgs)
 		{
 			Execute.Assertion
 				.BecauseOf(because, becauseArgs)
@@ -79,7 +90,7 @@ namespace Functional.Primitives.FluentAssertions
 			{
 				var builder = new StringBuilder();
 				builder.AppendLine($"Expected {{context:{IDENTIFIER}}} to be successful{{reason}}, but received faulted result instead:");
-				builder.AppendLine(_subject.FailureUnsafe().ToString());
+				builder.AppendLine(outputFunc.Invoke(_subject.FailureUnsafe()));
 
 				return new FailReason(builder.ToString());
 			}
@@ -87,12 +98,25 @@ namespace Functional.Primitives.FluentAssertions
 
 		/// <summary>
 		/// Verifies that the subject <see cref="Result{TSuccess, TFailure}"/> holds a faulted result.
+		/// <typeparamref name="TSuccess"/>.ToString() will be used to produce part of the error message when the assertion fails.
 		/// </summary>
 		/// <param name="because">Additional information for if the assertion fails.</param>
 		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
 		[CustomAssertion]
 		public AndResultFailureConstraint<TFailure> BeFaulted(string because = "", params object[] becauseArgs)
+			=> BeFaulted(x => x.ToString(), because, becauseArgs);
+
+		/// <summary>
+		/// Verifies that the subject <see cref="Result{TSuccess, TFailure}"/> holds a faulted result.
+		/// </summary>
+		/// <param name="outputFunc">Function that maps <typeparamref name="TSuccess"/> to a string that will be included in the error message when the assertion fails.</param>
+		/// <param name="because">Additional information for if the assertion fails.</param>
+		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
+		[CustomAssertion]
+		public AndResultFailureConstraint<TFailure> BeFaulted(Func<TSuccess, string> outputFunc, string because = "", params object[] becauseArgs)
 		{
+			if (outputFunc == null) throw new ArgumentNullException(nameof(outputFunc));
+
 			Execute.Assertion
 				.BecauseOf(because, becauseArgs)
 				.ForCondition(!_subject.IsSuccess())
@@ -105,7 +129,7 @@ namespace Functional.Primitives.FluentAssertions
 			{
 				var builder = new StringBuilder();
 				builder.AppendLine($"Expected {{context:{IDENTIFIER}}} to be faulted{{reason}}, but received successful result instead:");
-				builder.AppendLine(_subject.SuccessUnsafe().ToString());
+				builder.AppendLine(outputFunc.Invoke(_subject.SuccessUnsafe()));
 
 				return new FailReason(builder.ToString());
 			}

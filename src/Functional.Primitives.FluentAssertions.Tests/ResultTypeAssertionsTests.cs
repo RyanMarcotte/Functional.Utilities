@@ -50,6 +50,19 @@ namespace Functional.Primitives.FluentAssertions.Tests
 					.Throw<Exception>()
 					.And.Message.Should().ContainAll(nameof(envelope), nameof(ResultEnvelope<int, Exception>.Data));
 			}
+
+			[Fact]
+			public void ShouldThrowExceptionWithCustomOutput()
+			{
+				const int ID = 1337;
+				const string NAME = "TEST";
+
+				var result = Result.Failure<int, DummyModel>(new DummyModel(ID, NAME));
+				new Action(() => result.Should().BeSuccessful(m => $"[{m.ID}] {m.Name}"))
+					.Should()
+					.Throw<Exception>()
+					.And.Message.Should().ContainAll($"[{ID}]", NAME);
+			}
 		}
 
 		public class FailureChecks
@@ -94,7 +107,20 @@ namespace Functional.Primitives.FluentAssertions.Tests
 				new Action(() => envelope.Data.Should().BeFaulted())
 					.Should()
 					.Throw<Exception>()
-					.And.Message.Should().Contain(nameof(envelope), nameof(ResultEnvelope<int, Exception>.Data));
+					.And.Message.Should().ContainAll(nameof(envelope), nameof(ResultEnvelope<int, Exception>.Data));
+			}
+
+			[Fact]
+			public void ShouldThrowExceptionWithCustomOutput()
+			{
+				const int ID = 1337;
+				const string NAME = "TEST";
+
+				var result = Result.Success<DummyModel, string>(new DummyModel(ID, NAME));
+				new Action(() => result.Should().BeFaulted(m => $"[{m.ID}] {m.Name}"))
+					.Should()
+					.Throw<Exception>()
+					.And.Message.Should().ContainAll($"[{ID}]", NAME);
 			}
 		}
 
@@ -197,6 +223,20 @@ namespace Functional.Primitives.FluentAssertions.Tests
 			}
 		}
 
+		#region Models
+
+		private class DummyModel
+		{
+			public DummyModel(int id, string name)
+			{
+				ID = id;
+				Name = name;
+			}
+
+			public int ID { get; }
+			public string Name { get; }
+		}
+
 		private class ResultEnvelope<TSuccess, TFailure>
 		{
 			public ResultEnvelope(Result<TSuccess, TFailure> data)
@@ -206,5 +246,7 @@ namespace Functional.Primitives.FluentAssertions.Tests
 
 			public Result<TSuccess, TFailure> Data { get; }
 		}
+
+		#endregion
 	}
 }
