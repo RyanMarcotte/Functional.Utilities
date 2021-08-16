@@ -78,6 +78,8 @@ namespace Functional.Primitives.FluentAssertions
 		[CustomAssertion]
 		public AndResultSuccessConstraint<TSuccess> BeSuccessful(Func<TFailure, string> outputFunc, string because = "", params object[] becauseArgs)
 		{
+			if (outputFunc == null) throw new ArgumentNullException(nameof(outputFunc));
+
 			Execute.Assertion
 				.BecauseOf(because, becauseArgs)
 				.ForCondition(_subject.IsSuccess())

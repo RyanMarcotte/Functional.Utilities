@@ -81,7 +81,19 @@ namespace Functional.Primitives.FluentAssertions
 		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
 		[CustomAssertion]
 		public void NotHaveValue(string because = "", params object[] becauseArgs)
+			=> NotHaveValue(x => x.ToString(), because, becauseArgs);
+
+		/// <summary>
+		/// Verifies that the subject <see cref="Option{T}"/> does not hold a value.
+		/// </summary>
+		/// <param name="outputFunc">Function that maps <typeparamref name="T"/> to a string that will be included in the error message when the assertion fails.</param>
+		/// <param name="because">Additional information for if the assertion fails.</param>
+		/// <param name="becauseArgs">Zero or more objects to format using the placeholders in <paramref name="because"/>.</param>
+		[CustomAssertion]
+		public void NotHaveValue(Func<T, string> outputFunc, string because = "", params object[] becauseArgs)
 		{
+			if (outputFunc == null) throw new ArgumentNullException(nameof(outputFunc));
+
 			Execute.Assertion
 				.ForCondition(!_subject.HasValue())
 				.BecauseOf(because, becauseArgs)
@@ -92,7 +104,7 @@ namespace Functional.Primitives.FluentAssertions
 			{
 				var builder = new StringBuilder();
 				builder.AppendLine($"Expected {{context:{IDENTIFIER}}} to not have value{{reason}}, but received a value instead:");
-				builder.AppendLine(_subject.ValueUnsafe().ToString());
+				builder.AppendLine(outputFunc.Invoke(_subject.ValueUnsafe()));
 
 				return new FailReason(builder.ToString());
 			}
