@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Text;
-using FluentAssertions;
 using FluentAssertions.Execution;
 using FluentAssertions.Primitives;
+using Functional;
 using Functional.Primitives.FluentAssertions.Extensions;
 
-// ReSharper disable ImpureMethodCallOnReadonlyValueField
-namespace Functional.Primitives.FluentAssertions
+// ReSharper disable once CheckNamespace (make assertion methods easy to discover)
+namespace FluentAssertions
 {
 	/// <summary>
 	/// Defines assertions for <see cref="Result{TSuccess,TFailure}"/> type.

@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 
-namespace Functional.Primitives.FluentAssertions
+// ReSharper disable once CheckNamespace
+namespace FluentAssertions
 {
 	/// <summary>
 	/// Encapsulates a value that assertions will be performed on.
