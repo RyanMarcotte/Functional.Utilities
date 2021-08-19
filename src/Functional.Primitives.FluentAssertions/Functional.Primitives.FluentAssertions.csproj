@@ -11,7 +11,7 @@
     <RepositoryType></RepositoryType>
     <PackageTags>functional, MSTest, MSTest2, NUnit, xUnit2, xUnit, TDD, Fluent, netcore, netstandard</PackageTags>
     <PackageProjectUrl>https://github.com/RyanMarcotte/Functional.Utilities</PackageProjectUrl>
-    <Version>4.0.0</Version>
+    <Version>4.0.0-prerelease-01</Version>
     <PackageReleaseNotes>Include assertion context for better error messages</PackageReleaseNotes>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
