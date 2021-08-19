@@ -4,10 +4,9 @@ using System.Text;
 using FluentAssertions.Execution;
 using FluentAssertions.Primitives;
 using Functional;
-using Functional.Primitives.FluentAssertions;
 using Functional.Primitives.FluentAssertions.Extensions;
 
-// ReSharper disable once CheckNamespace
+// ReSharper disable once CheckNamespace (make assertion methods easy to discover)
 namespace FluentAssertions
 {
 	/// <summary>

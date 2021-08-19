@@ -1,11 +1,10 @@
-﻿using FluentAssertions;
-using FluentAssertions.Primitives;
-using Functional.Primitives.FluentAssertions;
+﻿using FluentAssertions.Primitives;
 using System;
 using System.Threading.Tasks;
+using Functional;
 
-// ReSharper disable once CheckNamespace (ease of discoverability)
-namespace Functional
+// ReSharper disable once CheckNamespace (make assertion methods easy to discover)
+namespace FluentAssertions
 {
 	/// <summary>
 	/// A collection of extensions for <see cref="ResultTypeAssertions{TSuccess, TFailure}"/>
