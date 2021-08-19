@@ -76,6 +76,35 @@ namespace Functional.Primitives.FluentAssertions.Tests
 					.Throw<Exception>()
 					.And.Message.Should().ContainAll(nameof(envelope), nameof(OptionEnvelope<int>.Data));
 			}
+
+			[Fact]
+			public void ShouldThrowExceptionWithCustomOutput()
+			{
+				const int ID = 1337;
+				const string NAME = "TEST";
+
+				var result = Option.Some(new DummyModel(ID, NAME));
+				new Action(() => result.Should().NotHaveValue(m => $"[{m.ID}] {m.Name}"))
+					.Should()
+					.Throw<Exception>()
+					.And.Message.Should().ContainAll($"[{ID}]", NAME);
+			}
+
+			#region Models
+
+			private class DummyModel
+			{
+				public DummyModel(int id, string name)
+				{
+					ID = id;
+					Name = name;
+				}
+
+				public int ID { get; }
+				public string Name { get; }
+			}
+
+			#endregion
 		}
 
 		public class IntegerOptionChecks

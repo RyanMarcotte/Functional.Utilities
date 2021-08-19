@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Justin Cooney + contributors</Authors>
-    <Version>1.0.1</Version>
+    <Version>2.0.0</Version>
     <Description>This package provides extensions to FluentAssertions for the Functional.Unions package.</Description>
     <Copyright>2020</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -21,10 +21,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FluentAssertions" Version="5.10.3" />
-    <PackageReference Include="Functional.Primitives.Extensions" Version="2.4.0" />
-    <PackageReference Include="Functional.Unions" Version="2.4.0" />
-    <PackageReference Include="Functional.Unions.Extensions" Version="2.4.0" />
+	<PackageReference Include="FluentAssertions" Version="[6.*,7.0)" />
+	<PackageReference Include="Functional.Primitives" Version="[2.*,3.0)" />
+	<PackageReference Include="Functional.Primitives.Extensions" Version="[2.*,3.0)" />
+    <PackageReference Include="Functional.Unions" Version="[2.*,3.0)" />
+    <PackageReference Include="Functional.Unions.Extensions" Version="[2.*,3.0)" />
   </ItemGroup>
 
 </Project>
