@@ -21,7 +21,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Functional.Primitives" Version="2.4.0" />
+    <PackageReference Include="Functional.Primitives" Version="[2.*,3.0)" />
     <PackageReference Include="Serilog" Version="2.10.0" />
   </ItemGroup>
 
