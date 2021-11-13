@@ -12,7 +12,7 @@ addons:
    - mdcheckr
    
 script:
- - git ls-files | grep '\.md$' | tr '\n' '\0' | xargs -0 mdcheckr --config .markdownlinkcheck.json --verbose
+ - git ls-files | grep '\.md$' | tr '\n' '\0' | xargs -0 mdcheckr
  - cd src
  - dotnet restore
  - dotnet build -c Release
