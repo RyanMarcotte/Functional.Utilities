@@ -6,4 +6,4 @@ Feature branches are created off of `master` and merged in after code review.
 
 All code submitted for code review must possess sufficient unit test coverage to demonstrate the correctness of the new code and - if applicable - demonstrate that the new code does not break existing functionality.  The meaning of "sufficient" is dependent on the code being submitted for review.  When in doubt, submit a pull request.
 
-NuGet package releases are [semantically versioned](https://semver.org/) and (currently) manually deployed.
+NuGet package releases are semantically versioned and (currently) manually deployed.
