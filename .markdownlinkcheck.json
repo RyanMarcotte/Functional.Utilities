@@ -1,6 +1,6 @@
 {
 	"ignorePatterns": [
-		{ "pattern": "https://semver.org" }
+		{ "pattern": "https://semver.org/" }
 	],
 	"replacementPatterns": [ ],
 	"httpHeaders": [ ],
