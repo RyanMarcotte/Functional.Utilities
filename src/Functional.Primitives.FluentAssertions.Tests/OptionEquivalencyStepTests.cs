@@ -119,20 +119,10 @@ namespace Functional.Primitives.FluentAssertions.Tests
             [Fact]
             public void SampleTest2()
             {
-                //var list1 = new[] { 1, 2, 3 };
-                //var list2 = new[] { 1, 2, 1 };
-
-                //list1.Should().BeEquivalentTo(list2);
-
                 var optionList1 = new[] { Option.Some(new SimpleClass(1)), Option.None(), Option.Some(new SimpleClass(2)) };
                 var optionList2 = new[] { Option.Some(new SimpleClass(1)), Option.None(), Option.None() };
 
                 optionList1.Should().BeEquivalentTo(optionList2, options => options.Using(new OptionEquivalencyStep<SimpleClass>()));
-
-                //FluentActions.Invoking(() => )
-                //    .Should()
-                //    .Throw<Exception>()
-                //    .And.Message.Should().Contain("2").And.Contain("to be \"Some").And.Contain("\"None\"");
             }
 
             [Fact]
@@ -142,11 +132,6 @@ namespace Functional.Primitives.FluentAssertions.Tests
                 var optionList2 = new[] { Option.Some(new SimpleClass(1)), Option.None(), Option.Some(new SimpleClass(2)) };
 
                 optionList1.Should().BeEquivalentTo(optionList2, options => options.Using(new OptionEquivalencyStep<SimpleClass>()).WithTracing());
-
-                //FluentActions.Invoking(() => )
-                //    .Should()
-                //    .Throw<Exception>()
-                //    .And.Message.Should().Contain("2").And.Contain("to be \"Some").And.Contain("\"None\"");
             }
 
             [Fact]
@@ -156,11 +141,6 @@ namespace Functional.Primitives.FluentAssertions.Tests
                 var optionList2 = new[] { Option.Some(new SimpleClass(1)), Option.None(), Option.Some(new SimpleClass(2)) };
 
                 optionList1.Should().BeEquivalentTo(optionList2, options => options.Using(new OptionEquivalencyStep<SimpleClass>()).WithTracing());
-
-                //FluentActions.Invoking(() => )
-                //    .Should()
-                //    .Throw<Exception>()
-                //    .And.Message.Should().Contain("2").And.Contain("3");
             }
 
             private class SimpleClass
